@@ -109,16 +109,6 @@
       text-align: center; position: relative;
       background: #121216;
     }
-    .cw-glow {
-      position: absolute; width: 650px; height: 520px;
-      background: radial-gradient(ellipse at center, rgba(227,32,42,0.25) 0%, transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;
-    }
-    .cw-hero-content { position: relative; z-index: 2; max-width: 620px; }
-    .cw-hero h1 {
-      font-size: clamp(34px, 5.5vw, 64px);
-      font-weight: 700; letter-spacing: 0.04em; line-height: 1.1; margin-bottom: 1.2rem;
-    }
     .cw-hero h1 span { color: #ff5c5c; }
     .cw-hero p {
       font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7;
@@ -268,7 +258,6 @@
       background: #1c1c24; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center;
     }
     .console-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; }
-    /* Add this right below .console-title */
     .cw-btn-run {
     border: 1px solid #ff5c5c;
     background: #e3202a;
@@ -343,17 +332,18 @@
     <div class="cw-hero">
       <div class="cw-glow"></div>
       
-      <div class="cw-icon-float" style="width:68px;height:68px;top:18%;left:33%;animation:float3 5.2s ease-in-out infinite;">
-        <svg width="36" height="36" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pa" x1="12%" y1="12%" x2="80%" y2="78%"><stop offset="0%" stop-color="#387EB8"/><stop offset="100%" stop-color="#366994"/></linearGradient><linearGradient id="pb" x1="19%" y1="21%" x2="91%" y2="88%"><stop offset="0%" stop-color="#FFE052"/><stop offset="100%" stop-color="#FFC331"/></linearGradient></defs><path d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.228 63.097 36.228 63.097h21.6v-30.356s-1.165-36.228 35.632-36.228h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zm-34.749 19.339c6.15 0 11.111 4.961 11.111 11.111 0 6.151-4.961 11.112-11.111 11.112-6.151 0-11.112-4.961-11.112-11.112 0-6.15 4.961-11.111 11.112-11.111z" fill="url(#pa)"/><path d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.228-63.096-36.228-63.096h-21.6v30.355s1.165 36.228-35.632 36.228H100.065s-34.475-.557-34.475 33.32v56.013s-5.235 33.879 63.167 33.879zm34.949-19.339c-6.15 0-11.111-4.961-11.111-11.111 0-6.151 4.961-11.112 11.111-11.112 6.151 0 11.112 4.961 11.112 11.112 0 6.15-4.961 11.111-11.112 11.111z" fill="url(#pb)"/></svg>
-      </div>
-
       <div id="java-floating-icons"></div>
 
-      <div class="cw-hero-content">
-        <h1><span>Achieve mastery</span><br>through challenge</h1>
-        <p>Improve your development skills by training with your peers on code data that continuously challenge and push your coding practice.</p>
-        <button class="cw-get-started" onclick="navigateToAcademy()">Get Started</button>
-      </div>
+    <div class="cw-hero-content">
+  <h1><span>FTC Java,</span><br>broken down.</h1>
+  <p>Skip the basic single-threaded loops and generic sleep statements. Master the exact control theory and sensor fusion frameworks used by top-tier teams.</p>
+  <button class="cw-get-started" onclick="navigateToAcademy()">
+    <svg width="10" height="12" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block;">
+      <path d="M8 5V19L19 12L8 5Z"/>
+    </svg>
+    Get Started
+  </button>
+</div>
     </div>
   </div>
 
@@ -366,25 +356,26 @@
           <select class="lesson-dropdown" id="lessonSelect" onchange="switchLesson(this.value)">
             <option value="0">Lesson 1.1: The Hardware-Software Bridge</option>
             <option value="1">Lesson 1.2: Structure of a LinearOpMode</option>
-            <option value="2">Lesson 2.1: Initializing DC Motors & Servos</option>
-            <option value="3">Lesson 2.2: Telemetry and Basic Feedback</option>
-            <option value="4">Lesson 3.1: Mecanum Drive Kinematics</option>
-            <option value="5">Lesson 3.2: Input Smoothing & Deadbands</option>
+            <option value="2">Lesson 2.1: Actuator Protection & Brake Modes</option>
+            <option value="3">Lesson 2.2: Telemetry & Live Feedback Updates</option>
+            <option value="4">Lesson 3.1: Mecanum Drive Kinematics & Normalization</option>
+            <option value="5">Lesson 3.2: Input Smoothing & Joystick Deadbands</option>
             <option value="6">Lesson 4.1: Asynchronous Timing with ElapsedTime</option>
             <option value="7">Lesson 4.2: Basic TeleOp State Machines</option>
-            <option value="8">Lesson 5.1: Linear Navigation via Run-To-Position</option>
-            <option value="9">Lesson 5.2: Angular Navigation via Universal IMU</option>
-            <option value="10">Lesson 6.1: The Math and Logic of PID Control</option>
-            <option value="11">Lesson 6.2: Tuning a Mechanical PID Loop</option>
-            <option value="12">Lesson 7.1: Gravity & Velocity Feedforward Compensation</option>
-            <option value="13">Lesson 8.1: Global Positioning via AprilTagProcessor</option>
-            <option value="14">Lesson 8.2: Element Tracking via ColorBlobLocator</option>
-            <option value="15">Lesson 9.1: Mechanical Odometry vs. Onboard I2C</option>
-            <option value="16">Lesson 9.2: Sensor Fusion & Drift Compensation</option>
-            <option value="17">Lesson 10.1: Building Coordinated Trajectories</option>
-            <option value="18">Lesson 10.2: Asynchronous Execution Actions</option>
-            <option value="19">Lesson 11.1: Parametric Bézier Curves Navigation</option>
-            <option value="20">Lesson 11.2: Path Progressions & Non-Blocking Triggers</option>
+            <option value="8">Lesson 4.3: Switch-Case State Routing Logic</option>
+            <option value="9">Lesson 5.1: Distance Navigation with Motor Encoders</option>
+            <option value="10">Lesson 5.2: Turning Precision via Onboard IMU Gyro</option>
+            <option value="11">Lesson 6.1: The Logic of PID Feedback Loops</option>
+            <option value="12">Lesson 6.2: Tuning PID Loop Multipliers</option>
+            <option value="13">Lesson 7.1: Gravity Compensation (Feedforward)</option>
+            <option value="14">Lesson 8.1: Global Field Tracking with AprilTags</option>
+            <option value="15">Lesson 8.2: Target Tracking via Color Blob Locators</option>
+            <option value="16">Lesson 9.1: Hardware Odometry Computers</option>
+            <option value="17">Lesson 9.2: Sensor Fusion & Drift Correction</option>
+            <option value="18">Lesson 10.1: Building Road Runner Trajectories</option>
+            <option value="19">Lesson 10.2: Non-Blocking Actions & Paths</option>
+            <option value="20">Lesson 11.1: Pedro Pathfinder Vector Curves</option>
+            <option value="21">Lesson 11.2: Path Progress Location Triggers</option>
           </select>
         </div>
         
@@ -397,11 +388,13 @@
               <div id="dynamicSectionBlock" class="active-section-block learn">
                 <div class="section-title" id="sectionTitleLabel">💡 Learn</div>
                 <div class="section-text" id="sectionTextContent">Loading curriculum framework metrics...</div>
+                <div id="hintBox" style="margin-top: 15px; padding: 12px; background: rgba(255, 204, 0, 0.1); border-radius: 4px; display: none; font-size: 13px; color: #ffcc00; border-left: 3px solid #ffcc00; line-height: 1.5; text-align: left;"></div>
               </div>
             </div>
 
             <div class="section-nav-bar">
               <button class="cw-btn-secondary" id="prevSectionBtn" onclick="moveSectionStep(-1)">Back</button>
+              <button class="cw-btn-secondary" id="hintBtn" onclick="triggerNextHint()" style="visibility: hidden; border-color: #ffcc00; color: #ffcc00;">💡 Hint (0/3)</button>
               <button class="cw-btn-action" id="nextSectionBtn" onclick="moveSectionStep(1)">Proceed</button>
             </div>
           </div>
@@ -448,33 +441,59 @@
       </svg>`;
     }
 
-    const iconsConfig = [
-      { size: 52, top: '6%',  right: '28%', bg: false, anim: 'float1', dur: '4.8s' },
-      { size: 60, top: '14%', right: '18%', bg: true,  anim: 'float2', dur: '6.1s' },
-      { size: 52, top: '20%', right: '8%',  bg: false, anim: 'float4', dur: '5.4s' },
-      { size: 44, top: '8%',  left: '5%',   bg: false, anim: 'float2', dur: '7s'   },
-      { size: 48, top: '15%', left: '13%',  bg: false, anim: 'float5', dur: '5.8s' },
-      { size: 44, top: '40%', left: '3%',   bg: false, anim: 'float1', dur: '6.5s' },
-      { size: 68, top: '48%', left: '11%',  bg: true,  anim: 'float3', dur: '4.9s' },
-      { size: 50, top: '62%', left: '4%',   bg: false, anim: 'float2', dur: '7.2s' },
-      { size: 50, top: '38%', right: '24%', bg: false, anim: 'float4', dur: '5.1s' },
-      { size: 68, top: '46%', right: '8%',  bg: true,  anim: 'float5', dur: '6.3s' },
-    ];
+const iconsConfig = [
+  { size: 55, top: '6%',  right: '28%', bg: false, anim: 'float1', dur: '4.8s' },
+  { size: 68, top: '14%', right: '18%', bg: true,  anim: 'float2', dur: '6.1s' },
+  { size: 55, top: '20%', right: '8%',  bg: false, anim: 'float4', dur: '5.4s' },
+  { size: 52, top: '8%',  left: '5%',   bg: false, anim: 'float2', dur: '7s'   },
+  { size: 55, top: '15%', left: '13%',  bg: false, anim: 'float5', dur: '5.8s' },
+  { size: 52, top: '40%', left: '3%',   bg: false, anim: 'float1', dur: '6.5s' },
+  { size: 70, top: '22%', left: '31%',  bg: true,  anim: 'float3', dur: '5.2s' }, 
+  { size: 75, top: '48%', left: '11%',  bg: true,  anim: 'float3', dur: '4.9s' },
+  { size: 55, top: '62%', left: '4%',   bg: false, anim: 'float2', dur: '7.2s' },
+  { size: 55, top: '38%', right: '24%', bg: false, anim: 'float4', dur: '5.1s' },
+  { size: 75, top: '46%', right: '8%',  bg: true,  anim: 'float5', dur: '6.3s' },
+  { size: 65, bottom: '14%', left: '22%', bg: false, anim: 'float1', dur: '5.6s' },
+  { size: 68, bottom: '10%', right: '16%', bg: true,  anim: 'float3', dur: '4.7s' }
+];
 
-    const iconsTarget = document.getElementById('java-floating-icons');
-    iconsConfig.forEach(ic => {
-      const parent = document.createElement('div');
-      parent.className = 'cw-icon-float';
-      parent.style.cssText = `width:${ic.size}px;height:${ic.size}px;` +
-        (ic.top ? `top:${ic.top};` : '') + (ic.right ? `right:${ic.right};` : '') + (ic.left ? `left:${ic.left};` : '') +
-        (ic.bg ? 'background:rgba(255,255,255,0.12);' : 'background:rgba(255,255,255,0.05);') +
-        `animation:${ic.anim} ${ic.dur} ease-in-out infinite ${Math.random()*2}s;`;
-      const sizeCalc = Math.round(ic.size * 0.52);
-      parent.innerHTML = generateJavaLogoSvg(sizeCalc, Math.round(sizeCalc * 1.2));
-      iconsTarget.appendChild(parent);
-    });
+const assetTypes = ['java', 'first_logo', 'team_logo'];
+let distributedPool = [];
 
-    // --- Dynamic Navigation View Controllers ---
+for (let i = 0; i < iconsConfig.length; i++) {
+  distributedPool.push(assetTypes[i % assetTypes.length]);
+}
+
+distributedPool.sort(() => Math.random() - 0.5);
+
+const iconsTarget = document.getElementById('java-floating-icons');
+iconsTarget.innerHTML = ''; 
+
+iconsConfig.forEach((ic, idx) => {
+  const parent = document.createElement('div');
+  parent.className = 'cw-icon-float';
+  parent.style.cssText = `width:${ic.size}px;height:${ic.size}px;` +
+    (ic.top ? `top:${ic.top};` : '') + 
+    (ic.bottom ? `bottom:${ic.bottom};` : '') + 
+    (ic.right ? `right:${ic.right};` : '') + 
+    (ic.left ? `left:${ic.left};` : '') +
+    (ic.bg ? 'background:rgba(255,255,255,0.12);' : 'background:rgba(255,255,255,0.05);') +
+    `animation:${ic.anim} ${ic.dur} ease-in-out infinite ${Math.random() * 2}s;`;
+
+  const chosenAsset = distributedPool[idx];
+  
+  if (chosenAsset === 'java') {
+    const sizeCalc = Math.round(ic.size * 0.52);
+    parent.innerHTML = generateJavaLogoSvg(sizeCalc, Math.round(sizeCalc * 1.2));
+  } else if (chosenAsset === 'first_logo') {
+    parent.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/FIRST_Tech_challenge_logo.png/250px-FIRST_Tech_challenge_logo.png" style="width:65%; height:65%; object-fit:contain;">`;
+  } else if (chosenAsset === 'team_logo') {
+    parent.innerHTML = `<img src="https://i.postimg.cc/fWXK25R2/thermodynamics-logo.png" style="width:85%; height:85%; object-fit:contain; border-radius:50%;">`;
+  }
+
+  iconsTarget.appendChild(parent);
+});
+
     function navigateToAcademy() {
       document.getElementById("homepage-view").style.display = "none";
       document.getElementById("workspace-view").style.display = "block";
@@ -491,7 +510,6 @@
       document.getElementById("nav-auth-buttons").style.display = "flex";
     }
 
-    // --- Textarea Line Counter Generator ---
     function updateLineNumbers() {
       const textarea = document.getElementById("editor");
       const block = document.getElementById("editorLineNumbers");
@@ -503,289 +521,513 @@
       block.innerHTML = htmlString;
     }
 
-    // --- Core Master Curricular Structural Repository Data Model ---
-    const academyLessons = [
-      {
-        phase: "Phase 1: Foundations of FTC Java (Absolute Beginner) [cite: 3]",
-        title: "Lesson 1.1: The Hardware-Software Bridge [cite: 4, 5]",
-        file: "HardwareBridge.java",
-        learn: "The Control Hub runs an Android-based operating system[cite: 6]. Your Java code communicates with physical hardware devices (motors, servos, sensors) by mapping code variables to names defined in a physical hardware configuration file configured on the Driver Station app[cite: 7].",
-        understand: "If the string name in your code does not match the name in the Driver Station configuration file exactly, the robot will crash instantly with a NullPointerException[cite: 8].",
-        practice: "Write an initialization assignment block that maps a DcMotor reference variable named 'intakeMotor' to the target hardware device configured as \"intake_motor\" using the SDK's hardwareMap array lookup methods[cite: 20]. Ensure you preserve trailing semicolons and close the block cleanly.",
-        defaultCode: "package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\n\npublic class HardwareBridge extends LinearOpMode {\n    DcMotor intakeMotor;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: Establish a mapping link for your variable here\n        \n    }\n}",
-        validate: (code) => {
-          if (!code.includes("hardwareMap.get")) return "Compilation Error: Missing hardware mapping allocation call.\nEnsure you invoke 'hardwareMap.get(DcMotor.class, ...)'[cite: 20].";
-          if (!code.includes("intakeMotor") || !code.includes("\"intake_motor\"")) return "Reference Error: Unmapped identifier token exceptions.\nCheck variable name declarations and ensure string configuration fields read exactly \"intake_motor\".";
-          return true;
+const academyLessons = [
+  {
+    phase: "Phase 1: Robot Architecture & Basic Setup (Absolute Beginner)",
+    title: "Lesson 1.1: The Hardware-Software Bridge",
+    file: "HardwareBridge.java",
+    learn: "The REV Control Hub acts as your robot's central brain. Your Java code cannot talk directly to electronic ports or motors on its own. Instead, it relies on a translation directory layer called the hardwareMap. When you configure your robot using the Driver Station phone app, you assign simple string nicknames (like 'intake_motor') to specific ports on the physical hub. Your Java code then uses these exact nickname strings to locate and command those specific devices.",
+    understand: "Spelling and letter casing count perfectly in robotics software. If your driver station configuration profile reads 'intake_motor' but your Java code searches for 'IntakeMotor', the system will get confused and fail to find the device. Because the code cannot connect to the physical port, your motor variable is left pointing to absolutely nothing (null). The second you initialize your program on the field, the robot will crash instantly with a fatal 'NullPointerException', rendering your system completely dead.",
+    practice: "Navigate directly to the runOpMode execution block. Write a precise initialization assignment statement that securely hooks up your declared 'DcMotor' reference variable named 'intakeMotor' to its corresponding physical electronic port on the hub. You must use the SDK's native 'hardwareMap.get()' lookup method, passing the motor's class architecture and matching it perfectly with the target hardware configuration string identifier defined as 'intake_motor'. Ensure you preserve trailing semicolons and close the statement line cleanly.",
+    defaultCode: `package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+public class HardwareBridge extends LinearOpMode {
+    DcMotor intakeMotor;
+
+    @Override
+    public void runOpMode() {
+        // Challenge: Establish a mapping link for your variable here
+        
+    }
+}`,
+    validate: (code) => {
+      if (!code.includes("hardwareMap.get")) return "Compilation Error: Missing hardware mapping allocation call.\nEnsure you invoke 'hardwareMap.get(DcMotor.class, ...)'";
+      if (!code.includes("intakeMotor") || !code.includes('"intake_motor"')) return "Reference Error: Unmapped identifier token exceptions.\nCheck variable name declarations and ensure string configuration fields read exactly 'intake_motor'.";
+      return true;
+    },
+    hints: [
+      "Look at line 6: your motor variable is already named exactly intakeMotor.",
+      "You need to connect intakeMotor to the hardware configuration string nickname 'intake_motor'.",
+      "Write this exact line inside runOpMode: intakeMotor = hardwareMap.get(DcMotor.class, \"intake_motor\");"
+    ]
+  },
+  {
+    phase: "Phase 1: Robot Architecture & Basic Setup (Absolute Beginner)",
+    title: "Lesson 1.2: Structure of a LinearOpMode",
+    file: "LinearStructure.java",
+    learn: "An 'OpMode' (short for Operational Mode) is simply the specific program that a human operator selects from the controller screen before a match begins. In FTC, a 'LinearOpMode' is a structural design where your code executes sequentially, line-by-line from top to bottom, like a baking recipe. It does step one, then step two, and then step three. This straightforward, predictable flow makes it incredibly popular and effective for programming simple, straight-line autonomous routines.",
+    understand: "The lifetime of a LinearOpMode is split into two operating zones separated by a strict waiting wall called 'waitForStart()'. The setup commands you place before this line run the exact moment a user presses the 'INIT' button on the controller. Once the execution path hits the 'waitForStart()' command, the entire program freezes and pauses on that line. It will sit there waiting indefinitely until a drive team member hits the actual 'Play' button on the screen, which sends a network packet to unlock the code and let it continue.",
+    practice: "Access the initialization zone situated right before the software execution flow hits the thread safety locking mechanism. Create a baseline initialization data stream using the standard SDK syntax. You must append a telemetry broadcast mapping statement stating 'System Ready' inside the program block so that drivers can verify the software setup parameters are stabilized on screen before the program locks inside the waitForStart() wait process.",
+    defaultCode: `package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+@Autonomous(name="Linear Structure Test")
+public class LinearStructure extends LinearOpMode {
+    @Override
+    public void runOpMode() throws InterruptedException {
+        // Challenge: Append initialization telemetry data statements here
+        
+        waitForStart();
+        while (opModeIsActive()) {
+            telemetry.addData("Status", "Running");
+            telemetry.update();
         }
-      },
-      {
-        phase: "Phase 1: Foundations of FTC Java (Absolute Beginner) [cite: 3]",
-        title: "Lesson 1.2: Structure of a LinearOpMode [cite: 10]",
-        file: "LinearStructure.java",
-        learn: "An 'OpMode' (Operational Mode) is the program a driver selects from the driver station screen[cite: 11]. In FTC, a LinearOpMode runs sequentially from top to bottom[cite: 12].",
-        understand: "The execution lifecycle is divided into two distinct parts separated by a blocking wall[cite: 13]. Execution loops freeze at 'waitForStart()' until driver station components fire a play execution instruction packet[cite: 16, 17].",
-        practice: "Create a baseline initialization data stream using the standard SDK syntax. Append a telemetry broadcast mapping statement stating 'System Ready' inside the program before execution locks inside the waitForStart() process[cite: 14, 16].",
-        defaultCode: "package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.eventloop.opmode.Autonomous;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\n@Autonomous(name=\"Linear Structure Test\")\npublic class LinearStructure extends LinearOpMode {\n    @Override\n    public void runOpMode() throws InterruptedException {\n        // Challenge: Append initialization telemetry data statements here\n        \n        waitForStart();\n        while (opModeIsActive()) {\n            telemetry.addData(\"Status\", \"Running\");\n            telemetry.update();\n        }\n    }\n}",
-        validate: (code) => {
-          if (!code.includes("telemetry.addData") || !code.includes("System Ready")) return "Linker Error: Telemetry signature mapping mismatched.\nEnsure you write 'telemetry.addData(\"Status\", \"System Ready\")' cleanly[cite: 14].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 1: Foundations of FTC Java (Absolute Beginner) [cite: 3]",
-        title: "Lesson 2.1: Initializing DC Motors & Servos [cite: 18, 19]",
-        file: "ActuatorSetup.java",
-        learn: "To interact with physical components, you must declare them as Java variables and retrieve them from the hardwareMap system using their configuration strings[cite: 20].",
-        understand: "For safety and consistency, DC motors should explicitly have their zero-power behaviors configured[cite: 21]. Setting them to Brake mode uses the motor's internal magnets to halt movement the moment power drops to zero, preventing mechanical drifting[cite: 22].",
-        practice: "Write an initialization block that registers a single motor named \"lift_motor\". Set the motor's zero power behavior to DcMotor.ZeroPowerBehavior.BRAKE[cite: 23, 24].",
-        defaultCode: "package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\n\npublic class ActuatorSetup {\n    public void setupMotor(DcMotor liftMotor) {\n        // Challenge: Configure brake mode behavior parameters here\n        \n    }\n}",
-        validate: (code) => {
-          if (!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "Compilation Error: Brake behavior parameters unresolved.\nEnsure you execute liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE)[cite: 24].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 1: Foundations of FTC Java (Absolute Beginner) [cite: 3]",
-        title: "Lesson 2.2: Telemetry and Basic Feedback [cite: 25]",
-        file: "TelemetryFeedback.java",
-        learn: "Telemetry is your primary debugging window[cite: 26]. It sends text strings from the robot's Control Hub back to the Driver Station screen in real-time[cite: 27].",
-        understand: "Telemetry data is stored in a temporary buffer[cite: 28]. You must call telemetry.update() at the bottom of your loop to push those changes to the screen; otherwise, old text values will remain frozen[cite: 29, 30].",
-        practice: "Write a standard telemetry loop update tracking routine inside an active operational environment container to synchronize parameters securely[cite: 29].",
-        defaultCode: "public void runLoop() {\n    // Challenge: Synchronize local visualization arrays with updates\n    \n}",
-        validate: (code) => {
-          if (!code.includes("telemetry.update()")) return "Runtime Warning: Buffer synchronization omitted.\nInvoke telemetry.update(); at termination steps to prevent viewport tracking lockouts[cite: 29, 30].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 2: TeleOp & Mechanical Control (Beginner) [cite: 32]",
-        title: "Lesson 3.1: Mecanum Drive Kinematics [cite: 33, 34]",
-        file: "MecanumDrive.java",
-        learn: "Mecanum wheels feature rollers mounted at 45-degree angles, allowing the robot to translate sideways (strafe) without turning[cite: 35]. The FTC SDK tracks joystick inputs on a scale from -1.0 to 1.0[cite: 36].",
-        understand: "Because combining translation and rotation vectors can result in a mathematical calculated power greater than 1.0, you must normalize the outputs[cite: 37]. If any calculated wheel value exceeds 1.0, divide all wheel values by that maximum absolute value to preserve the intended path shape[cite: 38]. Formula: Denominator = max(|y| + |x| + |rx|, 1.0) [cite: 39]",
-        practice: "Complete the missing normalization mathematical parsing routine to evaluate and calculate the uniform denominator value scaling parameters smoothly[cite: 40].",
-        defaultCode: "double y = -gamepad1.left_stick_y;\ndouble x = gamepad1.left_stick_x * 1.1;\ndouble rx = gamepad1.right_stick_x;\n\n// Challenge: Formulate the denominator normalization scaling parameter value [cite: 42]\ndouble denominator = ",
-        validate: (code) => {
-          if (!code.includes("Math.max") || !code.includes("Math.abs")) return "Math Error: Kinematic vector constraints processing skipped.\nUtilize Math.max combined with absolute evaluation loops to define the safe scaling boundary denominator[cite: 42].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 2: TeleOp & Mechanical Control (Beginner) [cite: 32]",
-        title: "Lesson 3.2: Input Smoothing & Deadbands [cite: 43]",
-        file: "InputFilters.java",
-        learn: "Gamepad joysticks rarely spring back perfectly to an absolute 0.0 center point when released, which can cause motor humming or unprompted drifting[cite: 44]. Deadbands solve this by ignoring tiny input readings near zero[cite: 45].",
-        understand: "By applying a mathematical curve to joystick readings (such as cubing the filtered input: y = x^3), you create a smooth control mapping[cite: 46]. This provides precise, fine control over micro-movements while still allowing the robot to reach maximum speeds when the sticks are pushed completely outward[cite: 47].",
-        practice: "Write a deadband conditional implementation mapping that applies a 0.05 threshold gate array filter smoothly[cite: 48].",
-        defaultCode: "public double applyDeadband(double stickInput) {\n    // Challenge: Filter entries below 0.05 limits and return cubic results\n    \n}",
-        validate: (code) => {
-          if (!code.includes("Math.pow") && !code.includes("3") && !code.includes("*")) return "Logic Error: Output transformation curve parameter missing.\nCube the remaining validated inputs to generate appropriate smoothing mappings[cite: 46, 49].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 2: TeleOp & Mechanical Control (Beginner) [cite: 32]",
-        title: "Lesson 4.1: Asynchronous Timing with ElapsedTime [cite: 50, 51]",
-        file: "AsyncTiming.java",
-        learn: "Top-tier TeleOp programs must never use sleep() to time mechanism actions (such as keeping a collector active for two seconds)[cite: 52]. The sleep() method completely freezes the main thread, making the drivetrain unresponsive to driver inputs[cite: 53].",
-        understand: "Instead, use the SDK's ElapsedTime class to track time intervals non-blockingly[cite: 54]. You save a snapshot of the current time and check against it on every loop cycle while allowing other code elements to update smoothly[cite: 55].",
-        practice: "Write a TeleOp control loop block that triggers an evaluation action non-blockingly using a temporal snapshot limit condition[cite: 56].",
-        defaultCode: "ElapsedTime timer = new ElapsedTime();\npublic void handleIntake(boolean buttonPressed) {\n    // Challenge: Design conditional timeline milestones without stopping loops\n    \n}",
-        validate: (code) => {
-          if (code.includes("sleep(")) return "Thread Block Exception: Blocking sleep commands detected.\nOmit all sleep() invocation calls to maintain async looping integrity[cite: 52, 53].";
-          if (!code.includes("seconds()")) return "Logic Error: Timer state parsing parameters unreferenced.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 2: TeleOp & Mechanical Control (Beginner) [cite: 32]",
-        title: "Lesson 4.2: Basic TeleOp State Machines [cite: 57]",
-        file: "StateMachine.java",
-        learn: "Complex mechanisms (such as multi-stage scoring lifts or deployment joints) benefit from standardized State Machines[cite: 58]. These systems track precisely what a mechanism is doing using explicit states[cite: 59].",
-        understand: "By representing your system states with an enum, you can write clean control logic using a switch statement inside your main loop[cite: 60].",
-        practice: "Create a switch layout handling tracking transitions through enumerations for INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED[cite: 61].",
-        defaultCode: "enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }\npublic void updateState(IntakeState state) {\n    // Challenge: Write conditional transition logic branches below\n    \n}",
-        validate: (code) => {
-          if (!code.includes("switch") && !code.includes("case")) return "Structure Error: State layout switch evaluation mapping missing.\nImplement clean state branching arrays[cite: 60].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 3: Sensor Integration & Basic Autonomous (Intermediate) [cite: 62]",
-        title: "Lesson 5.1: Linear Navigation via Encoder Run-To-Position [cite: 63, 64]",
-        file: "EncoderAuto.java",
-        learn: "Drive motor encoders measure the rotational ticks of the motor shaft[cite: 65]. This allows you to program linear movements that don't rely on raw time durations[cite: 66].",
-        understand: "To target precise physical distances (such as inches), you must calculate a custom ticks-per-inch scalar value using your motor's internal gear ratio and wheel circumference[cite: 67]. Formula: Ticks Per Inch = Ticks Per Revolution / Wheel Circumference [cite: 68]",
-        practice: "Configure drivetrain systems to transition into the native RUN_TO_POSITION operational mode environment cleanly[cite: 69].",
-        defaultCode: "public void initEncoders(DcMotor motor) {\n    // Challenge: Transition mode tracking loops safely\n    \n}",
-        validate: (code) => {
-          if (!code.includes("RUN_TO_POSITION")) return "Configuration Error: Inoperable run mode signature fields.\nInvoke setMode(DcMotor.RunMode.RUN_TO_POSITION) to execute target tracking alignments[cite: 69].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 3: Sensor Integration & Basic Autonomous (Intermediate) [cite: 62]",
-        title: "Lesson 5.2: Angular Navigation via the Universal IMU [cite: 71]",
-        file: "IMUHeading.java",
-        learn: "Because wheels slip during rapid accelerations or strafing maneuvers, encoder counts alone cannot guarantee precise turns[cite: 72]. The Control Hub contains a built-in IMU (Inertial Measurement Unit) gyroscope that measures absolute angular changes[cite: 73].",
-        understand: "The modern FTC SDK accesses this sensor via the IMU interface[cite: 74]. You pull absolute heading values using YawPitchRollAngles to get a reliable Z-axis rotation angle (yaw) that is unaffected by tire slips[cite: 75].",
-        practice: "Implement code logic to pull tracking angles using the native integrated IMU hardware layer platform parameters smoothly[cite: 76].",
-        defaultCode: "public double getRobotHeading(IMU imu) {\n    // Challenge: Return live heading telemetry values\n    \n}",
-        validate: (code) => {
-          if (!code.includes("getRobotYawPitchRollAngles")) return "Interface Exception: Mismatched orientation tracking calls.\nRetrieve structural transforms via getRobotYawPitchRollAngles() syntax profiles[cite: 75].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 4: Advanced Control Theory & System Design (Advanced) [cite: 77]",
-        title: "Lesson 6.1: The Math and Logic of PID Control [cite: 78, 79]",
-        file: "CustomPID.java",
-        learn: "Simple threshold logic (such as turning off a motor when it hits a target position) causes mechanisms to overshoot and vibrate violently due to momentum[cite: 80]. PID (Proportional, Integral, Derivative) control scales motor power dynamically based on how close the system is to its destination[cite: 81].",
-        understand: "The system continuously evaluates the mathematical equation for its control output: u(t) = Kp*e(t) + Ki*∫e(τ)dτ + Kd*(de/dt)[cite: 82]. Proportional (Kp) generates power scaled to current error[cite: 83]. Integral (Ki) accumulates steady-state error over time to overcome friction or gravity[cite: 83]. Derivative (Kd) acts as a brake by measuring the velocity of approach[cite: 84].",
-        practice: "Calculate immediate error parameters within a functional control feedback algorithm loop precisely[cite: 85, 89].",
-        defaultCode: "public double evaluatePID(double target, double current) {\n    // Challenge: Complete error extraction evaluation rules\n    double error = \n}",
-        validate: (code) => {
-          if (!code.includes("target - current")) return "Math Error: Improper error tracking resolution calculated.\nError tracking parameters are computed via: target - current[cite: 89].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 4: Advanced Control Theory & System Design (Advanced) [cite: 77]",
-        title: "Lesson 6.2: Tuning a PID Loop on a Mechanical Subsystem [cite: 94]",
-        file: "PIDTuning.java",
-        learn: "Tuning a PID loop is the process of finding the optimal multiplier scalar values (Kp, Ki, Kd) for your specific mechanism architecture and weight[cite: 95].",
-        understand: "Follow this structured tuning process: 1. Set all coefficients to zero[cite: 96]. 2. Increase Kp slowly until the system moves to the target but begins to oscillate continuously[cite: 97]. 3. Increase Kd gradually to cushion the landing and eliminate steady oscillations[cite: 98]. 4. If mechanical resistance or gravity prevents the system from reaching the target fully, add a tiny amount of Ki to push it through[cite: 99].",
-        practice: "Instantiate a structural initialization wrapper pairing mechanism updates cleanly with dynamic parameters[cite: 100].",
-        defaultCode: "public void loopPID() {\n    // Challenge: Initialize tracking controller structures loops\n    \n}",
-        validate: (code) => {
-          if (code.trim().length < 50) return "Compilation Error: Code environment empty. Implement tracking properties.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 4: Advanced Control Theory & System Design (Advanced) [cite: 77]",
-        title: "Lesson 7.1: Gravity and Velocity Compensation [cite: 102, 103]",
-        file: "Feedforward.java",
-        learn: "While PID is reactive and responds purely to past error, Feedforward control uses the physical properties of your mechanism to predict the exact voltage needed to achieve a target position or counter constant forces[cite: 104].",
-        understand: "For linear extensions (like vertical lifts), the force of gravity is constant across all heights[cite: 105]. For pivoting arms, the force changes based on the arm's angle relative to the ground[cite: 106]. We combine these forces with our feedback loops: Total Output = PID_output + (Kcos * cos(theta)) where theta is the real-time angle of the arm, and Kcos is the hold power needed when horizontal[cite: 107].",
-        practice: "Formulate code expressions utilizing trigonometry calculations to compute scaling adjustment holding factors cleanly[cite: 108].",
-        defaultCode: "public double getFeedforward(double angleInRadians, double Kcos) {\n    // Challenge: Return continuous feedforward values balancing gravity factors\n    \n}",
-        validate: (code) => {
-          if (!code.includes("Math.cos")) return "Compilation Exception: Vector resolution missing transformation profiles.\nUtilize Math.cos(angleInRadians) to compensate for arm weight variations across geometric rotations[cite: 107].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 5: Native Computer Vision & Advanced Localization (Master) [cite: 110]",
-        title: "Lesson 8.1: Global Field Positioning via AprilTagProcessor [cite: 111, 112]",
-        file: "AprilTagLoc.java",
-        learn: "The modern FTC SDK features high-performance native image processing[cite: 113]. The AprilTagProcessor scans the camera feed for standardized tags mounted around the field perimeter, calculating your location relative to those tags[cite: 114].",
-        understand: "You initialize the processor directly inside the SDK's VisionPortal[cite: 115]. The returned AprilTagDetection objects handle the spatial mathematics for you, providing pre-calculated values via detection.ftcPose.x (sideways), detection.ftcPose.y (forward distance), and detection.ftcPose.yaw (robot rotation angle relative to tag face)[cite: 116].",
-        practice: "Implement a VisionPortal initialization builder routine sequence assigning camera properties cleanly[cite: 117].",
-        defaultCode: "import biennials.first.vision.apriltag.AprilTagProcessor;\n// Challenge: Invoke initialization parameters mapping vision layers",
-        validate: (code) => {
-          if (code.trim().length < 50) return "Linker Error: Frame context incomplete.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 5: Native Computer Vision & Advanced Localization (Master) [cite: 110]",
-        title: "Lesson 8.2: Element Tracking via ColorBlobLocatorProcessor [cite: 119]",
-        file: "BlobLocator.java",
-        learn: "To find dynamically placed game pieces, the SDK provides the ColorBlobLocatorProcessor[cite: 120]. This tool filters the live camera image to isolate and locate objects using defined color parameters[cite: 121].",
-        understand: "You configure a target color range (such as ColorRange.YELLOW) and define structural rules (like minimum or maximum contour sizes) to filter out background noise[cite: 122]. The processor returns a sorted list of physical bounding boxes directly on the screen[cite: 123].",
-        practice: "Extract lists of visual structures from active pipeline feeds sequentially to locate target elements[cite: 124].",
-        defaultCode: "public void processContours() {\n    // Challenge: Extract raw locator list footprints streams below\n    \n}",
-        validate: (code) => {
-          if (code.trim().length < 50) return "Syntax Validation Exception: Frame analysis unmapped.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 5: Native Computer Vision & Advanced Localization (Master) [cite: 110]",
-        title: "Lesson 9.1: Mechanical Odometry vs. Onboard I2C Localizers [cite: 125, 126]",
-        file: "LocalizerSystem.java",
-        learn: "High-performance autonomous code uses unpowered free-spinning wheels (dead wheels) or dedicated external hardware modules like the goBILDA Pinpoint Odometry Computer or SparkFun OTOS to track the robot's coordinates on the field[cite: 127].",
-        understand: "These dedicated hardware localizers process tracking calculations using onboard microprocessors at extremely high speeds (500Hz to 1500Hz) independently of your code[cite: 128]. Your main program simply reads the final calculated X coordinate, Y coordinate, and heading angle over a standard I2C connection[cite: 129].",
-        practice: "Configure an alert flag condition monitoring absolute pose data divergence to alert telemetry panels during severe drift skips[cite: 130].",
-        defaultCode: "public void auditTracking(double deltaX) {\n    // Challenge: Build system limits flags checks\n    \n}",
-        validate: (code) => {
-          if (code.trim().length < 50) return "Safety Guard Execution Failed: Unmapped error checks thresholds.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 5: Native Computer Vision & Advanced Localization (Master) [cite: 110]",
-        title: "Lesson 9.2: Sensor Fusion and Drift Compensation [cite: 132]",
-        file: "SensorFusion.java",
-        learn: "Mechanical tracking systems accumulate small tracking errors over time due to floor unevenness or structural vibrations[cite: 133]. Sensor fusion combines high-frequency relative tracking (odometry) with absolute position checks (AprilTag detections) to maintain highly accurate positioning[cite: 134].",
-        understand: "Use your localizer for continuous tracking updates[cite: 135]. When an AprilTag is clearly detected by your camera, treat its calculated position as the absolute truth and overwrite your localizer's drifted coordinate estimations with the locked visual coordinates[cite: 136].",
-        practice: "Write an alignment overwrite instruction matching tracking coordinates under high verification certainty constraints[cite: 137].",
-        defaultCode: "public void correctDrift(boolean targetsFound) {\n    // Challenge: Inject absolute camera updates\n    \n}",
-        validate: (code) => {
-          if (code.trim().length < 50) return "Fusion Execution Failure: Integration vectors remained unbound.";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 6: Advanced Pathing & Autonomous Motion Profiling (Master Expert) [cite: 139]",
-        title: "Lesson 10.1: Building Coordinated Trajectories [cite: 140, 141]",
-        file: "RoadRunnerSpline.java",
-        learn: "Road Runner is an advanced motion profiling library for FTC[cite: 142]. It calculates smooth acceleration profiles (such as trapezoidal velocity profiles) to prevent wheel slip and ensure precise movements[cite: 143].",
-        understand: "Road Runner paths use global field coordinates: (X, Y, Heading)[cite: 144]. The library constructs paths using continuous mathematical splines, allowing the robot to change its heading smoothly while driving across the field[cite: 145].",
-        practice: "Construct an autonomous path instruction trace using the native action builder infrastructure API parameters cleanly[cite: 146].",
-        defaultCode: "package org.firstinspires.ftc.teamcode;\n// Challenge: Code path action segments sequences matching instructions\n",
-        validate: (code) => {
-          if (!code.includes("actionBuilder") && !code.includes("action")) return "Trajectory Error: Action segment pipeline traces unbuilt.\nInitialize target movements via the actionBuilder routine parameters[cite: 148].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 6: Advanced Pathing & Autonomous Motion Profiling (Master Expert) [cite: 139]",
-        title: "Lesson 10.2: Asynchronous Execution & Non-Blocking Actions [cite: 150]",
-        file: "ActionBuilder.java",
-        learn: "To maximize efficiency in high-level autonomous runs, mechanisms must run concurrently while the robot is driving[cite: 151]. Road Runner utilizes an Actions framework to handle hardware tasks simultaneously with path movements[cite: 152].",
-        understand: "Instead of using traditional blocking functions like sleep(), write your mechanism controls as custom Action classes[cite: 153]. These classes return true if they are still running or false when their task is finished, allowing them to be updated on every loop cycle alongside the drivetrain path adjustments[cite: 154].",
-        practice: "Design a custom structural framework implementing interface rules to evaluate action cycle iterations[cite: 155].",
-        defaultCode: "import com.acmerobotics.dashboard.telemetry.TelemetryPacket;\nimport com.acmerobotics.roadrunner.Action;\n// Challenge: Declare custom action class definitions below\n",
-        validate: (code) => {
-          if (!code.includes("implements Action")) return "Interface Mismatch Exception: Object does not inherit Action attributes.\nEnsure your container contains 'implements Action' declarations correctly[cite: 153, 154].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 6: Advanced Pathing & Autonomous Motion Profiling (Master Expert) [cite: 139]",
-        title: "Lesson 11.1: Parametric Bézier Curves [cite: 156, 157]",
-        file: "PedroCurves.java",
-        learn: "Unlike Road Runner, which pre-calculates an entire path before moving, Pedro Pathfinder determines tracking vectors dynamically using Parametric Bézier Curves[cite: 158]. This allows the robot to constantly look ahead and adjust its movement path on the fly[cite: 159].",
-        understand: "Paths are shaped by control points that pull the trajectory into smooth curves without requiring rigid velocity profiling[cite: 160]. Pedro Pathfinder scales the arena on an absolute 144x144-inch coordinate system, computing real-time steering vectors to navigate tightly around obstacles[cite: 161].",
-        practice: "Build a geometric Bezier path object blueprint mapping coordinates targets accurately[cite: 162, 163].",
-        defaultCode: "import pbgil.pathfinder.geometry.Point;\n// Challenge: Model coordinate anchors using geometric parameters below\n",
-        validate: (code) => {
-          if (!code.includes("Point")) return "Geometry Error: Spatial reference points missing construction declarations.\nDeclare Point models to shape tracking spline nodes accurately[cite: 163].";
-          return true;
-        }
-      },
-      {
-        phase: "Phase 6: Advanced Pathing & Autonomous Motion Profiling (Master Expert) [cite: 139]",
-        title: "Lesson 11.2: Path Progressions & Non-Blocking Triggers [cite: 164]",
-        file: "ReactiveTriggers.java",
-        learn: "Because Pedro Pathfinder constantly calculates its steering vectors mid-path, you can use conditional triggers based on how far along the path the robot is[cite: 165]. This allows you to deploy systems exactly when the robot approaches a scoring area[cite: 166].",
-        understand: "The path follower provides continuous progress values (from 0.0 at the start to 1.0 at completion)[cite: 167]. By monitoring this progress metric or tracking the remaining distance to the target, you can trigger mechanism actions precisely during full-speed transitions[cite: 168].",
-        practice: "Construct a non-blocking conditional switch trigger that fires an actuator instruction event precisely at 0.75 progress milestones[cite: 169, 170].",
-        defaultCode: "public void updateFollowerMetrics(double progressMetric) {\n    // Challenge: Fire subsystem state changes at 0.75 milestones asynchronously\n    \n}",
-        validate: (code) => {
-          if (!code.includes("0.75") && !code.includes(".75")) return "Logic Error: Target progress check missing mapping accuracy.\nEnforce execution bounds criteria checking for progress metric targets at 0.75[cite: 170].";
-          return true;
-        }
-      }
-    ];
+    }
+}`,
+    validate: (code) => {
+      if (!code.includes("telemetry.addData") || !code.includes("System Ready")) return "Linker Error: Telemetry signature mapping mismatched.\nEnsure you write 'telemetry.addData(\"Status\", \"System Ready\")' cleanly.";
+      return true;
+    },
+    hints: [
+      "You need to write your tracking message before the code reaches the line containing waitForStart();",
+      "We use telemetry.addData(label, value) to create text notifications on the driver's phone.",
+      "Write exactly: telemetry.addData(\"Status\", \"System Ready\"); right under the challenge comment."
+    ]
+  },
+  {
+    phase: "Phase 2: Controlling Actuators Safely (Beginner)",
+    title: "Lesson 2.1: Actuator Protection & Brake Modes",
+    file: "ActuatorSetup.java",
+    learn: "Now that your robot can connect to devices and handle basic initialization paths, we must protect the physical hardware components from drifting or sagging out of alignment. Actuators, which include high-torque DC motors and precision position-controlled servo units, require explicit safety settings. These settings define how the motor controller behaves behind the scenes when the software stops sending active power signals to a mechanism.",
+    understand: "When a driver releases a joystick, the controller stops feeding voltage to your motors. By default, the motor controller will let the wheels or mechanisms spin freely to a loose, coasting stop. For vertical mechanisms like lift kits or arms, this causes them to crash down immediately due to gravity. Setting the motor behavior to Brake mode tells the controller to electronically lock the internal components together when power drops to zero. This creates automatic magnetic resistance, holding your mechanism perfectly steady.",
+    practice: "Review the setup configuration wrapper method provided in the code editor workspace. Write an initialization parameter block that configures the operational properties of a single motor reference target named 'liftMotor'. You must write an instruction that explicitly sets the motor's zero power behavior property to utilize the native Brake architecture configuration by passing the parameter flag token 'DcMotor.ZeroPowerBehavior.BRAKE'.",
+    defaultCode: `package com.qualcomm.robotcore.hardware;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+public class ActuatorSetup {
+    public void setupMotor(DcMotor liftMotor) {
+        // Challenge: Configure brake mode behavior parameters here
+        
+    }
+}`,
+    validate: (code) => {
+      if (!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "Compilation Error: Brake behavior parameters unresolved.\nEnsure you execute liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE).";
+      return true;
+    },
+    hints: [
+      "You have an incoming method variable object named liftMotor.",
+      "Call the built-in function named .setZeroPowerBehavior() directly on your liftMotor variable.",
+      "Pass the config token DcMotor.ZeroPowerBehavior.BRAKE inside the parentheses. Code: liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);"
+    ]
+  },
+  {
+    phase: "Phase 2: Controlling Actuators Safely (Beginner)",
+    title: "Lesson 2.2: Telemetry & Live Feedback Updates",
+    file: "TelemetryFeedback.java",
+    learn: "As we prepare to build automated routines, we need a reliable way to see what our robot is thinking in real time. Telemetry is your primary diagnostic viewport and debugging window. Because you cannot read terminal logs while your robot is driving around a competitive game field, telemetry lets you send text strings and sensor numbers from the robot's onboard Control Hub back to the driver controller screen over a wireless connection.",
+    understand: "To save wireless network speed and keep your robot running fast, telemetry updates are stored inside a local software cache queue. When you write commands like telemetry.addData(), you are only stacking up notes inside a temporary bucket; they do not appear on screen yet. You must explicitly execute the telemetry.update() command at the bottom of your loop cycles to push this accumulated bucket out over the airwaves, otherwise, your driver screen text values will remain completely frozen.",
+    practice: "Locate the isolated runtime loop block provided within the code template architecture. Write a standard telemetry loop update tracking routine inside this active operational environment container. Your code must successfully invoke the buffer flush sequence necessary to synchronize your local visualization parameter stacks securely with the remote display panels.",
+    defaultCode: `public void runLoop() {
+    // Challenge: Synchronize local visualization arrays with updates
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("telemetry.update()")) return "Runtime Warning: Buffer synchronization omitted.\nInvoke telemetry.update(); at termination steps to prevent viewport tracking lockouts.";
+      return true;
+    },
+    hints: [
+      "Look at the name of the built-in feedback tool we use for phone display updates: telemetry.",
+      "We need to execute a buffer update command to flush out our text log variables queue over the network.",
+      "Write exactly: telemetry.update(); inside your runLoop method body braces."
+    ]
+  },
+  {
+    phase: "Phase 3: Drivetrain Dynamics & Driver Control (Beginner)",
+    title: "Lesson 3.1: Mecanum Drive Kinematics & Normalization",
+    file: "MecanumDrive.java",
+    learn: "Mecanum drivetrains offer incredible agility on the field. Each mecanum wheel features rollers mounted at angled directions. By spinning your four independent drive motors in unique direction combinations, the directional forces combine to push the robot chassis in any direction—allowing you to slide sideways (strafe) or drive diagonally. The gamepad joysticks read this movement on a simple power scale spanning from -1.0 up to 1.0.",
+    understand: "Because mecanum steering calculations add up three independent movements at once—forward, strafing, and turning—the math can easily produce a total wheel motor value greater than 100% full power (1.0). Since a motor cannot physically turn faster than its maximum voltage limit, anything past 1.0 gets clipped. This clipping distorts your speeds and throws the driving angle completely off course. To fix this, we calculate a scale factor (denominator): if any wheel speed climbs above 1.0, we divide all four wheels by that largest absolute value to scale them down proportionally and preserve the intended direction.",
+    practice: "Inspect the variables tracking the directional stick commands in the code area. Complete the missing normalization calculation routine by writing a mathematical parsing statement. You must formulate the uniform denominator assignment equation that safely captures the absolute summation of your linear and rotational input vectors, capped at a baseline minimum value of 1.0 to prevent under-scaling.",
+    defaultCode: `double y = -gamepad1.left_stick_y;
+double x = gamepad1.left_stick_x * 1.1;
+double rx = gamepad1.right_stick_x;
+
+// Challenge: Formulate the denominator normalization scaling parameter value
+double denominator = `,
+    validate: (code) => {
+      if (!code.includes("Math.max") || !code.includes("Math.abs")) return "Math Error: Kinematic vector constraints processing skipped.\nUtilize Math.max combined with absolute evaluation loops to define the safe scaling boundary denominator.";
+      return true;
+    },
+    hints: [
+      "The denominator variable needs to match the highest combined power value, but never go under 1.0.",
+      "Use Math.max(value, 1.0) to create a protective baseline ceiling cap boundary.",
+      "Inside Math.max, calculate the sum of stick values using Math.abs: double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1.0);"
+    ]
+  },
+  {
+    phase: "Phase 3: Drivetrain Dynamics & Driver Control (Beginner)",
+    title: "Lesson 3.2: Input Smoothing & Joystick Deadbands",
+    file: "InputFilters.java",
+    learn: "Gamepad joysticks use small mechanical springs to snap back to the center position when released. Over a long season, these springs get worn out and loose. As a result, when a driver lets go of a joystick, it rarely rests exactly at a perfect 0.0 reading, often hovering at numbers like 0.02 or -0.03. Without code handling this, your drivetrain motors will constantly buzz, overheat, or slowly creep across the field when they are supposed to be stopped.",
+    understand: "To fix loose joysticks, we use a software filter called a deadband. A deadband ignores any small input signals that fall below a set threshold, like 0.05, forcing them directly to a clean 0.0. For inputs that clear this gate, we can apply a smooth curve by cubing the value. Because cubing a fraction makes it much smaller, this curve dampens the joystick sensitivity near the center for micro-adjustments, while still scaling up cleanly to maximum speed when the driver pushes the stick all the way out.",
+    practice: "Review the input processing wrapper method template provided in the source file. Write an input deadband and curve transformation routine that checks if incoming signals clear a 0.05 threshold gate. If the input passes the gate, apply a smooth cubic transformation curve using Java math utilities to filter and shape the final driving sensitivity values before returning them.",
+    defaultCode: `public double applyDeadband(double stickInput) {
+    // Challenge: Filter entries below 0.05 limits and return cubic results
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("Math.pow") && !code.includes("3") && !code.includes("*")) return "Logic Error: Output transformation curve parameter missing.\nCube the remaining validated inputs to generate appropriate smoothing mappings.";
+      return true;
+    },
+    hints: [
+      "Use an if statement to test if the absolute value of stickInput is less than 0.05.",
+      "If it is smaller than 0.05, immediately return 0.0 to kill joystick noise drift.",
+      "Otherwise, use Math.pow(stickInput, 3) or multiply stickInput three times to calculate and return the cubic curve value."
+    ]
+  },
+  {
+    phase: "Phase 4: Mastering State Machines (Intermediate)",
+    title: "Lesson 4.1: Asynchronous Timing with ElapsedTime",
+    file: "AsyncTiming.java",
+    learn: "When driving the robot with joysticks, you might want an intake wheel to run for exactly 2 seconds to swallow a game piece. If you tell the code to freeze or sleep for 2 seconds (sleep(2000)), your driving controls freeze too, and your robot will blindly smash into walls.",
+    understand: "To time an event without freezing your driving inputs, we use a tool called ElapsedTime. This acts like a digital stopwatch running in the background. Instead of pausing the script, the robot keeps driving while repeatedly checking the stopwatch until 2 seconds have ticked by.",
+    practice: "Write a non-blocking check that tracks when the timer crosses its limit using the timer.seconds() query tool.",
+    defaultCode: `ElapsedTime timer = new ElapsedTime();
+public void handleIntake(boolean buttonPressed) {
+    // Challenge: Design conditional timeline milestones without stopping loops
+    
+}`,
+    validate: (code) => {
+      if (code.includes("sleep(")) return "Thread Block Exception: Blocking sleep commands detected.\nOmit all sleep() invocation calls to maintain async looping integrity.";
+      if (!code.includes("seconds()")) return "Logic Error: Timer state parsing parameters unreferenced.";
+      return true;
+    },
+    hints: [
+      "Do not write the word sleep anywhere in this code challenge workspace window.",
+      "Use an if conditional statement block to check the live values of your stopwatch timer object.",
+      "Check if the elapsed time passes a milestone using timer.seconds(). For example: if (timer.seconds() > 2.0) { // Do action }"
+    ]
+  },
+  {
+    phase: "Phase 4: Mastering State Machines (Intermediate)",
+    title: "Lesson 4.2: Basic TeleOp State Machines",
+    file: "FsmBasics.java",
+    learn: "As your robot gets more mechanisms (like lifts, intakes, and claws), managing them with hundreds of tangled 'if-else' statements causes code conflicts where lines fight each other for control. To fix this, we build a Finite State Machine (FSM).",
+    understand: "A State Machine breaks down your robot's activities into separate, clear modes called states—just like a traffic light is only ever Red, Yellow, or Green at one time. We define these custom steps using a list of words called an enum. This rules out overlapping code bugs entirely.",
+    practice: "Set up a clean enum structure to represent our mechanism states. Inside the body of the FsmBasics class, define a public enum named IntakeState that explicitly contains three clear tracking states: INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED to serve as our architectural foundation.",
+    defaultCode: `package org.firstinspires.ftc.teamcode;
+
+public class FsmBasics {
+    // Challenge: Declare your public IntakeState enum variables here
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("enum IntakeState") || !code.includes("INTAKE_READY") || !code.includes("INTAKE_BURSTING") || !code.includes("INTAKE_REVERSED")) return "Structure Error: IntakeState enum structure incomplete.\nEnsure you write: public enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }";
+      return true;
+    },
+    hints: [
+      "You need to write an enum keyword block to define a list of state options.",
+      "Declare it publicly inside your class wrapper using the identifier name IntakeState.",
+      "Write exactly: public enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }"
+    ]
+  },
+  {
+    phase: "Phase 4: Mastering State Machines (Intermediate)",
+    title: "Lesson 4.3: Switch-Case State Routing Logic",
+    file: "StateMachine.java",
+    learn: "Building directly on the enum states we defined in the previous lesson, we now need a high-speed traffic director to run different blocks of code depending on our active state. Instead of chain-linking dozens of slow 'if' statements, we use a specialized control structure called a 'switch' statement inside our main operational loop. This routes our software execution flow seamlessly.",
+    understand: "A switch statement acts like a physical train track switcher. It evaluates your current active state variable, immediately routes your program execution down the matching 'case' track block, and completely skips over all the other inactive options. This ensures that when your intake state is set to INTAKE_BURSTING, only the code designed for bursting executes, keeping your loop speeds incredibly fast, low-latency, and predictable.",
+    practice: "Review the enum setup provided in the template file. Your goal is to construct a clean structural switch-case control block that routes execution through your discrete mechanism states. Ensure you handle the structural paths for 'INTAKE_READY', 'INTAKE_BURSTING', and 'INTAKE_REVERSED' cleanly to allow for safe, predictable state transitions.",
+    defaultCode: `enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }
+public void updateState(IntakeState state) {
+    // Challenge: Write conditional transition logic branches below
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("switch") && !code.includes("case")) return "Structure Error: State layout switch evaluation mapping missing.\nImplement clean state branching arrays.";
+      return true;
+    },
+    hints: [
+      "Open up a switch evaluation block that monitors your incoming state variable pointer parameter.",
+      "Write switch(state) { } to create the main routing hub container.",
+      "Inside the switch braces, establish tracking case checkpoints using case INTAKE_READY:, case INTAKE_BURSTING:, and case INTAKE_REVERSED:."
+    ]
+  },
+  {
+    phase: "Phase 5: Intelligent Autonomous Movement (Intermediate)",
+    title: "Lesson 5.1: Distance Navigation with Motor Encoders",
+    file: "EncoderAuto.java",
+    learn: "Now we shift to autonomous mode where the robot drives by itself without joysticks. Drive motors have built-in spin counters called encoders that track micro-pulses called 'ticks'. This lets us program movements based on real distance instead of loose timing.",
+    understand: "Battery power drops continuously as a match goes on. If you drive based on pure time, a weak battery makes the robot stop short. Because encoders count actual axle wheel rotations instead of clock seconds, the robot travels the exact same distance whether the battery is fully charged or nearly dead. When you switch a motor to 'RUN_TO_POSITION' mode, the internal firmware automatically manages the motor speeds, slowing down gently as it nears the target position to prevent the wheels from skidding.",
+    practice: "Review the encoder initialization method in the workspace panel. Write an initialization statement that configures a motor object to use the SDK's internal target tracking systems. You must update the operational run mode parameter of the motor to explicitly utilize the native 'RUN_TO_POSITION' framework syntax.",
+    defaultCode: `public void initEncoders(DcMotor motor) {
+    // Challenge: Transition mode tracking loops safely
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("RUN_TO_POSITION")) return "Configuration Error: Inoperable run mode signature fields.\nInvoke setMode(DcMotor.RunMode.RUN_TO_POSITION) to execute target tracking alignments.";
+      return true;
+    },
+    hints: [
+      "You need to change the configuration run mode tracking states of the motor object variable parameter.",
+      "Call the native .setMode() function modifier directly on your motor object.",
+      "Pass the SDK enum token exactly as: motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);"
+    ]
+  },
+  {
+    phase: "Phase 5: Intelligent Autonomous Movement (Intermediate)",
+    title: "Lesson 5.2: Turning Precision via Onboard IMU Gyro",
+    file: "IMUHeading.java",
+    learn: "While motor encoders are fantastic for driving straight, they struggle during turns. When a robot spins or hits a bump, its wheels slip slightly against the foam floor tiles. Because the wheels spin in place during a slip, the encoders continue counting ticks even though the robot isn't actually moving. To solve this, the Control Hub has a built-in sensor called an IMU gyroscope that reads the absolute turning angle of the chassis directly, completely separate from wheel movement.",
+    understand: "Think of the IMU as an internal compass needle that always knows which way is true north. In the FTC SDK, we read this sensor value as the 'yaw' angle (heading). By monitoring the yaw degree value during an autonomous turn, your code can detect the exact moment the robot has spun 90 degrees and stop the motors instantly, automatically correcting any errors caused by dusty tiles or collisions.",
+    practice: "Review the heading tracking function in the workspace editor. Write the code needed to query the universal IMU hardware layer. Your statement must fetch the active orientation data structure and extract the absolute yaw heading angle using the SDK's official layout methods to return a clean tracking value.",
+    defaultCode: `public double getRobotHeading(IMU imu) {
+    // Challenge: Return live heading telemetry values
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("getRobotYawPitchRollAngles")) return "Interface Exception: Mismatched orientation tracking calls.\nRetrieve structural transforms via getRobotYawPitchRollAngles() syntax profiles.";
+      return true;
+    },
+    hints: [
+      "You have an incoming hardware sensor object reference parameter named imu.",
+      "Check your console compiler error output to locate the required orientation query method signature.",
+      "Call imu.getRobotYawPitchRollAngles(); inside the function block to fetch rotation angles coordinates."
+    ]
+  },
+  {
+    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
+    title: "Lesson 6.1: The Logic of PID Feedback Loops",
+    file: "CustomPID.java",
+    learn: "Simple target checks—like turning a lift motor off the exact millisecond a lift hits its target height—cause severe accuracy issues due to mechanical weight. Heavy lift components cannot stop instantly; their momentum causes them to overshoot the target, causing the robot to bounce and shake violently. A PID control loop fixes this by scaling the motor power smoothly based on how far away the mechanism is from its destination.",
+    understand: "A PID loop works like a driver braking for a stop sign. When the lift is far from its target, the Error (the distance left to go) is large, so the Proportional (Kp) setting feeds maximum power to move quickly. As the lift approaches the target, the error shrinks toward zero, automatically lowering the motor power to a gentle crawl. This constant recalculation acts as a natural brake, stopping your heavy mechanisms perfectly on target with zero bouncing.",
+    practice: "Examine the custom feedback tracking calculation loop provided in the editor window. Your task is to implement the first and most critical calculation step of the PID control algorithm. Formulate the line of code that evaluates your immediate tracking error by finding the exact difference between your target checkpoint position and the current sensor placement value.",
+    defaultCode: `public double evaluatePID(double target, double current) {
+    // Challenge: Complete error extraction evaluation rules
+    double error = 
+}`,
+    validate: (code) => {
+      if (!code.includes("target - current")) return "Math Error: Improper error tracking resolution calculated.\nError tracking parameters are computed via: target - current";
+      return true;
+    },
+    hints: [
+      "Error is the simple distance space remaining between where you want to be and where you currently are.",
+      "Subtract the current sensor position value directly from the requested target position variable.",
+      "Write exactly: double error = target - current;"
+    ]
+  },
+  {
+    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
+    title: "Lesson 6.2: Tuning PID Loop Multipliers",
+    file: "PIDTuning.java",
+    learn: "Every mechanism on a robot has a different weight, shape, and friction level, meaning a lift code requires completely different power configurations than a custom pivoting intake arm. Tuning a PID loop is the hands-on process of finding the optimal scaling numbers—called gains or coefficients—to match your robot's exact mechanical build so it moves smoothly and quickly.",
+    understand: "To tune a system safely without breaking gears, you follow a step-by-step checklist. You start with all numbers set to zero. First, increase the Proportional setting until the mechanism moves to the target but starts to rock back and forth continuously. Next, you slowly turn up the Derivative setting, which acts as a shock absorber to cushion the landing and stop the rocking. Finally, if gravity keeps pulling the mechanism slightly below the target, you add a tiny bit of Integral power to push it into place.",
+    practice: "Look at the subsystem control method provided in the workspace editor. Your task is to set up a clean initialization wrapper that binds your target calculations inside the continuous execution loop. Write the setup statement required to feed your real-time sensor parameters into the tracking controller structure on every cycle refresh.",
+    defaultCode: `public void loopPID() {
+    // Challenge: Initialize tracking controller structures loops
+    
+}`,
+    validate: (code) => {
+      if (code.trim().length < 50) return "Compilation Error: Code environment empty. Implement tracking properties.";
+      return true;
+    },
+    hints: [
+      "This particular practice window only runs a comprehensive code size capacity check pattern.",
+      "Type a realistic block of initialization code logic statements to pass compliance checks rules.",
+      "Ensure your script character length footprint exceeds 50 characters inside the textarea box panel."
+    ]
+  },
+  {
+    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
+    title: "Lesson 7.1: Gravity Compensation (Feedforward)",
+    file: "Feedforward.java",
+    learn: "While a PID loop is incredibly smart, it is entirely reactive—meaning it can only send power to a motor after a mechanism has already dropped out of position and created an error. If you try to hold a heavy arm horizontal using only PID, it will always sag because it needs a constant baseline holding power just to fight gravity. Feedforward control fixes this by being proactive, calculating the weight adjustments beforehand.",
+    understand: "Think of Feedforward like holding a heavy book at arm's length; your muscles have to apply a steady upward force just to keep it from falling, even when you aren't moving. For a rotating arm, this gravity force changes constantly depending on its angle. When the arm is straight up, gravity doesn't pull it sideways at all. When it is straight out, gravity pulls down with maximum weight force. We use an automated math formula to predict this change and inject a baseline holding voltage directly into the motor power line: Total Power = PID Power + (Kcos * cos(Angle)).",
+    practice: "Review the feedforward calculator method in the workspace editor. Write the trigonometric code statement needed to compute this proactive gravitational compensation factor. Your code must use Java's native math libraries to scale your horizontal holding multiplier against the cosine of the arm's real-time angle in radians.",
+    defaultCode: `public double getFeedforward(double angleInRadians, double Kcos) {
+    // Challenge: Return continuous feedforward values balancing gravity factors
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("Math.cos")) return "Compilation Exception: Vector resolution missing transformation profiles.\nUtilize Math.cos(angleInRadians) to compensate for arm weight variations across geometric rotations.";
+      return true;
+    },
+    hints: [
+      "You need to balance changing gravitational force variations using a basic cosine math command expression.",
+      "Access Java's built-in mathematical library utility by typing Math.cos().",
+      "Multiply your incoming horizontal holding power factor Kcos by Math.cos(angleInRadians) to calculate results."
+    ]
+  },
+  {
+    phase: "Phase 7: Computer Vision & Field Awareness (Advanced)",
+    title: "Lesson 8.1: Global Field Tracking with AprilTags",
+    file: "AprilTagLoc.java",
+    learn: "To unlock top-tier autonomous strategies, your robot needs to look outward and understand where it is located within the entire arena. The FTC SDK allows you to plug an external USB webcam directly into the Control Hub and activate the 'AprilTagProcessor'. This code scans the camera images for the square barcodes mounted on the field perimeter walls, providing an unshakeable positional anchor.",
+    understand: "AprilTags act like indoor GPS satellite markers. Because the exact field coordinates of every wall tag are pre-loaded into the SDK software, the camera processor can measure the exact angle and pixel distortion of a spotted tag to calculate your robot's current position down to the inch. This allows your autonomous pathing routines to stay perfectly centered on the field, regardless of tire slips or field wall impacts.",
+    practice: "Examine the vision initialization file in your editor workspace. Your objective is to build a standard startup sequence for the camera system. Implement the initialization statement using the SDK's native builder pattern to correctly register your AprilTag tracking processor directly inside the main VisionPortal pipeline.",
+    defaultCode: `import android.util.Size;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+public class AprilTagLoc {
+    // Challenge: Invoke initialization parameters mapping vision layers
+    
+}`,
+    validate: (code) => {
+      if (code.trim().length < 50) return "Linker Error: Frame context incomplete.";
+      return true;
+    },
+    hints: [
+      "This vision lesson checks for full structural pipeline builder lines configurations configurations.",
+      "Type a standard script setting up your camera parameters or tracking references pointers structures.",
+      "Ensure your overall text character string footprint length spans more than 50 total characters."
+    ]
+  },
+  {
+    phase: "Phase 7: Computer Vision & Field Awareness (Advanced)",
+    title: "Lesson 8.2: Target Tracking via Color Blob Locators",
+    file: "BlobLocator.java",
+    learn: "While AprilTags are used to track fixed wall positions, game elements like plastic samples or scoring rings are moved around dynamically during a match. To track these loose objects, we use the 'ColorBlobLocatorProcessor'. This image tool filters your live camera view, completely blacks out everything that doesn't match your target color profile, and combines the remaining pixels into tracked shapes called 'blobs'.",
+    understand: "Think of blob tracking like using a digital highlighter marker. You tell the code to search for a specific color range, like yellow, and ignore any shapes that are too small to be an actual game piece (filtering out loose field tape or background debris). The vision processor then calculates a bounding box around the remaining yellow shapes, providing their exact coordinates so your robot can drive directly over and collect them automatically.",
+    practice: "Look at the vision processing skeleton method in the workspace panel. Write the data collection statements needed to read your active camera stream. Your code must query the locator processor, extract the list of matching visual targets sequentially, and store them inside a standard collection list for shape analysis.",
+    defaultCode: `public void processContours() {
+    // Challenge: Extract raw locator list footprints streams below
+    
+}`,
+    validate: (code) => {
+      if (code.trim().length < 50) return "Syntax Validation Exception: Frame analysis unmapped.";
+      return true;
+    },
+    hints: [
+      "This challenge runs a compilation block structural validation algorithm tracking written syntax lines data.",
+      "Input a basic looping script tracking color contours maps models to complete target guidelines.",
+      "Make sure the character content of your workspace pane stretches past 50 text characters."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 9.1: Hardware Odometry Computers",
+    file: "LocalizerSystem.java",
+    learn: "To drive fast, sweeping curves during an autonomous path, elite robots use dedicated location tracking setups. This can be built using small, unpowered free-spinning wheels pressed flat against the floor (dead wheels) or advanced electronic sensors like the goBILDA Pinpoint computer or the SparkFun OTOS tracking module.",
+    understand: "These specialized odometry computers contain their own microchips that calculate coordinate changes thousands of times every second, completely separate from your main robot code loop. This separation is key: instead of forcing your Control Hub brain to slow down its main program calculating your coordinates, your main code can simply read the final calculated X and Y position numbers over a quick I2C data wire, keeping your cycles lightning-fast.",
+    practice: "Review the tracking supervisor function in the workspace code window. Your goal is to write a system monitoring check. Set up a conditional alert flag statement that constantly compares your live location readings against safe thresholds, creating a telemetry warning if severe positional drift or sensor errors are detected.",
+    defaultCode: `public void auditTracking(double deltaX) {
+    // Challenge: Build system limits flags checks
+    
+}`,
+    validate: (code) => {
+      if (code.trim().length < 50) return "Safety Guard Execution Failed: Unmapped error checks thresholds.";
+      return true;
+    },
+    hints: [
+      "This module evaluates the text statement properties data capacities inside your editor panel viewport.",
+      "Fulfill tracking supervisor parameters by coding a threshold gate validation logic statement rule.",
+      "Ensure your terminal configuration block text metrics contain more than 50 layout characters."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 9.2: Sensor Fusion & Drift Correction",
+    file: "SensorFusion.java",
+    learn: "Even the absolute best physical tracking wheels or electronic sensors will experience tiny amounts of drift over time as a match plays out due to small floor bumps, wheel bounces, or robot collisions. Sensor Fusion solves this tracking issue by combining your high-speed tracking wheel data with your absolute AprilTag camera views into a single system.",
+    understand: "Think of Sensor Fusion like driving down a highway. Your tracking computer acts like your car's speedometer, continuously guessing how far you've traveled every second. When you look out the window and read a mile marker sign, that is your AprilTag check. Your code uses the speedometer for fast tracking, but the exact second the camera spots a wall tag, the software overwrites any accumulated drift with the absolute visual truth.",
+    practice: "Review the coordinate alignment function in your workspace editor. Write the statement needed to handle this sensor fusion update. Construct a conditional statement that checks for a verified visual detection, and if successful, overwrites your relative tracking coordinates with the updated absolute camera position data.",
+    defaultCode: `public void correctDrift(boolean targetsFound) {
+    // Challenge: Inject absolute camera updates
+    
+}`,
+    validate: (code) => {
+      if (code.trim().length < 50) return "Fusion Execution Failure: Integration vectors remained unbound.";
+      return true;
+    },
+    hints: [
+      "This lesson compiles functional data structural checks tracking structural script allocations loops mappings.",
+      "Type an alignment overwrite loop statement managing localized coordinates corrections parameters data sets.",
+      "Verify that your total text layout data length passes the 50 characters threshold target."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 10.1: Building Road Runner Trajectories",
+    file: "RoadRunnerSpline.java",
+    learn: "Road Runner is an advanced motion pathing library used by top robotics teams. Instead of writing rough movements where the robot drives forward, stops, turns, and drives forward again, Road Runner calculates smooth speed curves that gently accelerate the motors to keep your tires firmly locked to the floor traction.",
+    understand: "Road Runner paths translate your autonomous destinations into a global coordinate grid map. The software connects these positions together using smooth mathematical curves called splines. This advanced design allows your robot to smoothly rotate its heading while driving along a curve, enabling fluid autonomous paths that sweep around obstacles without wasting a single fraction of a second.",
+    practice: "Examine the trajectory generation class in the editor window. Your goal is to build a coordinated autonomous path sequence. Write a trajectory execution statement using Road Runner's native 'actionBuilder' syntax to string together smooth linear and rotational movements that match your target field coordinates.",
+    defaultCode: `package org.firstinspires.ftc.teamcode;
+// Challenge: Code path action segments sequences matching instructions
+`,
+    validate: (code) => {
+      if (!code.includes("actionBuilder") && !code.includes("action")) return "Trajectory Error: Action segment pipeline traces unbuilt.\nInitialize target movements via the actionBuilder routine parameters.";
+      return true;
+    },
+    hints: [
+      "You must call the native path construction tools defined by the Road Runner core library structures.",
+      "Check the text requirements tracking your movement instructions inside the log parameters panels blocks.",
+      "Ensure you explicitly incorporate the target phrase token actionBuilder or action within your code segments."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 10.2: Non-Blocking Actions & Paths",
+    file: "ActionBuilder.java",
+    learn: "To maximize your scoring output during the 30-second autonomous run, you cannot afford to wait around for tasks to complete one after another. If your robot drives to a basket, stops, lifts an arm, scores, and lowers the arm before driving away, you lose valuable seconds. Mechanisms must run concurrently, meaning your scoring lifts should deploy mid-path while the drivetrain is still speeding across the field.",
+    understand: "To handle mechanisms during movement, Road Runner uses a non-blocking structure called 'Actions'. Instead of using old-school sleep() commands, you write your elevator or claw movements as custom Action blocks. These blocks run right alongside the drivetrain software, updating your lift motor power levels on every single millisecond loop pass without interrupting your wheel trajectories.",
+    practice: "Review the class interface template in your editor workspace. Your objective is to design a custom mechanism action framework. Construct a clean class declaration that correctly adopts the library's structural interface guidelines, implementing the 'Action' model to build an asynchronous, iterative control loop.",
+    defaultCode: `import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+// Challenge: Declare custom action class definitions below
+`,
+    validate: (code) => {
+      if (!code.includes("implements Action")) return "Interface Mismatch Exception: Object does not inherit Action attributes.\nEnsure your container contains 'implements Action' declarations correctly.";
+      return true;
+    },
+    hints: [
+      "Asynchronous tasks require extending or establishing connection lines to specific core model interfaces rules.",
+      "Use Java's native class inheritance assignment keyword pattern directly within your object line declaration.",
+      "Type the phrase token implements Action exactly after your class identifier statement block wrapper."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 11.1: Pedro Pathfinder Vector Curves",
+    file: "PedroCurves.java",
+    learn: "While libraries like Road Runner pre-plan an entire rigid path before the robot starts driving, alternative advanced systems like Pedro Pathfinder use dynamic vector pathing. Pedro Pathfinder determines steering controls on the fly using smooth control points that continuously pull the robot along vector curves, providing extreme agility.",
+    understand: "Think of Pedro Pathfinder like pulling a toy car with a flexible rubber band connected to a moving guide hand. The software creates a 144x144 inch grid map of the field and constantly looks ahead to calculate the absolute shortest steering adjustments needed to hold its line, resulting in incredibly fluid movements and unmatched speeds around tight field junctions.",
+    practice: "Review the geometric setup file in the editor workspace panel. Your goal is to configure a parametric curve system. Write the structural statements needed to instantiate your coordinate tracking targets, using the pathfinder's native 'Point' models to define your spatial path anchor nodes.",
+    defaultCode: `import pbgil.pathfinder.geometry.Point;
+// Challenge: Model coordinate anchors using geometric parameters below
+`,
+    validate: (code) => {
+      if (!code.includes("Point")) return "Geometry Error: Spatial reference points missing construction declarations.\nDeclare Point models to shape tracking spline nodes accurately.";
+      return true;
+    },
+    hints: [
+      "Parametric curves process coordinates layouts using distinct vector data construction structures objects.",
+      "Locate the necessary target spatial class model parameter included inside the file package imports list lines.",
+      "Incorporate the object identifier keyword token Point cleanly inside your hardware configuration assignment lines."
+    ]
+  },
+  {
+    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
+    title: "Lesson 11.2: Path Progress Location Triggers",
+    file: "ReactiveTriggers.java",
+    learn: "Because Pedro Pathfinder calculates its steering vectors continuously mid-drive, your code can monitor exactly how far along a curve the robot has traveled at any given moment. This allows you to set up highly efficient location triggers that activate subsystem tasks automatically based on your physical field progress percentage.",
+    understand: "The pathfinder tracking engine provides a live progress metric that scales from 0.0 at the absolute start of a path up to 1.0 at complete destination arrival. By checking this progress percentage value inside your loop, you can tell your robot to deploy a scoring mechanism the exact millisecond it crosses 75% (0.75) of its travel path, completing tasks at full driving speeds.",
+    practice: "Construct a non-blocking conditional switch trigger that fires an actuator instruction event precisely at 0.75 progress milestones.",
+    defaultCode: `public void updateFollowerMetrics(double progressMetric) {
+    // Challenge: Fire subsystem state changes at 0.75 milestones asynchronously
+    
+}`,
+    validate: (code) => {
+      if (!code.includes("0.75") && !code.includes(".75")) return "Logic Error: Target progress check missing mapping accuracy.\nEnforce execution bounds criteria checking for progress metric targets at 0.75.";
+      return true;
+    },
+    hints: [
+      "Dynamic reactive listeners track fraction values matching milestones relative to travel curves scales paths.",
+      "Check your lesson text instructions to isolate the exact travel completion percentage milestone target required.",
+      "Build a simple if conditional matching progressMetric values explicitly against the numeric factor 0.75."
+    ]
+  }
+];
 
     // --- State Management Engine Layer ---
     let activeLessonIdx = 0;
     const subSteps = ["learn", "understand", "practice"];
     let currentStepPointer = 0; // 0 = Learn, 1 = Understand, 2 = Practice
+    let currentHintIdx = 0; // Keeps track of how many hints are revealed
 
     function syncInterfaceView() {
       const data = academyLessons[activeLessonIdx];
@@ -797,8 +1039,8 @@
       const contentText = document.getElementById("sectionTextContent");
       const titleLabel = document.getElementById("sectionTitleLabel");
       const blockStyle = document.getElementById("dynamicSectionBlock");
+      const hintBtn = document.getElementById("hintBtn");
       
-      // Update step layout properties dynamically matching selection index pointer
       const step = subSteps[currentStepPointer];
       blockStyle.className = `active-section-block ${step}`;
       
@@ -808,18 +1050,24 @@
         document.getElementById("prevSectionBtn").style.visibility = "hidden";
         document.getElementById("nextSectionBtn").innerText = "Go to Understand ➡️";
         document.getElementById("nextSectionBtn").className = "cw-btn-action";
+        hintBtn.style.visibility = "hidden";
       } else if (step === "understand") {
         titleLabel.innerText = "📘 Understand";
         contentText.innerText = data.understand;
         document.getElementById("prevSectionBtn").style.visibility = "visible";
         document.getElementById("nextSectionBtn").innerText = "Go to Challenge ➡️";
         document.getElementById("nextSectionBtn").className = "cw-btn-action";
+        hintBtn.style.visibility = "hidden";
       } else if (step === "practice") {
         titleLabel.innerText = "🔴 Practice Challenge";
         contentText.innerText = data.practice;
         document.getElementById("prevSectionBtn").style.visibility = "visible";
         document.getElementById("nextSectionBtn").innerText = "Challenge Active";
         document.getElementById("nextSectionBtn").className = "cw-btn-action practice-btn";
+        
+        // Show hint button when on the practice phase
+        hintBtn.style.visibility = "visible";
+        hintBtn.innerText = `💡 Hint (${currentHintIdx}/${data.hints.length})`;
       }
     }
 
@@ -828,12 +1076,14 @@
   if (targetedStep >= 0 && targetedStep < subSteps.length) {
     const block = document.getElementById("dynamicSectionBlock");
     
-    // 1. Trigger the fade out animation
     block.classList.add("section-fade");
     
-    // 2. Wait 200ms for the animation to finish, then swap content and fade back in
     setTimeout(() => {
       currentStepPointer = targetedStep;
+      currentHintIdx = 0; // Reset hints index on step change
+      document.getElementById("hintBox").style.display = "none";
+      document.getElementById("hintBox").innerHTML = "";
+      
       syncInterfaceView();
       block.classList.remove("section-fade");
     }, 200);
@@ -843,12 +1093,15 @@
 function switchLesson(idxValue) {
   const block = document.getElementById("dynamicSectionBlock");
   
-  // Trigger fade out for a clean lesson jump
   block.classList.add("section-fade");
   
   setTimeout(() => {
     activeLessonIdx = parseInt(idxValue);
-    currentStepPointer = 0; // Reset to Learn view
+    currentStepPointer = 0; 
+    currentHintIdx = 0; // Reset hints index on lesson change
+    document.getElementById("hintBox").style.display = "none";
+    document.getElementById("hintBox").innerHTML = "";
+    
     document.getElementById("editor").value = academyLessons[activeLessonIdx].defaultCode;
     
     const terminal = document.getElementById("consoleOutput");
@@ -858,10 +1111,35 @@ function switchLesson(idxValue) {
     syncInterfaceView();
     updateLineNumbers();
     
-    // Fade the new lesson back into view
     block.classList.remove("section-fade");
   }, 200);
 }
+
+    function triggerNextHint() {
+      const data = academyLessons[activeLessonIdx];
+      const hintBox = document.getElementById("hintBox");
+      
+      if (!data.hints || data.hints.length === 0) return;
+      
+      hintBox.style.display = "block";
+      
+      if (currentHintIdx < data.hints.length) {
+        currentHintIdx++;
+      }
+      
+      let html = "<strong>Step-by-Step Guidance:</strong><ol style='margin-left: 20px; margin-top: 5px;'>";
+      for (let i = 0; i < currentHintIdx; i++) {
+        html += `<li style='margin-bottom: 6px;'>${data.hints[i]}</li>`;
+      }
+      html += "</ol>";
+      
+      if (currentHintIdx === data.hints.length) {
+        html += "<p style='margin-top: 10px; color: #50fa7b; font-weight: 700;'>All steps revealed! Try typing this solution framework into the editor box above.</p>";
+      }
+      
+      hintBox.innerHTML = html;
+      document.getElementById("hintBtn").innerText = `💡 Hint (${currentHintIdx}/${data.hints.length})`;
+    }
 
     // --- Strict AST/Regex Compiler Simulation Engine Layer ---
     function executeStrictCompilerScan() {
@@ -873,18 +1151,16 @@ function switchLesson(idxValue) {
       terminal.innerText += "Searching internal compilation dependencies paths layers...\nExecuting syntax diagnostics checks...\n";
       
       setTimeout(() => {
-        // Core Java Syntax Guard 1: Semi-colon validation analyzer
         const lines = codeValue.split('\n');
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i].trim();
-          if (line.length > 0 && !line.endsWith('{') && !line.endsWith('}') && !line.endsWith(';') && !line.startsWith('@') && !line.startsWith('//') && !line.startsWith('import') && !line.startsWith('package') && !line.startsWith('public class')) {
+          if (line.length > 0 && !line.endsWith('{') && !line.endsWith('}') && !line.endsWith(';') && !line.startsWith('@') && !line.startsWith('//') && !line.startsWith('import') && !line.startsWith('package') && !line.startsWith('public class') && !line.startsWith('public double') && !line.startsWith('public void') && !line.startsWith('double') && !line.startsWith('enum')) {
             terminal.className = "console-output error";
             terminal.innerText += `\n[SYNTAX ERROR] Line ${i + 1}: Missing trailing expression delimiter ';'.\nFix your Java syntax parameters before starting operations runs.`;
             return;
           }
         }
 
-        // Core Java Syntax Guard 2: Curly brace token parity tracker checks
         const openBraces = (codeValue.match(/{/g) || []).length;
         const closeBraces = (codeValue.match(/}/g) || []).length;
         if (openBraces !== closeBraces) {
@@ -893,7 +1169,6 @@ function switchLesson(idxValue) {
           return;
         }
 
-        // Run contextual functional lesson challenge validations test cases
         const verificationResult = targetLesson.validate(codeValue);
         
         if (verificationResult !== true) {
@@ -906,9 +1181,8 @@ function switchLesson(idxValue) {
       }, 650);
     }
 
-    // Initialize environment arrays default assets states on viewport launch
     switchLesson(0);
-    // Function to flip the hacker mode switch
+    
     function toggleHackerMode() {
     document.body.classList.toggle("theme-hacker");
     
@@ -916,7 +1190,7 @@ function switchLesson(idxValue) {
     if (document.body.classList.contains("theme-hacker")) {
         consoleOut.innerText = ">>> BYPASSING CONTROL HUB SECURITY CODES...\n>>> MAIN ENGINES ONLINE VIA CORE TERMINAL OVERRIDE.";
     } else {
-        terminal.innerText = "Console initialized. Awaiting source compilation parameters...";
+        consoleOut.innerText = "Console initialized. Awaiting source compilation parameters...";
     }
     }
   </script>
