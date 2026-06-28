@@ -1,1198 +1,1132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTC Team 28874 - High-Contrast Academy Workspace</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    /* Hacker Mode Theme Styles */
-    body.theme-hacker {
-    background: #000000 !important;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTC Team 28874 — Software Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#e8540a;
+    --primary-dim:#b8430a;
+    --secondary:#0d1b2a;
+    --secondary-soft:#15283d;
+    --accent:#4a5568;
+    --neutral:#ffffff;
+    --bg:#000000;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-code:'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:var(--bg); color:var(--neutral); font-family:var(--font-body); height:100%; overflow-x:hidden; }
+  ::selection{ background:var(--primary); color:#fff; }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:var(--font-body); }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background:var(--accent); border-radius:4px; }
 
-    body.theme-hacker .lesson-panel {
-    background: #020202 !important;
-    border-right: 1px solid #00ff33 !important;
-    }
+  /* ===== NAV ===== */
+  .nav{
+    height:60px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--secondary); border-bottom:1px solid rgba(255,255,255,0.08);
+    position:relative; z-index:20;
+  }
+  .nav-left{ display:flex; align-items:center; gap:36px; }
+  .logo{ 
+    display:flex; align-items:center; gap:10px; cursor:pointer; 
+    font-family:var(--font-display); font-weight:700; font-size:16px; 
+    letter-spacing:0.01em; transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .logo:hover { opacity: 0.9; transform: translateY(-1px); }
+  .logo:active { transform: scale(0.97); }
+  
+  .logo-mark{
+    width:30px; height:30px; border-radius:7px; background:var(--primary);
+    display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; flex-shrink:0;
+  }
+  .nav-links{ display:flex; gap:26px; }
+  .nav-links a{ 
+    font-size:13px; font-weight:600; color:rgba(255,255,255,0.6); 
+    padding:6px 0; border-bottom:2px solid transparent; cursor:pointer; 
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.1s ease; 
+  }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a:active{ transform: translateY(1px); }
+  .nav-links a.active{ color:#fff; border-bottom-color:var(--primary); }
+  
+  .nav-right{ display:flex; align-items:center; gap:12px; }
+  .btn-ghost{
+    border:1px solid var(--accent); background:transparent; color:#fff;
+    padding:8px 16px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-ghost:hover{ border-color:var(--primary); color:var(--primary); background: rgba(255,255,255,0.02); }
+  .btn-ghost:active{ transform: scale(0.95); }
+  .btn-ghost.is-on{ border-color:var(--primary); color:var(--primary); background:rgba(232,84,10,0.1); }
+  .btn-ghost.is-on:hover { background:rgba(232,84,10,0.18); }
+  
+  .btn-primary{
+    border:none; background:var(--primary); color:#fff; padding:9px 18px;
+    border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-primary:hover{ background:var(--primary-dim); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,84,10,0.2); }
+  .btn-primary:active{ transform: scale(0.95); }
 
-    body.theme-hacker .lesson-dropdown,
-    body.theme-hacker .lesson-selector-bar,
-    body.theme-hacker .code-editor-header,
-    body.theme-hacker .console-header,
-    body.theme-hacker .line-numbers {
-    background: #050505 !important;
-    border-color: rgba(0, 255, 51, 0.3) !important;
-    }
+  /* ===== HOMEPAGE ===== */
+  #homepage-view{ display:block; }
+  .hero{
+    min-height:calc(100vh - 60px); position:relative; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:60px 24px;
+    background:
+      radial-gradient(ellipse 700px 420px at 50% 0%, rgba(232,84,10,0.16) 0%, transparent 70%),
+      var(--bg);
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:var(--font-code); font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--primary); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after{ content:''; width:28px; height:1px; background:var(--primary); opacity:.6; }
+  .hero h1{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(36px,6vw,58px);
+    line-height:1.12; letter-spacing:-0.01em; max-width:780px; margin-bottom:18px;
+  }
+  .hero h1 span{ color:var(--primary); }
+  .hero p{
+    font-size:16px; color:rgba(255,255,255,0.65); line-height:1.7; max-width:540px; margin-bottom:32px;
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-bottom:64px; flex-wrap:wrap; justify-content:center; }
+  
+  .btn-cta{
+    border:none; background:var(--primary); color:#fff; padding:15px 32px; font-size:14px;
+    font-weight:700; border-radius:7px; cursor:pointer; display:flex; align-items:center; gap:8px;
+    box-shadow:0 8px 24px rgba(232,84,10,0.35); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-cta:hover{ background:var(--primary-dim); transform:translateY(-2px); box-shadow:0 12px 28px rgba(232,84,10,0.5); }
+  .btn-cta:active{ transform:translateY(0) scale(0.96); }
+  
+  .btn-cta-outline{
+    border:1px solid var(--accent); background:transparent; color:#fff; padding:15px 28px;
+    font-size:14px; font-weight:700; border-radius:7px; cursor:pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-cta-outline:hover{ border-color:var(--primary); color:var(--primary); transform:translateY(-2px); background: rgba(232,84,10,0.02); }
+  .btn-cta-outline:active{ transform:translateY(0) scale(0.96); }
 
-    body.theme-hacker .active-section-block,
-    body.theme-hacker .code-textarea {
-    background: #000000 !important;
-    color: #00ff33 !important;
-    border-color: #00ff33 !important;
-    text-shadow: 0 0 4px rgba(0, 255, 51, 0.6);
-    }
+  /* Signature element: the phase roadmap */
+  .roadmap{ position:relative; z-index:2; width:100%; max-width:1020px; }
+  .roadmap-line{ position:relative; display:flex; justify-content:space-between; align-items:flex-start; padding:0 6px; }
+  .roadmap-track{
+    position:absolute; top:17px; left:6px; right:6px; height:2px;
+    background:repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px);
+  }
+  .roadmap-progress{
+    position:absolute; top:17px; left:6px; height:2px; width:0%;
+    background:var(--primary); transition:width 1.4s cubic-bezier(.4,0,.2,1);
+  }
+  .roadmap-node{ 
+    position:relative; z-index:2; display:flex; flex-direction:column; 
+    align-items:center; width:140px; cursor:pointer;
+  }
+  .roadmap-dot{
+    width:34px; height:34px; border-radius:50%; background:var(--secondary); border:2px solid var(--accent);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-code); font-size:12px;
+    font-weight:700; color:rgba(255,255,255,0.7); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink:0;
+  }
+  .roadmap-node:hover .roadmap-dot { border-color: var(--primary); color:#fff; transform: scale(1.1); }
+  .roadmap-node:active .roadmap-dot { transform: scale(0.95); }
+  
+  .roadmap-node.lit .roadmap-dot{ border-color:var(--primary); color:var(--primary); background:rgba(232,84,10,0.12); box-shadow:0 0 18px rgba(232,84,10,0.35); }
+  .roadmap-node-label{ margin-top:12px; font-size:11px; font-weight:700; color:#fff; text-align:center; line-height:1.4; }
+  .roadmap-node-level{ margin-top:3px; font-size:10px; color:rgba(255,255,255,0.45); text-align:center; font-family:var(--font-code); text-transform:uppercase; letter-spacing:.04em; }
+  @media (max-width: 900px){
+    .roadmap-line{ flex-direction:column; gap:22px; align-items:flex-start; padding-left:17px; }
+    .roadmap-track, .roadmap-progress{ top:6px; bottom:6px; left:17px; right:auto; width:2px; height:auto;
+      background:repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); }
+    .roadmap-progress{ background:var(--primary); height:0%; width:2px; }
+    .roadmap-node{ flex-direction:row; width:auto; align-items:center; text-align:left; }
+    .roadmap-node-label, .roadmap-node-level{ margin-top:0; margin-left:14px; text-align:left; }
+  }
 
-    body.theme-hacker .phase-badge,
-    body.theme-hacker h2,
-    body.theme-hacker .section-title {
-    color: #00ff33 !important;
-    }
+  .hero-stats{ display:flex; gap:48px; margin-top:60px; flex-wrap:wrap; justify-content:center; }
+  .hero-stat-num{ font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--primary); }
+  .hero-stat-label{ font-size:11px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
 
-    body.theme-hacker .cw-btn-run {
-    background: #000000 !important;
-    color: #00ff33 !important;
-    border: 1px solid #00ff33 !important;
-    box-shadow: 0 0 10px rgba(0, 255, 51, 0.4);
-    }
+  /* ===== WORKSPACE ===== */
+  #workspace-view{ display:none; height:calc(100vh - 60px); }
+  .workspace{ position: relative; display:flex; height:100%; }
 
-    body.theme-hacker .cw-btn-run:hover {
-    background: #00ff33 !important;
-    color: #000000 !important;
-    box-shadow: 0 0 20px #00ff33;
-    }
-    
-    body, html {
-      background: #121216; /* Brightened up from #0d0d0f to fix low contrast issues */
-      height: 100vh;
-      font-family: 'Roboto Mono', monospace;
-      color: #ffffff; /* Shifted to clean absolute white for crisp readability */
-      overflow-x: hidden;
-    }
+  /* Sidebar styling with responsive collapse kinematics */
+  .sidebar{
+    width:280px; flex-shrink:0; background:var(--secondary); border-right:1px solid rgba(255,255,255,0.08);
+    display:flex; flex-direction:column; opacity: 1;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, border-right 0.3s ease;
+  }
+  
+  /* Hidden state for structural components */
+  .workspace.sidebar-hidden .sidebar {
+    width: 0px;
+    padding: 0px;
+    opacity: 0;
+    border-right: none;
+    pointer-events: none;
+  }
+  
+  .sidebar-progress{ padding:18px 18px 16px; border-bottom:1px solid rgba(255,255,255,0.08); overflow: hidden; }
+  .sidebar-progress-top{ display:flex; justify-content:space-between; align-items: center; font-size:11px; color:rgba(255,255,255,0.55); margin-bottom:8px; }
+  
+  /* Minimize and expand controller keys */
+  .btn-minimize {
+    background: rgba(255,255,255,0.06); border: 1px solid var(--accent); color: rgba(255,255,255,0.6);
+    border-radius: 4px; padding: 2px 6px; font-size: 10px; cursor: pointer;
+    transition: all 0.2s ease; margin-left: 8px;
+  }
+  .btn-minimize:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .btn-minimize:active { transform: scale(0.85); }
+  
+  .sidebar-toggle-floating {
+    display: none; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    z-index: 30; background: var(--secondary); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15);
+    border-left: none; padding: 14px 6px 14px 4px; border-radius: 0 8px 8px 0; cursor: pointer;
+    font-weight: bold; font-size: 11px; box-shadow: 4px 0 12px rgba(0,0,0,0.5);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar-toggle-floating:hover { background: var(--primary); color: white; padding-left: 7px; }
+  .sidebar-toggle-floating:active { transform: translateY(-50%) scale(0.9); }
+  .workspace.sidebar-hidden .sidebar-toggle-floating { display: block; }
 
-    /* Fixed Film Grain Overlay - Drastically reduced opacity from 0.45 to 0.12 to restore screen brightness */
-    .cw-grain {
-      position: fixed; inset: 0; z-index: 999; pointer-events: none;
-      opacity: 0.12;
-    }
+  .sidebar-progress-track{ height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; }
+  .sidebar-progress-fill{ height:100%; background:var(--primary); border-radius:3px; transition:width .3s ease; }
+  .sidebar-tree{ flex-grow:1; overflow-y:auto; padding:8px 0 20px; }
+  .phase-group{ border-bottom:1px solid rgba(255,255,255,0.05); }
+  
+  .phase-head{
+    display:flex; align-items:center; justify-content:space-between; padding:13px 18px; cursor:pointer;
+    user-select:none; transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .phase-head:hover{ background:rgba(255,255,255,0.04); }
+  .phase-head:active{ background:rgba(255,255,255,0.02); }
+  
+  .phase-head-title{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#fff; }
+  .phase-head-level{ font-size:9px; color:var(--primary); font-family:var(--font-code); text-transform:uppercase; margin-top:3px; letter-spacing:.04em; }
+  .phase-chevron{ color:rgba(255,255,255,0.35); font-size:10px; transition:transform .2s; flex-shrink:0; margin-left:8px; }
+  .phase-group.collapsed .phase-chevron{ transform:rotate(-90deg); }
+  .phase-group.collapsed .lesson-group{ display:none; }
+  .lesson-group{ padding-bottom:6px; }
+  .lesson-label{ font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); padding:8px 18px 4px; text-transform:uppercase; letter-spacing:.03em; }
+  
+  .sub-item{
+    display:flex; align-items:center; gap:10px; padding:8px 18px 8px 22px; cursor:pointer; font-size:12.5px;
+    color:rgba(255,255,255,0.65); border-left:2px solid transparent; transition: all 0.15s ease;
+  }
+  .sub-item:hover{ background:rgba(255,255,255,0.04); color:#fff; padding-left: 24px; }
+  .sub-item:active{ transform: scale(0.98); }
+  .sub-item.active{ background:rgba(232,84,10,0.1); border-left-color:var(--primary); color:#fff; font-weight:600; }
+  .sub-check{
+    width:15px; height:15px; border-radius:50%; border:1.5px solid var(--accent); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:9px; color:transparent;
+  }
+  .sub-item.done .sub-check{ background:var(--primary); border-color:var(--primary); color:#fff; }
 
-    /* Primary Navigation Bar */
-    .cw-nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 52px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-      background: #16161e;
-      position: relative; z-index: 10;
-    }
-    .cw-nav-left { display: flex; align-items: center; gap: 2rem; }
-    .cw-logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; cursor: pointer; }
-    .cw-logo-icon {
-      width: 28px; height: 28px; background: #e3202a; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: #fff;
-    }
-    .cw-nav-links { display: flex; gap: 1.5rem; }
-    .cw-nav-links a { color: rgba(255,255,255,0.85); font-size: 12px; text-decoration: none; cursor: pointer; }
-    .cw-nav-links a:hover { color: #fff; }
-    .cw-nav-links a.active { color: #fff; font-weight: 700; border-bottom: 2px solid #e3202a; padding-bottom: 14px; }
-    .cw-nav-right { display: flex; gap: 10px; }
-    
-    .cw-btn-outline {
-      border: 1px solid rgba(255,255,255,0.5); background: transparent; color: #fff;
-      padding: 6px 18px; border-radius: 4px; font-size: 12px; cursor: pointer;
-      font-family: 'Roboto Mono', monospace; font-weight: 700;
-    }
-    .cw-btn-primary {
-      border: 1px solid #e3202a; background: #e3202a; color: #fff;
-      padding: 6px 18px; border-radius: 4px; font-size: 12px; cursor: pointer;
-      font-family: 'Roboto Mono', monospace; font-weight: 700;
-    }
+  /* Lesson content panel scaling profile */
+  .lesson-panel{ 
+    width:38%; min-width:380px; background:var(--bg); border-right:1px solid rgba(255,255,255,0.08); 
+    display:flex; flex-direction:column; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .workspace.sidebar-hidden .lesson-panel { width: 42%; }
+  
+  .lesson-scroll{ flex-grow:1; overflow-y:auto; padding:28px 30px; display:flex; flex-direction:column; }
+  .breadcrumb{ font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:10px; font-family:var(--font-code); }
+  .breadcrumb b{ color:var(--primary); }
+  .lesson-title{ font-family:var(--font-display); font-size:21px; font-weight:700; margin-bottom:18px; line-height:1.3; }
 
-    /* VIEW 1: HERO HOMEPAGE LAYOUT */
-    #homepage-view {
-      display: block;
-    }
-    .cw-hero {
-      min-height: calc(100vh - 52px);
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; position: relative;
-      background: #121216;
-    }
-    .cw-hero h1 span { color: #ff5c5c; }
-    .cw-hero p {
-      font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7;
-      margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; font-weight: 400;
-    }
-    .cw-get-started {
-      background: #e3202a; color: #fff; border: none;
-      padding: 14px 40px; font-size: 14px; border-radius: 4px; cursor: pointer;
-      letter-spacing: 0.04em; font-family: 'Roboto Mono', monospace; font-weight: 700;
-      box-shadow: 0 4px 14px rgba(227,32,42,0.4);
-    }
-    .cw-get-started:hover { background: #c81c24; }
+  .diagram-box{
+    background:var(--secondary); border:1px solid rgba(255,255,255,0.08); border-radius:8px;
+    padding:16px; margin-bottom:18px;
+  }
+  .diagram-box-label{ font-size:10px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+  .diagram-box pre{ font-family:var(--font-code); font-size:12px; color:rgba(255,255,255,0.85); white-space:pre; line-height:1.4; overflow-x:auto; }
 
-    .cw-icon-float {
-      position: absolute; background: rgba(255,255,255,0.08); border-radius: 14px;
-      display: flex; align-items: center; justify-content: center; will-change: transform;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    @keyframes float1 { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-14px) rotate(1.5deg)} }
-    @keyframes float2 { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-10px) rotate(-2deg)} }
-    @keyframes float3 { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-18px) rotate(2deg)} }
-    @keyframes float4 { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-8px) rotate(-1deg)} }
-    @keyframes float5 { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-20px) rotate(2.5deg)} }
+  .step-tabs{ display:flex; gap:6px; margin-bottom:14px; }
+  .step-tab{
+    flex:1; text-align:center; padding:9px 4px; font-size:11px; font-weight:700; border-radius:6px;
+    background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.4); cursor:pointer; 
+    border:1px solid transparent; transition: all 0.2s ease;
+  }
+  .step-tab:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+  .step-tab:active { transform: scale(0.96); }
+  .step-tab.on{ background:rgba(232,84,10,0.12); color:var(--primary); border-color:rgba(232,84,10,0.35); }
+  .step-tab.passed{ color:rgba(255,255,255,0.65); }
 
-    /* VIEW 2: INTERACTIVE DEVELOPMENT COMPILER WORKSPACE */
-    #workspace-view {
-      display: none;
-      height: calc(100vh - 52px);
-    }
-    .workspace-container {
-      display: flex;
-      height: 100%;
-      width: 100%;
-    }
-    
-    /* Left Panel: Content Sections Frame */
-    .lesson-panel {
-      width: 42%;
-      background: #16161e;
-      border-right: 1px solid rgba(255,255,255,0.15);
-      display: flex;
-      flex-direction: column;
-    }
-    .lesson-selector-bar {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      background: #1c1c24;
-    }
-    .lesson-dropdown {
-      width: 100%;
-      background: #252532;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 10px 14px;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    /* Dedicated Full-Panel Section Blocks */
-    .lesson-content {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .section-view-container {
-      padding: 30px;
-      overflow-y: auto;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* Pushes content up and buttons down to remove empty space */
-      height: 100%;
-    }
-    .phase-badge {
-      font-size: 11px; text-transform: uppercase; color: #ff5c5c; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 8px;
-    }
-    .lesson-content h2 {
-      font-size: 18px; font-weight: 700; margin-bottom: 24px; padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.1); color: #ffffff;
-    }
-    
-    /* Full-height single section configuration */
-    .active-section-block {
-      background: rgba(255,255,255,0.03); padding: 24px;
-      border-radius: 8px; border-left: 4px solid #fff;
-      flex-grow: 1; display: flex; flex-direction: column; margin-bottom: 24px;
-      transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .section-fade {
-     opacity: 0 !important;
-     transform: translateY(10px) !important;
-}
-    .active-section-block.learn { border-left-color: #ffffff; }
-    .active-section-block.understand { border-left-color: #4a90e2; }
-    .active-section-block.practice { border-left-color: #e3202a; }
-    
-    .section-title { font-size: 13px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .section-text { font-size: 14px; color: #ffffff; line-height: 1.7; flex-grow: 1; }
+  .step-block{
+    background:var(--secondary); border-left:3px solid var(--primary); border-radius:0 8px 8px 0;
+    padding:18px 20px; flex-grow:1; margin-bottom:16px; transition:opacity .15s, transform .15s;
+  }
+  .step-block.fade{ opacity:0; transform:translateY(6px); }
+  .step-block-title{ font-size:13px; font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.04em; color:#fff; }
+  .step-block-text{ font-size:13.5px; line-height:1.7; color:rgba(255,255,255,0.85); white-space:pre-line; }
+  .step-block-text code, .step-block-text b{ color:var(--neutral); font-family:var(--font-code); font-size:12.5px; background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:4px; }
 
-    /* Navigation flow buttons inside the instruction panel */
-    .section-nav-bar {
-      display: flex; justify-content: space-between; gap: 12px;
-    }
-    .cw-btn-secondary {
-      border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); color: #fff; padding: 12px 24px;
-      border-radius: 4px; font-size: 12px; cursor: pointer; font-family: 'Roboto Mono', monospace; font-weight: 700;
-    }
-    .cw-btn-action {
-      border: none; background: #4a90e2; color: #fff; padding: 12px 28px; border-radius: 4px;
-      font-size: 12px; cursor: pointer; font-family: 'Roboto Mono', monospace; font-weight: 700;
-    }
-    .cw-btn-action.practice-btn { background: #e3202a; }
+  .jargon-box{ border:1px dashed var(--accent); border-radius:8px; padding:14px 16px; margin-bottom:18px; }
+  .jargon-box-label{ font-size:10px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+  .jargon-term{ font-size:12px; }
+  .jargon-term + .jargon-term{ margin-top:8px; }
+  .jargon-term b{ color:var(--primary); font-family:var(--font-code); }
 
-    /* Right Panel: Integrated Workspace Window Layout */
-    .editor-panel {
-      width: 58%;
-      display: flex;
-      flex-direction: column;
-      background: #0d0d11;
-    }
-    .code-editor-header {
-      height: 42px; background: #1c1c24; display: flex; align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.15); padding: 0 16px;
-    }
-    .file-tab { font-size: 12px; color: #fff; font-weight: 700; background: #131317; padding: 11px 16px; border-radius: 4px 4px 0 0; }
-    .editor-body { flex-grow: 1; display: flex; background: #131317; position: relative; }
-    .line-numbers {
-      width: 45px; background: #1c1c24; padding: 16px 0; text-align: center;
-      font-size: 13px; color: rgba(255,255,255,0.3); user-select: none; line-height: 1.5;
-      border-right: 1px solid rgba(255,255,255,0.05);
-    }
-    .code-textarea {
-      flex-grow: 1; background: transparent; border: none; resize: none; outline: none;
-      color: #f8f8f2; font-family: 'Roboto Mono', monospace; font-size: 14px;
-      padding: 15px; line-height: 1.5; white-space: pre; tab-size: 4;
-    }
+  .step-nav{ display:flex; justify-content:space-between; gap:10px; margin-top:auto; }
+  .btn-step{
+    border:1px solid var(--accent); background:transparent; color:#fff; padding:11px 20px;
+    border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-step:hover:not(:disabled){ border-color:var(--primary); color:var(--primary); background: rgba(232,84,10,0.02); }
+  .btn-step:active:not(:disabled){ transform: scale(0.95); }
+  .btn-step:disabled{ opacity:.3; cursor:default; }
+  
+  .btn-step-primary{
+    border:none; background:var(--primary); color:#fff; padding:11px 22px; border-radius:6px;
+    font-size:12px; font-weight:700; cursor:pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-step-primary:hover{ background:var(--primary-dim); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,84,10,0.2); }
+  .btn-step-primary:active{ transform: scale(0.95) translateY(0); }
 
-    /* Strict Terminal Simulator Console Panel */
-    .console-panel { height: 35%; background: #09090d; border-top: 1px solid rgba(255,255,255,0.15); display: flex; flex-direction: column; }
-    .console-header {
-      background: #1c1c24; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center;
-    }
-    .console-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; }
-    .cw-btn-run {
-    border: 1px solid #ff5c5c;
-    background: #e3202a;
-    color: #ffffff;
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-size: 11px;
-    cursor: pointer;
-    font-family: 'Roboto Mono', monospace;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 0 12px rgba(227, 32, 42, 0.35);
-    }
-
-    .cw-btn-run:hover {
-    background: #ff2330;
-    box-shadow: 0 0 20px rgba(227, 32, 42, 0.65);
-    transform: translateY(-1px);
-    }
-
-    .cw-btn-run:active {
-    transform: translateY(1px);
-    box-shadow: 0 0 8px rgba(227, 32, 42, 0.4);
-    }
-    .console-output { flex-grow: 1; padding: 14px 16px; font-size: 13px; color: #50fa7b; overflow-y: auto; white-space: pre-wrap; line-height: 1.5; font-family: 'Roboto Mono', monospace; }
-    .console-output.error { color: #ff5555; font-weight: 700; }
-
-    .cw-glow-ambient {
-      position: absolute; width: 450px; height: 450px;
-      background: radial-gradient(ellipse at center, rgba(227,32,42,0.1) 0%, transparent 70%);
-      bottom: -10%; left: -5%; pointer-events: none;
-    }
-  </style>
+  /* Editor panel structural expansion behavior */
+  .editor-panel{ flex-grow:1; display:flex; flex-direction:column; background:var(--bg); min-width:0; }
+  .editor-header{
+    height:48px; background:var(--secondary); display:flex; align-items:center; padding:0 18px;
+    border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;
+  }
+  .file-tab{ font-family:var(--font-code); font-size:12px; font-weight:600; color:#fff; background:rgba(255,255,255,0.06); padding:7px 14px; border-radius:5px; }
+  .editor-body{ flex-grow:1; display:flex; min-height:0; }
+  .line-numbers{
+    width:42px; background:var(--secondary); padding:16px 0; text-align:center; font-family:var(--font-code);
+    font-size:13px; color:rgba(255,255,255,0.25); user-select:none; line-height:1.55; border-right:1px solid rgba(255,255,255,0.06);
+    overflow:hidden;
+  }
+  .code-textarea{
+    flex-grow:1; background:transparent; border:none; resize:none; outline:none; color:#fff;
+    font-family:var(--font-code); font-size:13.5px; padding:16px; line-height:1.55; white-space:pre; tab-size:4;
+  }
+  .console-panel{ height:34%; min-height:160px; background:var(--secondary); border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; flex-shrink:0; }
+  .console-header{ padding:10px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); }
+  .console-title{ font-size:10px; font-weight:700; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.06em; font-family:var(--font-code); }
+  
+  .btn-run{
+    border:none; background:var(--primary); color:#fff; padding:9px 20px; border-radius:6px; font-size:11px;
+    cursor:pointer; font-weight:700; text-transform:uppercase; letter-spacing:.05em; display:flex; align-items:center;
+    gap:7px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-run:hover{ background:var(--primary-dim); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,84,10,0.2); }
+  .btn-run:active{ transform: scale(0.95) translateY(0); }
+  .console-output{
+    flex-grow:1; padding:14px 16px; font-size:12.5px; color:rgba(255,255,255,0.85); overflow-y:auto;
+    white-space:pre-wrap; line-height:1.6; font-family:var(--font-code);
+  }
+  .console-output.is-error{ color:var(--primary); }
+  .console-output.is-success{ color:#fff; }
+</style>
 </head>
 <body>
 
-  <svg class="cw-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
-      <feColorMatrix type="saturate" values="0"/>
-      <feBlend in="SourceGraphic" mode="normal"/>
-    </filter>
-    <rect width="100%" height="100%" filter="url(#grain)"/>
-  </svg>
-
-  <nav class="cw-nav">
-    <div class="cw-nav-left">
-      <div class="cw-logo" onclick="navigateToHome()">
-        <div class="cw-logo-icon">⚔</div>
-        FTC Team 28874
-      </div>
-      <div class="cw-nav-links">
-        <a id="nav-home-link" class="active" onclick="navigateToHome()">Home</a>
-        <a id="nav-academy-link" onclick="navigateToAcademy()">Interactive Academy</a>
-      </div>
+<nav class="nav">
+  <div class="nav-left">
+    <div class="logo" onclick="goHome()">
+      <div class="logo-mark">⚙</div>
+      FTC 28874 — Software Academy
     </div>
-    <div class="cw-nav-right" id="nav-auth-buttons">
-        <button class="cw-btn-outline" onclick="toggleHackerMode()" style="border-color: #00ff33; color: #00ff33;">
-        🥷 Hacker Mode
-        </button>
-      <button class="cw-btn-outline" onclick="navigateToAcademy()">Log In</button>
-      <button class="cw-btn-primary" onclick="navigateToAcademy()">Join</button>
+    <div class="nav-links">
+      <a id="nav-home" class="active" onclick="goHome()">Home</a>
+      <a id="nav-academy" onclick="goAcademy()">Curriculum</a>
     </div>
-  </nav>
+  </div>
+  <div class="nav-right">
+    <button class="btn-ghost" id="guideToggle" onclick="toggleGuideMode()">Visual Guide: Off</button>
+    <button class="btn-primary" onclick="goAcademy()">Start Learning</button>
+  </div>
+</nav>
 
-  <div id="homepage-view">
-    <div class="cw-hero">
-      <div class="cw-glow"></div>
-      
-      <div id="java-floating-icons"></div>
+<div id="homepage-view">
+  <div class="hero">
+    <div class="hero-eyebrow">FTC Software Engineering Curriculum</div>
+    <h1>Learn to program your <span>FTC robot</span>,<br>one phase at a time.</h1>
+    <p>A complete, self-paced path from your very first line of Java to PID loops, computer vision, and full autonomous pathing — built for Team 28874.</p>
+    <div class="hero-ctas">
+      <button class="btn-cta" onclick="goAcademy()">
+        <svg width="11" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5V19L19 12L8 5Z"/></svg>
+        Start Learning
+      </button>
+      <button class="btn-cta-outline" onclick="goAcademy()">View Curriculum</button>
+    </div>
 
-    <div class="cw-hero-content">
-  <h1><span>FTC Java,</span><br>broken down.</h1>
-  <p>Skip the basic single-threaded loops and generic sleep statements. Master the exact control theory and sensor fusion frameworks used by top-tier teams.</p>
-  <button class="cw-get-started" onclick="navigateToAcademy()">
-    <svg width="10" height="12" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block;">
-      <path d="M8 5V19L19 12L8 5Z"/>
-    </svg>
-    Get Started
-  </button>
+    <div class="roadmap" id="roadmap" onclick="goAcademy()"></div>
+
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">6</div><div class="hero-stat-label">Phases</div></div>
+      <div><div class="hero-stat-num">11</div><div class="hero-stat-label">Lessons</div></div>
+      <div><div class="hero-stat-num">22</div><div class="hero-stat-label">Sublessons</div></div>
+      <div><div class="hero-stat-num">0%</div><div class="hero-stat-label" id="homeProgressLabel">Complete</div></div>
+    </div>
+  </div>
 </div>
-    </div>
-  </div>
 
-  <div id="workspace-view">
-    <div class="workspace-container">
-      <div class="cw-glow-ambient"></div>
-      
-      <div class="lesson-panel">
-        <div class="lesson-selector-bar">
-          <select class="lesson-dropdown" id="lessonSelect" onchange="switchLesson(this.value)">
-            <option value="0">Lesson 1.1: The Hardware-Software Bridge</option>
-            <option value="1">Lesson 1.2: Structure of a LinearOpMode</option>
-            <option value="2">Lesson 2.1: Actuator Protection & Brake Modes</option>
-            <option value="3">Lesson 2.2: Telemetry & Live Feedback Updates</option>
-            <option value="4">Lesson 3.1: Mecanum Drive Kinematics & Normalization</option>
-            <option value="5">Lesson 3.2: Input Smoothing & Joystick Deadbands</option>
-            <option value="6">Lesson 4.1: Asynchronous Timing with ElapsedTime</option>
-            <option value="7">Lesson 4.2: Basic TeleOp State Machines</option>
-            <option value="8">Lesson 4.3: Switch-Case State Routing Logic</option>
-            <option value="9">Lesson 5.1: Distance Navigation with Motor Encoders</option>
-            <option value="10">Lesson 5.2: Turning Precision via Onboard IMU Gyro</option>
-            <option value="11">Lesson 6.1: The Logic of PID Feedback Loops</option>
-            <option value="12">Lesson 6.2: Tuning PID Loop Multipliers</option>
-            <option value="13">Lesson 7.1: Gravity Compensation (Feedforward)</option>
-            <option value="14">Lesson 8.1: Global Field Tracking with AprilTags</option>
-            <option value="15">Lesson 8.2: Target Tracking via Color Blob Locators</option>
-            <option value="16">Lesson 9.1: Hardware Odometry Computers</option>
-            <option value="17">Lesson 9.2: Sensor Fusion & Drift Correction</option>
-            <option value="18">Lesson 10.1: Building Road Runner Trajectories</option>
-            <option value="19">Lesson 10.2: Non-Blocking Actions & Paths</option>
-            <option value="20">Lesson 11.1: Pedro Pathfinder Vector Curves</option>
-            <option value="21">Lesson 11.2: Path Progress Location Triggers</option>
-          </select>
-        </div>
-        
-        <div class="lesson-content">
-          <div class="section-view-container">
-            <div>
-              <div class="phase-badge" id="phaseBadge">Phase Load...</div>
-              <h2 id="lessonTitle">Module Title Load...</h2>
-              
-              <div id="dynamicSectionBlock" class="active-section-block learn">
-                <div class="section-title" id="sectionTitleLabel">💡 Learn</div>
-                <div class="section-text" id="sectionTextContent">Loading curriculum framework metrics...</div>
-                <div id="hintBox" style="margin-top: 15px; padding: 12px; background: rgba(255, 204, 0, 0.1); border-radius: 4px; display: none; font-size: 13px; color: #ffcc00; border-left: 3px solid #ffcc00; line-height: 1.5; text-align: left;"></div>
-              </div>
-            </div>
+<div id="workspace-view">
+  <div class="workspace">
+    <button class="sidebar-toggle-floating" id="sidebarExpandBtn" onclick="toggleSidebar(false)" title="Expand Side Menu">▸</button>
 
-            <div class="section-nav-bar">
-              <button class="cw-btn-secondary" id="prevSectionBtn" onclick="moveSectionStep(-1)">Back</button>
-              <button class="cw-btn-secondary" id="hintBtn" onclick="triggerNextHint()" style="visibility: hidden; border-color: #ffcc00; color: #ffcc00;">💡 Hint (0/3)</button>
-              <button class="cw-btn-action" id="nextSectionBtn" onclick="moveSectionStep(1)">Proceed</button>
-            </div>
+    <aside class="sidebar">
+      <div class="sidebar-progress">
+        <div class="sidebar-progress-top">
+          <span id="sidebarProgressLabel">0 of 22 complete</span>
+          <div style="display: flex; align-items: center;">
+            <span id="sidebarProgressPct" style="margin-right: 4px;">0%</span>
+            <button class="btn-minimize" onclick="toggleSidebar(true)" title="Minimize Menu">◂</button>
           </div>
+        </div>
+        <div class="sidebar-progress-track"><div class="sidebar-progress-fill" id="sidebarProgressFill"></div></div>
+      </div>
+      <div class="sidebar-tree" id="sidebarTree"></div>
+    </aside>
+
+    <section class="lesson-panel">
+      <div class="lesson-scroll">
+        <div class="breadcrumb" id="breadcrumb"><b>Phase</b> · Lesson</div>
+        <div class="lesson-title" id="lessonTitle">Loading…</div>
+
+        <div class="diagram-box">
+          <div class="diagram-box-label">Diagram</div>
+          <pre id="diagramContent">Loading…</pre>
+        </div>
+
+        <div class="step-tabs" id="stepTabs"></div>
+
+        <div class="step-block" id="stepBlock">
+          <div class="step-block-title" id="stepTitle">Learn</div>
+          <div class="step-block-text" id="stepText">Loading…</div>
+        </div>
+
+        <div class="jargon-box">
+          <div class="jargon-box-label">Key terms</div>
+          <div id="jargonContent"></div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-step" id="backBtn" onclick="moveStep(-1)">Back</button>
+          <button class="btn-step-primary" id="nextBtn" onclick="moveStep(1)">Next: Understand</button>
         </div>
       </div>
+    </section>
 
-      <div class="editor-panel">
-        <div class="code-editor-header">
-          <div class="file-tab" id="fileTabName">RobotController.java</div>
-        </div>
-        
-        <div class="editor-body">
-          <div class="line-numbers" id="editorLineNumbers">
-            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
-          </div>
-          <textarea class="code-textarea" id="editor" spellcheck="false" oninput="updateLineNumbers()"></textarea>
-        </div>
-
-        <div class="console-panel">
-          <div class="console-header">
-            <div class="console-title">Strict Code Verification Engine Output</div>
-            <button class="cw-btn-run" onclick="executeStrictCompilerScan()">Run Code</button>
-          </div>
-          <div class="console-output" id="consoleOutput">
-            Console initialized. Awaiting source compilation parameters...
-          </div>
-        </div>
+    <section class="editor-panel">
+      <div class="editor-header"><div class="file-tab" id="fileTab">File.java</div></div>
+      <div class="editor-body">
+        <div class="line-numbers" id="lineNumbers"></div>
+        <textarea class="code-textarea" id="editor" spellcheck="false" oninput="updateLineNumbers()"></textarea>
       </div>
-    </div>
+      <div class="console-panel">
+        <div class="console-header">
+          <div class="console-title">Console</div>
+          <button class="btn-run" onclick="runCode()">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5V19L19 12L8 5Z"/></svg>
+            Run Code
+          </button>
+        </div>
+        <div class="console-output" id="consoleOutput">Click "Run Code" to check your work.</div>
+      </div>
+    </section>
+
   </div>
+</div>
 
-  <script>
-    // --- Background Dynamic Graphic Nodes Injection ---
-    function generateJavaLogoSvg(width, height) {
-      return `<svg width="${width}" height="${height}" viewBox="0 0 32 38" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10.5 24.5s-1.5.9.9 1.2c2.9.4 4.4.3 7.6-.3 0 0 .8.5 2 1-7.2 3.1-16.3-.2-10.5-1.9z" fill="#5382A1"/>
-        <path d="M9.6 21s-1.7 1.3 1 1.6c3.5.4 6.2.4 10.9-.5 0 0 .6.6 1.5.9-9.7 2.8-20.4.2-13.4-2z" fill="#5382A1"/>
-        <path d="M17.3 14.7c2 2.3-.5 4.3-.5 4.3s4.9-2.5 2.6-5.6c-2.1-3-3.7-4.5 5-9.7 0 0-13.7 3.4-7.1 11z" fill="#E76F00"/>
-        <path d="M26.5 27.5s1.1.9-1.2 1.6c-4.4 1.3-18.4 1.7-22.3.1-1.4-.6 1.2-1.4 2-1.6.8-.2 1.3-.1 1.3-.1-1.5-1-9.7 2.1-4.2 3 15.1 2.4 27.5-1.1 24.4-3z" fill="#5382A1"/>
-        <path d="M11.2 17.4s-6.8 1.6-2.4 2.2c1.8.3 5.5.2 8.9-.1 2.8-.2 5.6-.7 5.6-.7s-1 .4-1.7.9c-6.8 1.8-19.9.9-16.1-.9 3.2-1.5 5.7-1.4 5.7-1.4z" fill="#5382A1"/>
-        <path d="M23.1 22.8c6.9-3.6 3.7-7 1.5-6.5-.6.1-.8.3-.8.3s.2-.3.6-.5c4.5-1.6 8 4.7-1.4 7.1 0 0 .1-.1.1-.4z" fill="#5382A1"/>
-        <path d="M19.4 0s3.9 3.9-3.7 9.9c-6.1 4.8-1.4 7.5 0 10.6-3.5-3.2-6.1-6-4.4-8.6C13.7 8.2 21.1 6.3 19.4 0z" fill="#E76F00"/>
-        <path d="M12 33.2c6.6.4 16.8-.2 17-.3 0 0-.6.5-1.8.8-5.7 1.6-20.3 1.3-24.3-.2 0 0 1.2-1 3.1-1.3 1.1-.1 2-.1 2-.1l4 1.1z" fill="#5382A1"/>
-      </svg>`;
-    }
-
-const iconsConfig = [
-  { size: 55, top: '6%',  right: '28%', bg: false, anim: 'float1', dur: '4.8s' },
-  { size: 68, top: '14%', right: '18%', bg: true,  anim: 'float2', dur: '6.1s' },
-  { size: 55, top: '20%', right: '8%',  bg: false, anim: 'float4', dur: '5.4s' },
-  { size: 52, top: '8%',  left: '5%',   bg: false, anim: 'float2', dur: '7s'   },
-  { size: 55, top: '15%', left: '13%',  bg: false, anim: 'float5', dur: '5.8s' },
-  { size: 52, top: '40%', left: '3%',   bg: false, anim: 'float1', dur: '6.5s' },
-  { size: 70, top: '22%', left: '31%',  bg: true,  anim: 'float3', dur: '5.2s' }, 
-  { size: 75, top: '48%', left: '11%',  bg: true,  anim: 'float3', dur: '4.9s' },
-  { size: 55, top: '62%', left: '4%',   bg: false, anim: 'float2', dur: '7.2s' },
-  { size: 55, top: '38%', right: '24%', bg: false, anim: 'float4', dur: '5.1s' },
-  { size: 75, top: '46%', right: '8%',  bg: true,  anim: 'float5', dur: '6.3s' },
-  { size: 65, bottom: '14%', left: '22%', bg: false, anim: 'float1', dur: '5.6s' },
-  { size: 68, bottom: '10%', right: '16%', bg: true,  anim: 'float3', dur: '4.7s' }
+<script>
+/* ============================================================
+   CURRICULUM DATA
+   ============================================================ */
+const curriculum = [
+{
+  phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
+  lesson:"Lesson 1: Robot Architecture & Android Studio Setup",
+  title:"1.1 The Hardware-Software Bridge", file:"HardwareBridge.java",
+  diagram:" [ CODE VARIABLE ]   <-- must match -->   [ CONFIG NAME ]\n   \"liftMotor\"                              \"lift_motor\"\n        |                                        |\n        v                                        v\n  (used in your Java code)              (set in the Driver Station app)",
+  jargon:[
+    {term:"HARDWARE MAP", def:"Connects a variable in your code to a physical port on the Control Hub."},
+    {term:"CONFIGURATION FILE", def:"The setup you create in the Driver Station app that names each port."}
+  ],
+  learn:"The Control Hub runs Android, and your Java code can't talk to a motor or sensor directly — it has to look the part up by name. That lookup system is called the hardwareMap. When your team configures the robot in the Driver Station app, you give each part a name, like \"lift_motor\". Your code uses that same name to find the part.\n\nCODE TERM: hardwareMap.get() — looks up a hardware part by its configured name.",
+  understand:"The name in your code and the name in your configuration file have to match exactly, including capitalization. If they don't match, your code can't find the part — and the robot will crash the instant that line runs, with a NullPointerException.",
+  practice:"Declare a DcMotor variable named liftMotor, then assign it using hardwareMap.get(), looking up the configuration name \"lift_motor\".",
+  defaultCode:"package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\npublic class HardwareBridge extends LinearOpMode {\n    DcMotor liftMotor;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: map liftMotor to the configuration name \"lift_motor\"\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("hardwareMap.get")) return "You're missing the lookup. Call hardwareMap.get(DcMotor.class, ...) to find the part.";
+    if(!code.includes("liftMotor") || !code.includes('"lift_motor"')) return "Check your variable name and configuration string — it should be liftMotor mapped to \"lift_motor\".";
+    return true;
+  }
+},
+{
+  phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
+  lesson:"Lesson 1: Robot Architecture & Android Studio Setup",
+  title:"1.2 Structure of a LinearOpMode", file:"MyFirstOpMode.java",
+  diagram:"  [ Press INIT ]  -->  Runs your setup code\n                              |\n  [ Press PLAY ]  <-- Code pauses here at waitForStart();\n                              |\n                              v\n                       Runs your main loop, again and again",
+  jargon:[
+    {term:"OPMODE", def:"The program a driver selects on the Driver Station before a match."},
+    {term:"BLOCKING CALL", def:"A line of code that pauses your program until something happens."}
+  ],
+  learn:"An OpMode is the program you select on the Driver Station before a match starts. A LinearOpMode runs from top to bottom, one instruction at a time.\n\nCODE TERM: waitForStart() — pauses your program until the driver presses PLAY.",
+  understand:"A LinearOpMode has two parts, split by waitForStart(). Code before that line runs once, the moment you press INIT. Code after it runs in a loop, over and over, for the rest of the match, once you press PLAY.",
+  practice:"In the initialization phase, before waitForStart(), use telemetry.addData() to print \"Hello World!\" to the Driver Station screen.",
+  defaultCode:"@TeleOp(name=\"Basic OpMode Structure\")\npublic class MyFirstOpMode extends LinearOpMode {\n    @Override\n    public void runOpMode() throws InterruptedException {\n        // Challenge: print \"Hello World!\" to telemetry here\n        \n\n        waitForStart();\n\n        while (opModeIsActive()) {\n            // Main loop logic\n        }\n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("telemetry.addData")) return "You're missing a telemetry message. Use telemetry.addData(...) before waitForStart().";
+    if(!code.includes("Hello World!")) return "Check your text — it should read exactly \"Hello World!\".";
+    return true;
+  }
+},
+{
+  phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
+  lesson:"Lesson 2: Basic Actuation & Hardware Mapping",
+  title:"2.1 Initializing DC Motors & Servos", file:"ActuatorSetup.java",
+  diagram:" [ Motor Power = 0 ] --> Choose how it behaves:\n   |-- FLOAT --> Spins freely --> Arm falls!\n   `-- BRAKE --> Locks in place --> Arm holds steady",
+  jargon:[
+    {term:"ZERO POWER BEHAVIOR", def:"What a motor does when it receives no power — coast freely, or lock in place."},
+    {term:"BRAKE MODE", def:"Locks a motor in place using its internal magnets, so gravity can't move it."}
+  ],
+  learn:"To control a motor or servo, you declare it as a Java variable and connect it to hardwareMap using its configuration name.\n\nCODE TERM: setZeroPowerBehavior() — sets what a motor does at zero power.",
+  understand:"By default, a motor coasts freely when its power drops to zero. For a lift or arm, gravity will pull it down. Setting the motor's zero power behavior to BRAKE locks it in place instead, so it can't drift.",
+  practice:"Register a motor named \"lift_motor\" and a servo named \"claw_servo\" using hardwareMap. Then set the motor's zero power behavior to DcMotor.ZeroPowerBehavior.BRAKE.",
+  defaultCode:"package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\nimport com.qualcomm.robotcore.hardware.Servo;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\npublic class ActuatorSetup extends LinearOpMode {\n    DcMotor liftMotor;\n    Servo clawServo;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: map both parts, then set the motor's brake mode\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("hardwareMap.get")) return "You're missing the hardwareMap lookups for both parts.";
+    if(!code.includes('"lift_motor"') || !code.includes('"claw_servo"')) return "Double check your configuration names — \"lift_motor\" and \"claw_servo\".";
+    if(!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "You're missing the brake mode. Call setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE).";
+    return true;
+  }
+},
+{
+  phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
+  lesson:"Lesson 2: Basic Actuation & Hardware Mapping",
+  title:"2.2 Telemetry and Basic Feedback", file:"TelemetryFeedback.java",
+  diagram:" [ addData(\"Position\", pos) ] --> Saved, but not shown yet\n                                          |\n [ telemetry.update(); ]   <--- Sends everything to the screen\n                                          |\n                                          v\n                                Shows up on the Driver Station",
+  jargon:[
+    {term:"TELEMETRY", def:"Messages sent from your robot's code to the Driver Station screen."},
+    {term:"BUFFER", def:"A holding spot for telemetry messages before they're sent to the screen."}
+  ],
+  learn:"Telemetry is your main debugging tool. It sends text from the Control Hub back to the Driver Station screen in real time, while the robot is running.\n\nCODE TERM: telemetry.update() — sends all pending messages to the screen.",
+  understand:"Calling telemetry.addData() only stores a message in a buffer — it won't appear on screen until you call telemetry.update(). Forgetting that call is the most common reason telemetry looks frozen.",
+  practice:"Write a loop that reads a motor's current encoder position and continuously displays that value on the Driver Station screen using telemetry.",
+  defaultCode:"public void runLoop(DcMotor motor) {\n    // Challenge: display the motor's encoder position using telemetry\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("telemetry.addData")) return "You're missing telemetry.addData() to display the position.";
+    if(!code.includes("getCurrentPosition")) return "Read the motor's position with motor.getCurrentPosition().";
+    if(!code.includes("telemetry.update()")) return "Add telemetry.update(); so the value actually shows up on screen.";
+    return true;
+  }
+},
+{
+  phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
+  lesson:"Lesson 3: Drivetrain Dynamics & TeleOp Control",
+  title:"3.1 Mecanum Drive Kinematics", file:"MecanumDrive.java",
+  diagram:" Forward + Strafe + Turn = 1.3  (over the 1.0 limit!)\n   |-- Without normalizing --> Cut to 1.0 --> Direction is wrong\n   `-- With normalizing    --> Divide by 1.3 --> Direction stays correct",
+  jargon:[
+    {term:"KINEMATICS", def:"The math that turns joystick input into individual wheel power values."},
+    {term:"NORMALIZATION", def:"Scaling wheel power values down so none go above the motor's maximum."}
+  ],
+  learn:"Mecanum wheels have rollers set at 45-degree angles, which lets your robot strafe sideways without turning. Joystick input is measured on a scale from -1.0 to 1.0.\n\nFORMULA: denominator = max(|y| + |x| + |rx|, 1.0)",
+  understand:"Combining forward, strafing, and turning values can produce a number greater than 1.0 — but no motor can run faster than full power. If any wheel value goes over 1.0, divide every wheel value by that same amount. This keeps the wheels' power ratios, and your direction, correct.",
+  practice:"Complete the missing math in this TeleOp loop: declare the denominator using Math.max and Math.abs, then calculate all four wheel powers.",
+  defaultCode:"double y = -gamepad1.left_stick_y; // Inverted by default on controllers\ndouble x = gamepad1.left_stick_x * 1.1; // Multiplier counteracts sideways friction\ndouble rx = gamepad1.right_stick_x;\n\n// Challenge: calculate the denominator and all four wheel powers below\ndouble denominator = \ndouble frontLeftPower = \ndouble backLeftPower = \ndouble frontRightPower = \ndouble backRightPower = ",
+  validate:(code)=>{
+    if(!code.includes("Math.max") || !code.includes("Math.abs")) return "You're missing the normalization math — use Math.max(..., 1.0) with Math.abs().";
+    if(!code.includes("frontLeftPower") || !code.includes("backLeftPower") || !code.includes("frontRightPower") || !code.includes("backRightPower")) return "Make sure all four wheel power variables are calculated.";
+    return true;
+  }
+},
+{
+  phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
+  lesson:"Lesson 3: Drivetrain Dynamics & TeleOp Control",
+  title:"3.2 Input Smoothing & Deadbands", file:"InputFilters.java",
+  diagram:" Raw input: 0.03  (joystick isn't perfectly centered)\n   |-- Without a deadband --> Motor runs at 3% power --> Robot creeps\n   `-- With a deadband (0.05) --> Input below 0.05 becomes 0",
+  jargon:[
+    {term:"DEADBAND", def:"A small range around zero where joystick input is ignored."},
+    {term:"CURVE", def:"Reshaping input, for example by cubing it, to give finer control near the center."}
+  ],
+  learn:"Joystick springs wear out, so a stick rarely returns to exactly 0.0 when released. A deadband ignores tiny readings near zero, so your motors don't hum or drift when the driver lets go.",
+  understand:"Applying a curve, like cubing the filtered input (y = x cubed), gives you fine control near the center of the stick while still reaching full speed at the edges.",
+  practice:"Write a method that applies a 0.05 deadband to a joystick reading. If the reading clears the threshold, return it cubed; otherwise, return 0.",
+  defaultCode:"public double applyDeadband(double stickInput) {\n    // Challenge: filter values below 0.05, then return the cubed result\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("0.05")) return "You're missing the 0.05 threshold check.";
+    if(!code.includes("Math.pow") && !code.match(/stickInput\s*\*\s*stickInput\s*\*\s*stickInput/)) return "Cube the value using Math.pow(stickInput, 3) or by multiplying it by itself three times.";
+    return true;
+  }
+},
+{
+  phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
+  lesson:"Lesson 4: Subsystem Automation & State Transitions",
+  title:"4.1 Asynchronous Timing with ElapsedTime", file:"AsyncTiming.java",
+  diagram:" [ Main Loop Running ] --> Checks the clock\n                                 |\n  |-- sleep(2000) --> Freezes everything for 2 seconds\n  `-- ElapsedTime --> Loop keeps running, checks clock each pass",
+  jargon:[
+    {term:"BLOCKING CALL", def:"Code like sleep() that freezes your whole program, including driving controls."},
+    {term:"ELAPSEDTIME", def:"A class that tracks time passing without pausing your program."}
+  ],
+  learn:"Never use sleep() to time a mechanism action in TeleOp — it freezes your whole program, including the drivetrain, making the robot unresponsive to the driver.",
+  understand:"Instead, use ElapsedTime as a background stopwatch. Save a timestamp, then check the elapsed time on every loop pass, without ever pausing your code.",
+  practice:"Write a TeleOp loop where pressing gamepad1.x starts a motor, runs it for exactly 1.5 seconds without blocking, then turns it off automatically.",
+  defaultCode:"ElapsedTime timer = new ElapsedTime();\nboolean motorRunning = false;\n\npublic void loop(DcMotor motor) {\n    // Challenge: run the motor for 1.5 seconds without blocking\n    \n}",
+  validate:(code)=>{
+    if(code.includes("sleep(")) return "Remove the sleep() call — it would freeze your loop. Use timer.seconds() instead.";
+    if(!code.includes("timer.seconds()")) return "You're missing the timer check. Use timer.seconds() to track elapsed time.";
+    if(!code.includes("1.5")) return "Check your time limit — it should be 1.5 seconds.";
+    return true;
+  }
+},
+{
+  phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
+  lesson:"Lesson 4: Subsystem Automation & State Transitions",
+  title:"4.2 Basic TeleOp State Machines", file:"FsmBasics.java",
+  diagram:" public enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }\n                                 |                |                |\n                                 v                v                v\n                     [ Idle ]        [ Collecting ]      [ Ejecting ]\n                      (Only one state is active at a time)",
+  jargon:[
+    {term:"ENUM", def:"A custom list of named states a mechanism is allowed to be in."},
+    {term:"STATE MACHINE", def:"A structure where a mechanism can only be in one state at a time."}
+  ],
+  learn:"Complex mechanisms benefit from a state machine — a structure that tracks exactly what a mechanism is doing using named states, instead of a tangle of if-statements.\n\nCODE TERM: enum — defines a fixed list of named states.",
+  understand:"Define your states with an enum, then write clean control logic with a switch statement inside your main loop, one case per state.",
+  practice:"Create an enum named IntakeState with three values: INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED. Then write a switch statement that handles all three.",
+  defaultCode:"public class FsmBasics {\n    // Challenge: declare the IntakeState enum here\n    \n\n    public void updateState(IntakeState state) {\n        // Challenge: write a switch statement for all three states\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("enum IntakeState") || !code.includes("INTAKE_READY") || !code.includes("INTAKE_BURSTING") || !code.includes("INTAKE_REVERSED")) return "Your enum isn't complete. It should list INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED.";
+    if(!code.includes("switch") || !code.includes("case")) return "You're missing the switch statement to handle each state.";
+    return true;
+  }
+},
+{
+  phase:"Phase 3: Sensor Integration & Basic Autonomous", level:"Intermediate",
+  lesson:"Lesson 5: Feedback-Driven Autonomous Movement",
+  title:"5.1 Linear Navigation via Encoder Run-To-Position", file:"EncoderAuto.java",
+  diagram:" [ Target = 1000 ticks ] --> Motor turns --> Tick count increases\n                                                  |\n [ Target reached! ] <--- Motor stops automatically\n                                                  |\n                                                  v\n                           Robot travels the exact distance",
+  jargon:[
+    {term:"ENCODER TICK", def:"A pulse counted by a sensor as a motor shaft turns."},
+    {term:"TICKS PER INCH", def:"A conversion number used to turn inches into encoder ticks."}
+  ],
+  learn:"Drive motor encoders count rotational ticks, letting you program movements based on distance instead of time.\n\nFORMULA: ticks per inch = ticks per revolution / wheel circumference",
+  understand:"To drive a specific distance, calculate your ticks-per-inch value, multiply it by the target distance, then set the motors to DcMotor.RunMode.RUN_TO_POSITION.",
+  practice:"Write an autonomous program that sets four drivetrain motors to RUN_TO_POSITION, drives the chassis exactly 24 inches forward, then stops and resets the encoders.",
+  defaultCode:"public void driveForward(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {\n    // Challenge: set RUN_TO_POSITION mode and drive 24 inches forward\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("RUN_TO_POSITION")) return "You're missing the mode change. Use DcMotor.RunMode.RUN_TO_POSITION.";
+    return true;
+  }
+},
+{
+  phase:"Phase 3: Sensor Integration & Basic Autonomous", level:"Intermediate",
+  lesson:"Lesson 5: Feedback-Driven Autonomous Movement",
+  title:"5.2 Angular Navigation via the Universal IMU", file:"IMUHeading.java",
+  diagram:"      ^  [ 0 degrees = starting direction ]\n      |\n <----+---->  The IMU tracks rotation even if wheels slip\n      |\n      v  [ Robot turns 90 degrees left --> Yaw becomes +90.0 ]",
+  jargon:[
+    {term:"IMU (GYROSCOPE)", def:"A sensor that measures the robot's rotation directly, separate from the wheels."},
+    {term:"YAW", def:"The robot's left-right turning angle, read from the IMU."}
+  ],
+  learn:"Wheels can slip during fast turns, so encoders alone can't guarantee an accurate turn. The IMU, built into the Control Hub, measures the robot's actual rotation directly.\n\nCODE TERM: getRobotYawPitchRollAngles().getYaw() — reads the robot's current heading.",
+  understand:"Read the IMU's yaw value continuously during a turn, and stop rotating once it matches your target heading within a small tolerance, usually about plus-or-minus 1.0 degree.",
+  practice:"Write a turning routine that reads the current IMU heading and applies rotation power until the heading matches a target angle within +/-1.0 degree.",
+  defaultCode:"public void turnToHeading(IMU imu, double targetAngle) {\n    // Challenge: read the heading and rotate until within +/-1.0 degree\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("getRobotYawPitchRollAngles")) return "You're missing the heading read. Call imu.getRobotYawPitchRollAngles().";
+    if(!code.includes("getYaw")) return "Pull the yaw value off the result using .getYaw().";
+    return true;
+  }
+},
+{
+  phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
+  lesson:"Lesson 6: Precision System Control via PID Feedback Loops",
+  title:"6.1 The Math and Logic of PID Control", file:"PIDController.java",
+  diagram:" error = target - current\n   Kp * error            --> reacts to current distance from target\n + Ki * (sum of error)  --> corrects steady, lingering error\n + Kd * (rate of change) --> slows down the approach\n = motor power output",
+  jargon:[
+    {term:"PID CONTROL", def:"A method that scales motor power based on how far a mechanism is from its target."},
+    {term:"PROPORTIONAL / INTEGRAL / DERIVATIVE", def:"The three terms that make up a PID controller's output."}
+  ],
+  learn:"Simple on/off logic, like cutting power once a target is reached, causes overshoot and vibration. PID control scales motor power continuously, based on how close the mechanism is to its target.\n\nFORMULA: output = Kp*error + Ki*(sum of error) + Kd*(rate of change of error)",
+  understand:"Proportional (Kp) reacts to the current error. Integral (Ki) builds up over time to overcome friction or gravity. Derivative (Kd) slows the approach down, acting like a brake as the mechanism nears its target.",
+  practice:"Complete this PIDController class: calculate the error, update the integral sum, calculate the derivative, then return the combined output.",
+  defaultCode:"public class PIDController {\n    private double Kp, Ki, Kd;\n    private double integralSum = 0;\n    private double lastError = 0;\n    private ElapsedTime timer = new ElapsedTime();\n\n    public PIDController(double kp, double ki, double kd) {\n        this.Kp = kp; this.Ki = ki; this.Kd = kd;\n    }\n\n    public double calculate(double target, double current) {\n        // Challenge: calculate error, integralSum, and derivative, then return the PID output\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("target - current") && !code.includes("target-current")) return "Start by calculating the error: target - current.";
+    if(!code.includes("integralSum")) return "You're missing the integral term — accumulate error into integralSum.";
+    if(!code.includes("lastError")) return "You're missing the derivative term — compare against lastError.";
+    if(!code.includes("return")) return "Your method needs to return the combined Kp, Ki, and Kd output.";
+    return true;
+  }
+},
+{
+  phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
+  lesson:"Lesson 6: Precision System Control via PID Feedback Loops",
+  title:"6.2 Tuning a PID Loop on a Mechanical Subsystem", file:"PIDTuning.java",
+  diagram:" Step 1: Kp = Ki = Kd = 0\n Step 2: Raise Kp until it reaches target but oscillates\n Step 3: Raise Kd to settle the oscillation\n Step 4: Add a little Ki only if it can't fully reach the target",
+  jargon:[
+    {term:"TUNING", def:"Finding the right Kp, Ki, and Kd values for a specific mechanism."},
+    {term:"OSCILLATION", def:"Repeated overshooting back and forth around a target."}
+  ],
+  learn:"Tuning a PID loop means finding the right Kp, Ki, and Kd values for your specific mechanism's weight and design.",
+  understand:"Tune in this order: set all coefficients to zero. Raise Kp until the system reaches the target but starts to oscillate. Raise Kd to settle that oscillation. Only add a small amount of Ki if the mechanism can't fully reach the target on its own.",
+  practice:"Create a LinearOpMode that sets up your PIDController and uses it, inside an active loop, to hold an encoder-equipped arm steady at 500 ticks.",
+  defaultCode:"public class PIDTuning extends LinearOpMode {\n    PIDController pid = new PIDController(0.01, 0, 0.001);\n\n    @Override\n    public void runOpMode() {\n        waitForStart();\n        while (opModeIsActive()) {\n            // Challenge: hold the arm at 500 ticks using pid.calculate()\n            \n        }\n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("pid.calculate")) return "Call pid.calculate(target, current) inside your loop.";
+    if(!code.includes("500")) return "Your target position should be 500 ticks.";
+    return true;
+  }
+},
+{
+  phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
+  lesson:"Lesson 7: Advanced Modeling: Feedforward Controls",
+  title:"7.1 Gravity and Velocity Compensation", file:"Feedforward.java",
+  diagram:" Total Output = PID_output + (Kcos * cos(theta))\n                                  |\n                          theta = current arm angle",
+  jargon:[
+    {term:"FEEDFORWARD", def:"A control method that predicts the power needed, based on a mechanism's physical properties."},
+    {term:"KCOS", def:"The hold power needed to keep a pivoting arm level when horizontal."}
+  ],
+  learn:"PID reacts to past error, but feedforward predicts the power a mechanism needs ahead of time, based on physics like gravity.",
+  understand:"For a pivoting arm, the pull of gravity changes with its angle. Combine feedforward with PID: total output = PID output + (Kcos times the cosine of theta), where theta is the arm's current angle and Kcos is the power needed to hold it level.",
+  practice:"Write a method that computes the feedforward output for a pivoting arm, given its current angle in radians and a Kcos constant.",
+  defaultCode:"public double calculateFeedforward(double angleRadians, double Kcos) {\n    // Challenge: return the feedforward output using Math.cos()\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("Math.cos")) return "Use Math.cos(angleRadians) to factor in the arm's angle.";
+    return true;
+  }
+},
+{
+  phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
+  lesson:"Lesson 8: Native Vision & Target Acquisition via the FTC SDK",
+  title:"8.1 Global Field Positioning via AprilTagProcessor", file:"AprilTagVision.java",
+  diagram:" [ Camera Feed ] --> AprilTagProcessor --> Detected tag\n                                                 |\n                                                 v\n                detection.ftcPose.x / .y / .yaw",
+  jargon:[
+    {term:"APRILTAG", def:"A printed marker the camera recognizes to calculate your robot's position on the field."},
+    {term:"VISIONPORTAL", def:"The FTC SDK's system for managing camera input and processors."}
+  ],
+  learn:"The FTC SDK's AprilTagProcessor scans the camera feed for tags placed around the field, then calculates your robot's position relative to them.",
+  understand:"You set up the processor inside a VisionPortal. Each AprilTagDetection gives you ready-to-use position values: x (sideways), y (forward distance), and yaw (rotation relative to the tag).",
+  practice:"Set up a VisionPortal with an AprilTagProcessor, configured for a 640x480 camera resolution.",
+  defaultCode:"public void initVision() {\n    // Challenge: create an AprilTagProcessor and a VisionPortal at 640x480\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("AprilTagProcessor")) return "You're missing the AprilTagProcessor setup.";
+    if(!code.includes("640") || !code.includes("480")) return "Set the camera resolution to 640x480.";
+    return true;
+  }
+},
+{
+  phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
+  lesson:"Lesson 8: Native Vision & Target Acquisition via the FTC SDK",
+  title:"8.2 Element Tracking via ColorBlobLocatorProcessor", file:"ColorBlobVision.java",
+  diagram:" [ Camera Feed ] --> Filter by color (e.g. YELLOW)\n                                |\n                                v\n                  List of blobs, sorted by size",
+  jargon:[
+    {term:"COLOR BLOB", def:"A region of the camera image matching a target color range."},
+    {term:"CONTOUR", def:"The outline the SDK draws around a detected color blob."}
+  ],
+  learn:"The ColorBlobLocatorProcessor finds dynamically placed game pieces by filtering the camera image for a target color.",
+  understand:"Configure a color range, like ColorRange.YELLOW, and size limits to filter out background noise. The processor returns a sorted list of detected blobs.",
+  practice:"Write a method that loops through detected blobs, finds the largest one, and prints its center coordinates (X, Y) to telemetry.",
+  defaultCode:"public void findLargestBlob(java.util.List<Object> blobs) {\n    // Challenge: loop through blobs, find the largest, print its center to telemetry\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("for")) return "You'll need a loop to go through the list of blobs.";
+    if(!code.includes("telemetry.addData")) return "Print the largest blob's center coordinates using telemetry.addData().";
+    return true;
+  }
+},
+{
+  phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
+  lesson:"Lesson 9: High-Frequency Localization & Sensor Fusion",
+  title:"9.1 Mechanical Odometry vs. Onboard I2C Localizers", file:"Odometry.java",
+  diagram:" [ Dead Wheels / Pinpoint / OTOS ] --> Tracks X, Y, heading\n                                            |\n                                            v\n                          Your code reads these over I2C",
+  jargon:[
+    {term:"DEAD WHEEL", def:"An unpowered, free-spinning wheel used only for tracking position."},
+    {term:"I2C LOCALIZER", def:"A dedicated hardware module that calculates position independently of your code."}
+  ],
+  learn:"High-performance autonomous code often uses dead wheels or dedicated hardware, like the goBILDA Pinpoint or SparkFun OTOS, to track the robot's position.",
+  understand:"These modules calculate position on their own, at very high speed, independent of your main program. Your code simply reads the final X, Y, and heading values over I2C.",
+  practice:"Write a safety check that monitors the localizer's coordinates. If position jumps more than 12 inches in a single frame, log a telemetry warning.",
+  defaultCode:"public void checkForCollision(double newX, double newY, double lastX, double lastY) {\n    // Challenge: warn via telemetry if the jump is more than 12 inches\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("12")) return "Check against a 12 inch threshold.";
+    if(!code.includes("telemetry.addData")) return "Log the warning using telemetry.addData().";
+    return true;
+  }
+},
+{
+  phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
+  lesson:"Lesson 9: High-Frequency Localization & Sensor Fusion",
+  title:"9.2 Sensor Fusion and Drift Compensation", file:"SensorFusion.java",
+  diagram:" Odometry --> continuous tracking, but drifts slowly\n AprilTag  --> occasional, but exact\n     |\n     v\n When a tag is seen, overwrite drifted position with the camera's reading",
+  jargon:[
+    {term:"DRIFT", def:"Small tracking errors that build up over time in a mechanical localizer."},
+    {term:"SENSOR FUSION", def:"Combining two sensors' data to get a more accurate result."}
+  ],
+  learn:"Mechanical tracking builds up small errors over time. Sensor fusion combines that continuous tracking with occasional, exact AprilTag detections to stay accurate.",
+  understand:"Keep using your localizer for ongoing updates. Whenever an AprilTag is clearly detected, treat its position as ground truth and overwrite your localizer's drifted estimate.",
+  practice:"Write a function that checks if an AprilTag is visible and, if its confidence is high, updates your robot's position with the camera's reading.",
+  defaultCode:"public void fusePosition(boolean tagVisible, double confidence, double tagX, double tagY) {\n    // Challenge: update position from the tag if it's visible and confidence is high\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("if")) return "You'll need a condition checking tagVisible and confidence.";
+    if(!code.includes("tagVisible")) return "Check the tagVisible flag before trusting the tag's position.";
+    return true;
+  }
+},
+{
+  phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
+  lesson:"Lesson 10: Road Runner Trajectory Generation & Motion Profiling",
+  title:"10.1 Building Coordinated Trajectories", file:"RoadRunnerAuto.java",
+  diagram:" Pose2d(0,0,0) --> splineToLinearHeading --> Pose2d(36,36,90deg) --> lineToX(60)",
+  jargon:[
+    {term:"MOTION PROFILE", def:"A planned curve of acceleration and speed that prevents wheel slip."},
+    {term:"SPLINE", def:"A smooth mathematical curve connecting two points and headings."}
+  ],
+  learn:"Road Runner is a motion profiling library that calculates smooth acceleration curves so your robot doesn't slip its wheels during fast moves.",
+  understand:"Road Runner paths use field coordinates (X, Y, heading) and build smooth splines between them, letting your robot change heading while still driving.",
+  practice:"Study and complete this Road Runner autonomous script: build a path that splines to (36, 36, 90 degrees) and then drives to X=60.",
+  defaultCode:"public class RoadRunnerAuto extends LinearOpMode {\n    @Override\n    public void runOpMode() {\n        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));\n\n        // Challenge: build a path that splines to (36, 36, 90deg) then drives to X=60\n        Action autonomousTrajectory = drive.actionBuilder(new Pose2d(0, 0, 0))\n            \n            .build();\n\n        waitForStart();\n        if (isStopRequested()) return;\n\n        Actions.runBlocking(autonomousTrajectory);\n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("splineToLinearHeading")) return "You're missing the spline. Use splineToLinearHeading(...) to reach (36, 36, 90deg).";
+    if(!code.includes("lineToX")) return "You're missing the final straight line. Use lineToX(60) to finish the path.";
+    return true;
+  }
+},
+{
+  phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
+  lesson:"Lesson 10: Road Runner Trajectory Generation & Motion Profiling",
+  title:"10.2 Asynchronous Execution & Non-Blocking Actions", file:"CustomAction.java",
+  diagram:" Action.run() called every loop pass\n   |-- return true  --> still running\n   `-- return false --> finished",
+  jargon:[
+    {term:"ACTION", def:"A custom class that runs alongside a Road Runner path, instead of pausing it."},
+    {term:"NON-BLOCKING", def:"Code that keeps running rather than pausing to wait."}
+  ],
+  learn:"To run mechanisms while driving, Road Runner uses Action classes instead of sleep(). Each action gets checked on every loop pass.",
+  understand:"An Action's run() method returns true while it's still working, and false once it's done. That's what lets it run alongside a path without blocking it.",
+  practice:"Create an Action class that turns on an intake motor for a set duration using an internal timer, without blocking the drivetrain.",
+  defaultCode:"public class IntakeAction implements Action {\n    private final DcMotor motor;\n    private final double durationSeconds;\n    private ElapsedTime timer;\n\n    public IntakeAction(DcMotor motor, double durationSeconds) {\n        this.motor = motor;\n        this.durationSeconds = durationSeconds;\n    }\n\n    @Override\n    public boolean run(Object packet) {\n        // Challenge: start the timer on first run, then return true while running, false when done\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("timer")) return "Use the timer field to track how long the motor has been running.";
+    if(!code.includes("return true") || !code.includes("return false")) return "Your run() method should return true while running, and false once finished.";
+    return true;
+  }
+},
+{
+  phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
+  lesson:"Lesson 11: Pedro Pathfinder Reactive Vector Navigation",
+  title:"11.1 Parametric Bezier Curves", file:"PedroPath.java",
+  diagram:" Start --> Control Point --> Control Point --> End\n     (Pedro Pathfinder recalculates this curve as it drives)",
+  jargon:[
+    {term:"BEZIER CURVE", def:"A smooth curve shaped by control points."},
+    {term:"LOOK-AHEAD", def:"Continuously recalculating the path while moving, instead of planning it all upfront."}
+  ],
+  learn:"Unlike Road Runner, which plans an entire path in advance, Pedro Pathfinder recalculates its path continuously using Bezier curves, letting it adjust on the fly.",
+  understand:"Control points pull the path into smooth curves. Pedro Pathfinder uses a 144x144-inch field coordinate system to compute steering vectors in real time.",
+  practice:"Write a Pedro Pathfinder configuration: define a startPose, two control points (controlPoint1, controlPoint2) to create an S-curve around an obstacle, and an endPose.",
+  defaultCode:"public void buildPath() {\n    // Challenge: define startPose, controlPoint1, controlPoint2, and endPose\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("startPose")) return "You're missing the startPose.";
+    if(!code.includes("controlPoint1") || !code.includes("controlPoint2")) return "Add both controlPoint1 and controlPoint2 to shape the S-curve.";
+    if(!code.includes("endPose")) return "You're missing the endPose.";
+    return true;
+  }
+},
+{
+  phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
+  lesson:"Lesson 11: Pedro Pathfinder Reactive Vector Navigation",
+  title:"11.2 Path Progressions & Non-Blocking Triggers", file:"PathTriggers.java",
+  diagram:" Progress: 0.0 ---------------------> 1.0\n                              ^\n                        Trigger fires at 0.75",
+  jargon:[
+    {term:"PATH PROGRESS", def:"A value from 0.0 (start) to 1.0 (complete) showing how far along a path the robot is."},
+    {term:"TRIGGER", def:"Code that runs automatically once a condition, like path progress, is met."}
+  ],
+  learn:"Because Pedro Pathfinder constantly recalculates its position along a path, you can trigger actions based on how far the robot has traveled.",
+  understand:"The path follower reports continuous progress, from 0.0 to 1.0. Watching this value lets you trigger a mechanism exactly when the robot reaches a certain point in its path.",
+  practice:"Write a non-blocking loop that updates your Pedro Pathfinder follower and deploys a scoring servo once the robot reaches 75% of its path.",
+  defaultCode:"public void autoLoop(Object follower, Servo scoringServo) {\n    // Challenge: deploy scoringServo once path progress reaches 0.75\n    \n}",
+  validate:(code)=>{
+    if(!code.includes("0.75")) return "Check progress against 0.75 (75%).";
+    if(!code.includes("scoringServo")) return "Use scoringServo to deploy the mechanism.";
+    return true;
+  }
+}
 ];
 
-const assetTypes = ['java', 'first_logo', 'team_logo'];
-let distributedPool = [];
+/* ============================================================
+   STATE
+   ============================================================ */
+let activeIdx = 0;
+const steps = ["learn","understand","practice"];
+const stepLabels = {learn:"Learn", understand:"Understand", practice:"Practice"};
+let stepIdx = 0;
+let completed = new Set(JSON.parse(localStorage.getItem("ftc28874_completed") || "[]"));
 
-for (let i = 0; i < iconsConfig.length; i++) {
-  distributedPool.push(assetTypes[i % assetTypes.length]);
+function saveCompleted(){
+  localStorage.setItem("ftc28874_completed", JSON.stringify([...completed]));
 }
 
-distributedPool.sort(() => Math.random() - 0.5);
+/* ============================================================
+   NAVIGATION (Home <-> Academy)
+   ============================================================ */
+function goAcademy(){
+  document.getElementById("homepage-view").style.display = "none";
+  document.getElementById("workspace-view").style.display = "block";
+  document.getElementById("nav-home").classList.remove("active");
+  document.getElementById("nav-academy").classList.add("active");
+}
+function goHome(){
+  document.getElementById("homepage-view").style.display = "block";
+  document.getElementById("workspace-view").style.display = "none";
+  document.getElementById("nav-academy").classList.remove("active");
+  document.getElementById("nav-home").classList.add("active");
+  renderRoadmap();
+}
 
-const iconsTarget = document.getElementById('java-floating-icons');
-iconsTarget.innerHTML = ''; 
-
-iconsConfig.forEach((ic, idx) => {
-  const parent = document.createElement('div');
-  parent.className = 'cw-icon-float';
-  parent.style.cssText = `width:${ic.size}px;height:${ic.size}px;` +
-    (ic.top ? `top:${ic.top};` : '') + 
-    (ic.bottom ? `bottom:${ic.bottom};` : '') + 
-    (ic.right ? `right:${ic.right};` : '') + 
-    (ic.left ? `left:${ic.left};` : '') +
-    (ic.bg ? 'background:rgba(255,255,255,0.12);' : 'background:rgba(255,255,255,0.05);') +
-    `animation:${ic.anim} ${ic.dur} ease-in-out infinite ${Math.random() * 2}s;`;
-
-  const chosenAsset = distributedPool[idx];
-  
-  if (chosenAsset === 'java') {
-    const sizeCalc = Math.round(ic.size * 0.52);
-    parent.innerHTML = generateJavaLogoSvg(sizeCalc, Math.round(sizeCalc * 1.2));
-  } else if (chosenAsset === 'first_logo') {
-    parent.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/FIRST_Tech_challenge_logo.png/250px-FIRST_Tech_challenge_logo.png" style="width:65%; height:65%; object-fit:contain;">`;
-  } else if (chosenAsset === 'team_logo') {
-    parent.innerHTML = `<img src="https://i.postimg.cc/fWXK25R2/thermodynamics-logo.png" style="width:85%; height:85%; object-fit:contain; border-radius:50%;">`;
-  }
-
-  iconsTarget.appendChild(parent);
-});
-
-    function navigateToAcademy() {
-      document.getElementById("homepage-view").style.display = "none";
-      document.getElementById("workspace-view").style.display = "block";
-      document.getElementById("nav-home-link").classList.remove("active");
-      document.getElementById("nav-academy-link").classList.add("active");
-      document.getElementById("nav-auth-buttons").style.display = "none";
-    }
-
-    function navigateToHome() {
-      document.getElementById("homepage-view").style.display = "block";
-      document.getElementById("workspace-view").style.display = "none";
-      document.getElementById("nav-academy-link").classList.remove("active");
-      document.getElementById("nav-home-link").classList.add("active");
-      document.getElementById("nav-auth-buttons").style.display = "flex";
-    }
-
-    function updateLineNumbers() {
-      const textarea = document.getElementById("editor");
-      const block = document.getElementById("editorLineNumbers");
-      const linesCount = textarea.value.split("\n").length;
-      let htmlString = "";
-      for (let i = 1; i <= Math.max(linesCount, 20); i++) {
-        htmlString += i + "<br>";
-      }
-      block.innerHTML = htmlString;
-    }
-
-const academyLessons = [
-  {
-    phase: "Phase 1: Robot Architecture & Basic Setup (Absolute Beginner)",
-    title: "Lesson 1.1: The Hardware-Software Bridge",
-    file: "HardwareBridge.java",
-    learn: "The REV Control Hub acts as your robot's central brain. Your Java code cannot talk directly to electronic ports or motors on its own. Instead, it relies on a translation directory layer called the hardwareMap. When you configure your robot using the Driver Station phone app, you assign simple string nicknames (like 'intake_motor') to specific ports on the physical hub. Your Java code then uses these exact nickname strings to locate and command those specific devices.",
-    understand: "Spelling and letter casing count perfectly in robotics software. If your driver station configuration profile reads 'intake_motor' but your Java code searches for 'IntakeMotor', the system will get confused and fail to find the device. Because the code cannot connect to the physical port, your motor variable is left pointing to absolutely nothing (null). The second you initialize your program on the field, the robot will crash instantly with a fatal 'NullPointerException', rendering your system completely dead.",
-    practice: "Navigate directly to the runOpMode execution block. Write a precise initialization assignment statement that securely hooks up your declared 'DcMotor' reference variable named 'intakeMotor' to its corresponding physical electronic port on the hub. You must use the SDK's native 'hardwareMap.get()' lookup method, passing the motor's class architecture and matching it perfectly with the target hardware configuration string identifier defined as 'intake_motor'. Ensure you preserve trailing semicolons and close the statement line cleanly.",
-    defaultCode: `package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-public class HardwareBridge extends LinearOpMode {
-    DcMotor intakeMotor;
-
-    @Override
-    public void runOpMode() {
-        // Challenge: Establish a mapping link for your variable here
-        
-    }
-}`,
-    validate: (code) => {
-      if (!code.includes("hardwareMap.get")) return "Compilation Error: Missing hardware mapping allocation call.\nEnsure you invoke 'hardwareMap.get(DcMotor.class, ...)'";
-      if (!code.includes("intakeMotor") || !code.includes('"intake_motor"')) return "Reference Error: Unmapped identifier token exceptions.\nCheck variable name declarations and ensure string configuration fields read exactly 'intake_motor'.";
-      return true;
-    },
-    hints: [
-      "Look at line 6: your motor variable is already named exactly intakeMotor.",
-      "You need to connect intakeMotor to the hardware configuration string nickname 'intake_motor'.",
-      "Write this exact line inside runOpMode: intakeMotor = hardwareMap.get(DcMotor.class, \"intake_motor\");"
-    ]
-  },
-  {
-    phase: "Phase 1: Robot Architecture & Basic Setup (Absolute Beginner)",
-    title: "Lesson 1.2: Structure of a LinearOpMode",
-    file: "LinearStructure.java",
-    learn: "An 'OpMode' (short for Operational Mode) is simply the specific program that a human operator selects from the controller screen before a match begins. In FTC, a 'LinearOpMode' is a structural design where your code executes sequentially, line-by-line from top to bottom, like a baking recipe. It does step one, then step two, and then step three. This straightforward, predictable flow makes it incredibly popular and effective for programming simple, straight-line autonomous routines.",
-    understand: "The lifetime of a LinearOpMode is split into two operating zones separated by a strict waiting wall called 'waitForStart()'. The setup commands you place before this line run the exact moment a user presses the 'INIT' button on the controller. Once the execution path hits the 'waitForStart()' command, the entire program freezes and pauses on that line. It will sit there waiting indefinitely until a drive team member hits the actual 'Play' button on the screen, which sends a network packet to unlock the code and let it continue.",
-    practice: "Access the initialization zone situated right before the software execution flow hits the thread safety locking mechanism. Create a baseline initialization data stream using the standard SDK syntax. You must append a telemetry broadcast mapping statement stating 'System Ready' inside the program block so that drivers can verify the software setup parameters are stabilized on screen before the program locks inside the waitForStart() wait process.",
-    defaultCode: `package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-@Autonomous(name="Linear Structure Test")
-public class LinearStructure extends LinearOpMode {
-    @Override
-    public void runOpMode() throws InterruptedException {
-        // Challenge: Append initialization telemetry data statements here
-        
-        waitForStart();
-        while (opModeIsActive()) {
-            telemetry.addData("Status", "Running");
-            telemetry.update();
-        }
-    }
-}`,
-    validate: (code) => {
-      if (!code.includes("telemetry.addData") || !code.includes("System Ready")) return "Linker Error: Telemetry signature mapping mismatched.\nEnsure you write 'telemetry.addData(\"Status\", \"System Ready\")' cleanly.";
-      return true;
-    },
-    hints: [
-      "You need to write your tracking message before the code reaches the line containing waitForStart();",
-      "We use telemetry.addData(label, value) to create text notifications on the driver's phone.",
-      "Write exactly: telemetry.addData(\"Status\", \"System Ready\"); right under the challenge comment."
-    ]
-  },
-  {
-    phase: "Phase 2: Controlling Actuators Safely (Beginner)",
-    title: "Lesson 2.1: Actuator Protection & Brake Modes",
-    file: "ActuatorSetup.java",
-    learn: "Now that your robot can connect to devices and handle basic initialization paths, we must protect the physical hardware components from drifting or sagging out of alignment. Actuators, which include high-torque DC motors and precision position-controlled servo units, require explicit safety settings. These settings define how the motor controller behaves behind the scenes when the software stops sending active power signals to a mechanism.",
-    understand: "When a driver releases a joystick, the controller stops feeding voltage to your motors. By default, the motor controller will let the wheels or mechanisms spin freely to a loose, coasting stop. For vertical mechanisms like lift kits or arms, this causes them to crash down immediately due to gravity. Setting the motor behavior to Brake mode tells the controller to electronically lock the internal components together when power drops to zero. This creates automatic magnetic resistance, holding your mechanism perfectly steady.",
-    practice: "Review the setup configuration wrapper method provided in the code editor workspace. Write an initialization parameter block that configures the operational properties of a single motor reference target named 'liftMotor'. You must write an instruction that explicitly sets the motor's zero power behavior property to utilize the native Brake architecture configuration by passing the parameter flag token 'DcMotor.ZeroPowerBehavior.BRAKE'.",
-    defaultCode: `package com.qualcomm.robotcore.hardware;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-public class ActuatorSetup {
-    public void setupMotor(DcMotor liftMotor) {
-        // Challenge: Configure brake mode behavior parameters here
-        
-    }
-}`,
-    validate: (code) => {
-      if (!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "Compilation Error: Brake behavior parameters unresolved.\nEnsure you execute liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE).";
-      return true;
-    },
-    hints: [
-      "You have an incoming method variable object named liftMotor.",
-      "Call the built-in function named .setZeroPowerBehavior() directly on your liftMotor variable.",
-      "Pass the config token DcMotor.ZeroPowerBehavior.BRAKE inside the parentheses. Code: liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);"
-    ]
-  },
-  {
-    phase: "Phase 2: Controlling Actuators Safely (Beginner)",
-    title: "Lesson 2.2: Telemetry & Live Feedback Updates",
-    file: "TelemetryFeedback.java",
-    learn: "As we prepare to build automated routines, we need a reliable way to see what our robot is thinking in real time. Telemetry is your primary diagnostic viewport and debugging window. Because you cannot read terminal logs while your robot is driving around a competitive game field, telemetry lets you send text strings and sensor numbers from the robot's onboard Control Hub back to the driver controller screen over a wireless connection.",
-    understand: "To save wireless network speed and keep your robot running fast, telemetry updates are stored inside a local software cache queue. When you write commands like telemetry.addData(), you are only stacking up notes inside a temporary bucket; they do not appear on screen yet. You must explicitly execute the telemetry.update() command at the bottom of your loop cycles to push this accumulated bucket out over the airwaves, otherwise, your driver screen text values will remain completely frozen.",
-    practice: "Locate the isolated runtime loop block provided within the code template architecture. Write a standard telemetry loop update tracking routine inside this active operational environment container. Your code must successfully invoke the buffer flush sequence necessary to synchronize your local visualization parameter stacks securely with the remote display panels.",
-    defaultCode: `public void runLoop() {
-    // Challenge: Synchronize local visualization arrays with updates
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("telemetry.update()")) return "Runtime Warning: Buffer synchronization omitted.\nInvoke telemetry.update(); at termination steps to prevent viewport tracking lockouts.";
-      return true;
-    },
-    hints: [
-      "Look at the name of the built-in feedback tool we use for phone display updates: telemetry.",
-      "We need to execute a buffer update command to flush out our text log variables queue over the network.",
-      "Write exactly: telemetry.update(); inside your runLoop method body braces."
-    ]
-  },
-  {
-    phase: "Phase 3: Drivetrain Dynamics & Driver Control (Beginner)",
-    title: "Lesson 3.1: Mecanum Drive Kinematics & Normalization",
-    file: "MecanumDrive.java",
-    learn: "Mecanum drivetrains offer incredible agility on the field. Each mecanum wheel features rollers mounted at angled directions. By spinning your four independent drive motors in unique direction combinations, the directional forces combine to push the robot chassis in any direction—allowing you to slide sideways (strafe) or drive diagonally. The gamepad joysticks read this movement on a simple power scale spanning from -1.0 up to 1.0.",
-    understand: "Because mecanum steering calculations add up three independent movements at once—forward, strafing, and turning—the math can easily produce a total wheel motor value greater than 100% full power (1.0). Since a motor cannot physically turn faster than its maximum voltage limit, anything past 1.0 gets clipped. This clipping distorts your speeds and throws the driving angle completely off course. To fix this, we calculate a scale factor (denominator): if any wheel speed climbs above 1.0, we divide all four wheels by that largest absolute value to scale them down proportionally and preserve the intended direction.",
-    practice: "Inspect the variables tracking the directional stick commands in the code area. Complete the missing normalization calculation routine by writing a mathematical parsing statement. You must formulate the uniform denominator assignment equation that safely captures the absolute summation of your linear and rotational input vectors, capped at a baseline minimum value of 1.0 to prevent under-scaling.",
-    defaultCode: `double y = -gamepad1.left_stick_y;
-double x = gamepad1.left_stick_x * 1.1;
-double rx = gamepad1.right_stick_x;
-
-// Challenge: Formulate the denominator normalization scaling parameter value
-double denominator = `,
-    validate: (code) => {
-      if (!code.includes("Math.max") || !code.includes("Math.abs")) return "Math Error: Kinematic vector constraints processing skipped.\nUtilize Math.max combined with absolute evaluation loops to define the safe scaling boundary denominator.";
-      return true;
-    },
-    hints: [
-      "The denominator variable needs to match the highest combined power value, but never go under 1.0.",
-      "Use Math.max(value, 1.0) to create a protective baseline ceiling cap boundary.",
-      "Inside Math.max, calculate the sum of stick values using Math.abs: double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1.0);"
-    ]
-  },
-  {
-    phase: "Phase 3: Drivetrain Dynamics & Driver Control (Beginner)",
-    title: "Lesson 3.2: Input Smoothing & Joystick Deadbands",
-    file: "InputFilters.java",
-    learn: "Gamepad joysticks use small mechanical springs to snap back to the center position when released. Over a long season, these springs get worn out and loose. As a result, when a driver lets go of a joystick, it rarely rests exactly at a perfect 0.0 reading, often hovering at numbers like 0.02 or -0.03. Without code handling this, your drivetrain motors will constantly buzz, overheat, or slowly creep across the field when they are supposed to be stopped.",
-    understand: "To fix loose joysticks, we use a software filter called a deadband. A deadband ignores any small input signals that fall below a set threshold, like 0.05, forcing them directly to a clean 0.0. For inputs that clear this gate, we can apply a smooth curve by cubing the value. Because cubing a fraction makes it much smaller, this curve dampens the joystick sensitivity near the center for micro-adjustments, while still scaling up cleanly to maximum speed when the driver pushes the stick all the way out.",
-    practice: "Review the input processing wrapper method template provided in the source file. Write an input deadband and curve transformation routine that checks if incoming signals clear a 0.05 threshold gate. If the input passes the gate, apply a smooth cubic transformation curve using Java math utilities to filter and shape the final driving sensitivity values before returning them.",
-    defaultCode: `public double applyDeadband(double stickInput) {
-    // Challenge: Filter entries below 0.05 limits and return cubic results
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("Math.pow") && !code.includes("3") && !code.includes("*")) return "Logic Error: Output transformation curve parameter missing.\nCube the remaining validated inputs to generate appropriate smoothing mappings.";
-      return true;
-    },
-    hints: [
-      "Use an if statement to test if the absolute value of stickInput is less than 0.05.",
-      "If it is smaller than 0.05, immediately return 0.0 to kill joystick noise drift.",
-      "Otherwise, use Math.pow(stickInput, 3) or multiply stickInput three times to calculate and return the cubic curve value."
-    ]
-  },
-  {
-    phase: "Phase 4: Mastering State Machines (Intermediate)",
-    title: "Lesson 4.1: Asynchronous Timing with ElapsedTime",
-    file: "AsyncTiming.java",
-    learn: "When driving the robot with joysticks, you might want an intake wheel to run for exactly 2 seconds to swallow a game piece. If you tell the code to freeze or sleep for 2 seconds (sleep(2000)), your driving controls freeze too, and your robot will blindly smash into walls.",
-    understand: "To time an event without freezing your driving inputs, we use a tool called ElapsedTime. This acts like a digital stopwatch running in the background. Instead of pausing the script, the robot keeps driving while repeatedly checking the stopwatch until 2 seconds have ticked by.",
-    practice: "Write a non-blocking check that tracks when the timer crosses its limit using the timer.seconds() query tool.",
-    defaultCode: `ElapsedTime timer = new ElapsedTime();
-public void handleIntake(boolean buttonPressed) {
-    // Challenge: Design conditional timeline milestones without stopping loops
-    
-}`,
-    validate: (code) => {
-      if (code.includes("sleep(")) return "Thread Block Exception: Blocking sleep commands detected.\nOmit all sleep() invocation calls to maintain async looping integrity.";
-      if (!code.includes("seconds()")) return "Logic Error: Timer state parsing parameters unreferenced.";
-      return true;
-    },
-    hints: [
-      "Do not write the word sleep anywhere in this code challenge workspace window.",
-      "Use an if conditional statement block to check the live values of your stopwatch timer object.",
-      "Check if the elapsed time passes a milestone using timer.seconds(). For example: if (timer.seconds() > 2.0) { // Do action }"
-    ]
-  },
-  {
-    phase: "Phase 4: Mastering State Machines (Intermediate)",
-    title: "Lesson 4.2: Basic TeleOp State Machines",
-    file: "FsmBasics.java",
-    learn: "As your robot gets more mechanisms (like lifts, intakes, and claws), managing them with hundreds of tangled 'if-else' statements causes code conflicts where lines fight each other for control. To fix this, we build a Finite State Machine (FSM).",
-    understand: "A State Machine breaks down your robot's activities into separate, clear modes called states—just like a traffic light is only ever Red, Yellow, or Green at one time. We define these custom steps using a list of words called an enum. This rules out overlapping code bugs entirely.",
-    practice: "Set up a clean enum structure to represent our mechanism states. Inside the body of the FsmBasics class, define a public enum named IntakeState that explicitly contains three clear tracking states: INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED to serve as our architectural foundation.",
-    defaultCode: `package org.firstinspires.ftc.teamcode;
-
-public class FsmBasics {
-    // Challenge: Declare your public IntakeState enum variables here
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("enum IntakeState") || !code.includes("INTAKE_READY") || !code.includes("INTAKE_BURSTING") || !code.includes("INTAKE_REVERSED")) return "Structure Error: IntakeState enum structure incomplete.\nEnsure you write: public enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }";
-      return true;
-    },
-    hints: [
-      "You need to write an enum keyword block to define a list of state options.",
-      "Declare it publicly inside your class wrapper using the identifier name IntakeState.",
-      "Write exactly: public enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }"
-    ]
-  },
-  {
-    phase: "Phase 4: Mastering State Machines (Intermediate)",
-    title: "Lesson 4.3: Switch-Case State Routing Logic",
-    file: "StateMachine.java",
-    learn: "Building directly on the enum states we defined in the previous lesson, we now need a high-speed traffic director to run different blocks of code depending on our active state. Instead of chain-linking dozens of slow 'if' statements, we use a specialized control structure called a 'switch' statement inside our main operational loop. This routes our software execution flow seamlessly.",
-    understand: "A switch statement acts like a physical train track switcher. It evaluates your current active state variable, immediately routes your program execution down the matching 'case' track block, and completely skips over all the other inactive options. This ensures that when your intake state is set to INTAKE_BURSTING, only the code designed for bursting executes, keeping your loop speeds incredibly fast, low-latency, and predictable.",
-    practice: "Review the enum setup provided in the template file. Your goal is to construct a clean structural switch-case control block that routes execution through your discrete mechanism states. Ensure you handle the structural paths for 'INTAKE_READY', 'INTAKE_BURSTING', and 'INTAKE_REVERSED' cleanly to allow for safe, predictable state transitions.",
-    defaultCode: `enum IntakeState { INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED }
-public void updateState(IntakeState state) {
-    // Challenge: Write conditional transition logic branches below
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("switch") && !code.includes("case")) return "Structure Error: State layout switch evaluation mapping missing.\nImplement clean state branching arrays.";
-      return true;
-    },
-    hints: [
-      "Open up a switch evaluation block that monitors your incoming state variable pointer parameter.",
-      "Write switch(state) { } to create the main routing hub container.",
-      "Inside the switch braces, establish tracking case checkpoints using case INTAKE_READY:, case INTAKE_BURSTING:, and case INTAKE_REVERSED:."
-    ]
-  },
-  {
-    phase: "Phase 5: Intelligent Autonomous Movement (Intermediate)",
-    title: "Lesson 5.1: Distance Navigation with Motor Encoders",
-    file: "EncoderAuto.java",
-    learn: "Now we shift to autonomous mode where the robot drives by itself without joysticks. Drive motors have built-in spin counters called encoders that track micro-pulses called 'ticks'. This lets us program movements based on real distance instead of loose timing.",
-    understand: "Battery power drops continuously as a match goes on. If you drive based on pure time, a weak battery makes the robot stop short. Because encoders count actual axle wheel rotations instead of clock seconds, the robot travels the exact same distance whether the battery is fully charged or nearly dead. When you switch a motor to 'RUN_TO_POSITION' mode, the internal firmware automatically manages the motor speeds, slowing down gently as it nears the target position to prevent the wheels from skidding.",
-    practice: "Review the encoder initialization method in the workspace panel. Write an initialization statement that configures a motor object to use the SDK's internal target tracking systems. You must update the operational run mode parameter of the motor to explicitly utilize the native 'RUN_TO_POSITION' framework syntax.",
-    defaultCode: `public void initEncoders(DcMotor motor) {
-    // Challenge: Transition mode tracking loops safely
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("RUN_TO_POSITION")) return "Configuration Error: Inoperable run mode signature fields.\nInvoke setMode(DcMotor.RunMode.RUN_TO_POSITION) to execute target tracking alignments.";
-      return true;
-    },
-    hints: [
-      "You need to change the configuration run mode tracking states of the motor object variable parameter.",
-      "Call the native .setMode() function modifier directly on your motor object.",
-      "Pass the SDK enum token exactly as: motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);"
-    ]
-  },
-  {
-    phase: "Phase 5: Intelligent Autonomous Movement (Intermediate)",
-    title: "Lesson 5.2: Turning Precision via Onboard IMU Gyro",
-    file: "IMUHeading.java",
-    learn: "While motor encoders are fantastic for driving straight, they struggle during turns. When a robot spins or hits a bump, its wheels slip slightly against the foam floor tiles. Because the wheels spin in place during a slip, the encoders continue counting ticks even though the robot isn't actually moving. To solve this, the Control Hub has a built-in sensor called an IMU gyroscope that reads the absolute turning angle of the chassis directly, completely separate from wheel movement.",
-    understand: "Think of the IMU as an internal compass needle that always knows which way is true north. In the FTC SDK, we read this sensor value as the 'yaw' angle (heading). By monitoring the yaw degree value during an autonomous turn, your code can detect the exact moment the robot has spun 90 degrees and stop the motors instantly, automatically correcting any errors caused by dusty tiles or collisions.",
-    practice: "Review the heading tracking function in the workspace editor. Write the code needed to query the universal IMU hardware layer. Your statement must fetch the active orientation data structure and extract the absolute yaw heading angle using the SDK's official layout methods to return a clean tracking value.",
-    defaultCode: `public double getRobotHeading(IMU imu) {
-    // Challenge: Return live heading telemetry values
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("getRobotYawPitchRollAngles")) return "Interface Exception: Mismatched orientation tracking calls.\nRetrieve structural transforms via getRobotYawPitchRollAngles() syntax profiles.";
-      return true;
-    },
-    hints: [
-      "You have an incoming hardware sensor object reference parameter named imu.",
-      "Check your console compiler error output to locate the required orientation query method signature.",
-      "Call imu.getRobotYawPitchRollAngles(); inside the function block to fetch rotation angles coordinates."
-    ]
-  },
-  {
-    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
-    title: "Lesson 6.1: The Logic of PID Feedback Loops",
-    file: "CustomPID.java",
-    learn: "Simple target checks—like turning a lift motor off the exact millisecond a lift hits its target height—cause severe accuracy issues due to mechanical weight. Heavy lift components cannot stop instantly; their momentum causes them to overshoot the target, causing the robot to bounce and shake violently. A PID control loop fixes this by scaling the motor power smoothly based on how far away the mechanism is from its destination.",
-    understand: "A PID loop works like a driver braking for a stop sign. When the lift is far from its target, the Error (the distance left to go) is large, so the Proportional (Kp) setting feeds maximum power to move quickly. As the lift approaches the target, the error shrinks toward zero, automatically lowering the motor power to a gentle crawl. This constant recalculation acts as a natural brake, stopping your heavy mechanisms perfectly on target with zero bouncing.",
-    practice: "Examine the custom feedback tracking calculation loop provided in the editor window. Your task is to implement the first and most critical calculation step of the PID control algorithm. Formulate the line of code that evaluates your immediate tracking error by finding the exact difference between your target checkpoint position and the current sensor placement value.",
-    defaultCode: `public double evaluatePID(double target, double current) {
-    // Challenge: Complete error extraction evaluation rules
-    double error = 
-}`,
-    validate: (code) => {
-      if (!code.includes("target - current")) return "Math Error: Improper error tracking resolution calculated.\nError tracking parameters are computed via: target - current";
-      return true;
-    },
-    hints: [
-      "Error is the simple distance space remaining between where you want to be and where you currently are.",
-      "Subtract the current sensor position value directly from the requested target position variable.",
-      "Write exactly: double error = target - current;"
-    ]
-  },
-  {
-    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
-    title: "Lesson 6.2: Tuning PID Loop Multipliers",
-    file: "PIDTuning.java",
-    learn: "Every mechanism on a robot has a different weight, shape, and friction level, meaning a lift code requires completely different power configurations than a custom pivoting intake arm. Tuning a PID loop is the hands-on process of finding the optimal scaling numbers—called gains or coefficients—to match your robot's exact mechanical build so it moves smoothly and quickly.",
-    understand: "To tune a system safely without breaking gears, you follow a step-by-step checklist. You start with all numbers set to zero. First, increase the Proportional setting until the mechanism moves to the target but starts to rock back and forth continuously. Next, you slowly turn up the Derivative setting, which acts as a shock absorber to cushion the landing and stop the rocking. Finally, if gravity keeps pulling the mechanism slightly below the target, you add a tiny bit of Integral power to push it into place.",
-    practice: "Look at the subsystem control method provided in the workspace editor. Your task is to set up a clean initialization wrapper that binds your target calculations inside the continuous execution loop. Write the setup statement required to feed your real-time sensor parameters into the tracking controller structure on every cycle refresh.",
-    defaultCode: `public void loopPID() {
-    // Challenge: Initialize tracking controller structures loops
-    
-}`,
-    validate: (code) => {
-      if (code.trim().length < 50) return "Compilation Error: Code environment empty. Implement tracking properties.";
-      return true;
-    },
-    hints: [
-      "This particular practice window only runs a comprehensive code size capacity check pattern.",
-      "Type a realistic block of initialization code logic statements to pass compliance checks rules.",
-      "Ensure your script character length footprint exceeds 50 characters inside the textarea box panel."
-    ]
-  },
-  {
-    phase: "Phase 6: Advanced Control Theory & Subsystems (Advanced)",
-    title: "Lesson 7.1: Gravity Compensation (Feedforward)",
-    file: "Feedforward.java",
-    learn: "While a PID loop is incredibly smart, it is entirely reactive—meaning it can only send power to a motor after a mechanism has already dropped out of position and created an error. If you try to hold a heavy arm horizontal using only PID, it will always sag because it needs a constant baseline holding power just to fight gravity. Feedforward control fixes this by being proactive, calculating the weight adjustments beforehand.",
-    understand: "Think of Feedforward like holding a heavy book at arm's length; your muscles have to apply a steady upward force just to keep it from falling, even when you aren't moving. For a rotating arm, this gravity force changes constantly depending on its angle. When the arm is straight up, gravity doesn't pull it sideways at all. When it is straight out, gravity pulls down with maximum weight force. We use an automated math formula to predict this change and inject a baseline holding voltage directly into the motor power line: Total Power = PID Power + (Kcos * cos(Angle)).",
-    practice: "Review the feedforward calculator method in the workspace editor. Write the trigonometric code statement needed to compute this proactive gravitational compensation factor. Your code must use Java's native math libraries to scale your horizontal holding multiplier against the cosine of the arm's real-time angle in radians.",
-    defaultCode: `public double getFeedforward(double angleInRadians, double Kcos) {
-    // Challenge: Return continuous feedforward values balancing gravity factors
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("Math.cos")) return "Compilation Exception: Vector resolution missing transformation profiles.\nUtilize Math.cos(angleInRadians) to compensate for arm weight variations across geometric rotations.";
-      return true;
-    },
-    hints: [
-      "You need to balance changing gravitational force variations using a basic cosine math command expression.",
-      "Access Java's built-in mathematical library utility by typing Math.cos().",
-      "Multiply your incoming horizontal holding power factor Kcos by Math.cos(angleInRadians) to calculate results."
-    ]
-  },
-  {
-    phase: "Phase 7: Computer Vision & Field Awareness (Advanced)",
-    title: "Lesson 8.1: Global Field Tracking with AprilTags",
-    file: "AprilTagLoc.java",
-    learn: "To unlock top-tier autonomous strategies, your robot needs to look outward and understand where it is located within the entire arena. The FTC SDK allows you to plug an external USB webcam directly into the Control Hub and activate the 'AprilTagProcessor'. This code scans the camera images for the square barcodes mounted on the field perimeter walls, providing an unshakeable positional anchor.",
-    understand: "AprilTags act like indoor GPS satellite markers. Because the exact field coordinates of every wall tag are pre-loaded into the SDK software, the camera processor can measure the exact angle and pixel distortion of a spotted tag to calculate your robot's current position down to the inch. This allows your autonomous pathing routines to stay perfectly centered on the field, regardless of tire slips or field wall impacts.",
-    practice: "Examine the vision initialization file in your editor workspace. Your objective is to build a standard startup sequence for the camera system. Implement the initialization statement using the SDK's native builder pattern to correctly register your AprilTag tracking processor directly inside the main VisionPortal pipeline.",
-    defaultCode: `import android.util.Size;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
-public class AprilTagLoc {
-    // Challenge: Invoke initialization parameters mapping vision layers
-    
-}`,
-    validate: (code) => {
-      if (code.trim().length < 50) return "Linker Error: Frame context incomplete.";
-      return true;
-    },
-    hints: [
-      "This vision lesson checks for full structural pipeline builder lines configurations configurations.",
-      "Type a standard script setting up your camera parameters or tracking references pointers structures.",
-      "Ensure your overall text character string footprint length spans more than 50 total characters."
-    ]
-  },
-  {
-    phase: "Phase 7: Computer Vision & Field Awareness (Advanced)",
-    title: "Lesson 8.2: Target Tracking via Color Blob Locators",
-    file: "BlobLocator.java",
-    learn: "While AprilTags are used to track fixed wall positions, game elements like plastic samples or scoring rings are moved around dynamically during a match. To track these loose objects, we use the 'ColorBlobLocatorProcessor'. This image tool filters your live camera view, completely blacks out everything that doesn't match your target color profile, and combines the remaining pixels into tracked shapes called 'blobs'.",
-    understand: "Think of blob tracking like using a digital highlighter marker. You tell the code to search for a specific color range, like yellow, and ignore any shapes that are too small to be an actual game piece (filtering out loose field tape or background debris). The vision processor then calculates a bounding box around the remaining yellow shapes, providing their exact coordinates so your robot can drive directly over and collect them automatically.",
-    practice: "Look at the vision processing skeleton method in the workspace panel. Write the data collection statements needed to read your active camera stream. Your code must query the locator processor, extract the list of matching visual targets sequentially, and store them inside a standard collection list for shape analysis.",
-    defaultCode: `public void processContours() {
-    // Challenge: Extract raw locator list footprints streams below
-    
-}`,
-    validate: (code) => {
-      if (code.trim().length < 50) return "Syntax Validation Exception: Frame analysis unmapped.";
-      return true;
-    },
-    hints: [
-      "This challenge runs a compilation block structural validation algorithm tracking written syntax lines data.",
-      "Input a basic looping script tracking color contours maps models to complete target guidelines.",
-      "Make sure the character content of your workspace pane stretches past 50 text characters."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 9.1: Hardware Odometry Computers",
-    file: "LocalizerSystem.java",
-    learn: "To drive fast, sweeping curves during an autonomous path, elite robots use dedicated location tracking setups. This can be built using small, unpowered free-spinning wheels pressed flat against the floor (dead wheels) or advanced electronic sensors like the goBILDA Pinpoint computer or the SparkFun OTOS tracking module.",
-    understand: "These specialized odometry computers contain their own microchips that calculate coordinate changes thousands of times every second, completely separate from your main robot code loop. This separation is key: instead of forcing your Control Hub brain to slow down its main program calculating your coordinates, your main code can simply read the final calculated X and Y position numbers over a quick I2C data wire, keeping your cycles lightning-fast.",
-    practice: "Review the tracking supervisor function in the workspace code window. Your goal is to write a system monitoring check. Set up a conditional alert flag statement that constantly compares your live location readings against safe thresholds, creating a telemetry warning if severe positional drift or sensor errors are detected.",
-    defaultCode: `public void auditTracking(double deltaX) {
-    // Challenge: Build system limits flags checks
-    
-}`,
-    validate: (code) => {
-      if (code.trim().length < 50) return "Safety Guard Execution Failed: Unmapped error checks thresholds.";
-      return true;
-    },
-    hints: [
-      "This module evaluates the text statement properties data capacities inside your editor panel viewport.",
-      "Fulfill tracking supervisor parameters by coding a threshold gate validation logic statement rule.",
-      "Ensure your terminal configuration block text metrics contain more than 50 layout characters."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 9.2: Sensor Fusion & Drift Correction",
-    file: "SensorFusion.java",
-    learn: "Even the absolute best physical tracking wheels or electronic sensors will experience tiny amounts of drift over time as a match plays out due to small floor bumps, wheel bounces, or robot collisions. Sensor Fusion solves this tracking issue by combining your high-speed tracking wheel data with your absolute AprilTag camera views into a single system.",
-    understand: "Think of Sensor Fusion like driving down a highway. Your tracking computer acts like your car's speedometer, continuously guessing how far you've traveled every second. When you look out the window and read a mile marker sign, that is your AprilTag check. Your code uses the speedometer for fast tracking, but the exact second the camera spots a wall tag, the software overwrites any accumulated drift with the absolute visual truth.",
-    practice: "Review the coordinate alignment function in your workspace editor. Write the statement needed to handle this sensor fusion update. Construct a conditional statement that checks for a verified visual detection, and if successful, overwrites your relative tracking coordinates with the updated absolute camera position data.",
-    defaultCode: `public void correctDrift(boolean targetsFound) {
-    // Challenge: Inject absolute camera updates
-    
-}`,
-    validate: (code) => {
-      if (code.trim().length < 50) return "Fusion Execution Failure: Integration vectors remained unbound.";
-      return true;
-    },
-    hints: [
-      "This lesson compiles functional data structural checks tracking structural script allocations loops mappings.",
-      "Type an alignment overwrite loop statement managing localized coordinates corrections parameters data sets.",
-      "Verify that your total text layout data length passes the 50 characters threshold target."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 10.1: Building Road Runner Trajectories",
-    file: "RoadRunnerSpline.java",
-    learn: "Road Runner is an advanced motion pathing library used by top robotics teams. Instead of writing rough movements where the robot drives forward, stops, turns, and drives forward again, Road Runner calculates smooth speed curves that gently accelerate the motors to keep your tires firmly locked to the floor traction.",
-    understand: "Road Runner paths translate your autonomous destinations into a global coordinate grid map. The software connects these positions together using smooth mathematical curves called splines. This advanced design allows your robot to smoothly rotate its heading while driving along a curve, enabling fluid autonomous paths that sweep around obstacles without wasting a single fraction of a second.",
-    practice: "Examine the trajectory generation class in the editor window. Your goal is to build a coordinated autonomous path sequence. Write a trajectory execution statement using Road Runner's native 'actionBuilder' syntax to string together smooth linear and rotational movements that match your target field coordinates.",
-    defaultCode: `package org.firstinspires.ftc.teamcode;
-// Challenge: Code path action segments sequences matching instructions
-`,
-    validate: (code) => {
-      if (!code.includes("actionBuilder") && !code.includes("action")) return "Trajectory Error: Action segment pipeline traces unbuilt.\nInitialize target movements via the actionBuilder routine parameters.";
-      return true;
-    },
-    hints: [
-      "You must call the native path construction tools defined by the Road Runner core library structures.",
-      "Check the text requirements tracking your movement instructions inside the log parameters panels blocks.",
-      "Ensure you explicitly incorporate the target phrase token actionBuilder or action within your code segments."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 10.2: Non-Blocking Actions & Paths",
-    file: "ActionBuilder.java",
-    learn: "To maximize your scoring output during the 30-second autonomous run, you cannot afford to wait around for tasks to complete one after another. If your robot drives to a basket, stops, lifts an arm, scores, and lowers the arm before driving away, you lose valuable seconds. Mechanisms must run concurrently, meaning your scoring lifts should deploy mid-path while the drivetrain is still speeding across the field.",
-    understand: "To handle mechanisms during movement, Road Runner uses a non-blocking structure called 'Actions'. Instead of using old-school sleep() commands, you write your elevator or claw movements as custom Action blocks. These blocks run right alongside the drivetrain software, updating your lift motor power levels on every single millisecond loop pass without interrupting your wheel trajectories.",
-    practice: "Review the class interface template in your editor workspace. Your objective is to design a custom mechanism action framework. Construct a clean class declaration that correctly adopts the library's structural interface guidelines, implementing the 'Action' model to build an asynchronous, iterative control loop.",
-    defaultCode: `import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-// Challenge: Declare custom action class definitions below
-`,
-    validate: (code) => {
-      if (!code.includes("implements Action")) return "Interface Mismatch Exception: Object does not inherit Action attributes.\nEnsure your container contains 'implements Action' declarations correctly.";
-      return true;
-    },
-    hints: [
-      "Asynchronous tasks require extending or establishing connection lines to specific core model interfaces rules.",
-      "Use Java's native class inheritance assignment keyword pattern directly within your object line declaration.",
-      "Type the phrase token implements Action exactly after your class identifier statement block wrapper."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 11.1: Pedro Pathfinder Vector Curves",
-    file: "PedroCurves.java",
-    learn: "While libraries like Road Runner pre-plan an entire rigid path before the robot starts driving, alternative advanced systems like Pedro Pathfinder use dynamic vector pathing. Pedro Pathfinder determines steering controls on the fly using smooth control points that continuously pull the robot along vector curves, providing extreme agility.",
-    understand: "Think of Pedro Pathfinder like pulling a toy car with a flexible rubber band connected to a moving guide hand. The software creates a 144x144 inch grid map of the field and constantly looks ahead to calculate the absolute shortest steering adjustments needed to hold its line, resulting in incredibly fluid movements and unmatched speeds around tight field junctions.",
-    practice: "Review the geometric setup file in the editor workspace panel. Your goal is to configure a parametric curve system. Write the structural statements needed to instantiate your coordinate tracking targets, using the pathfinder's native 'Point' models to define your spatial path anchor nodes.",
-    defaultCode: `import pbgil.pathfinder.geometry.Point;
-// Challenge: Model coordinate anchors using geometric parameters below
-`,
-    validate: (code) => {
-      if (!code.includes("Point")) return "Geometry Error: Spatial reference points missing construction declarations.\nDeclare Point models to shape tracking spline nodes accurately.";
-      return true;
-    },
-    hints: [
-      "Parametric curves process coordinates layouts using distinct vector data construction structures objects.",
-      "Locate the necessary target spatial class model parameter included inside the file package imports list lines.",
-      "Incorporate the object identifier keyword token Point cleanly inside your hardware configuration assignment lines."
-    ]
-  },
-  {
-    phase: "Phase 8: High-Performance Pathing & Trajectories (Master)",
-    title: "Lesson 11.2: Path Progress Location Triggers",
-    file: "ReactiveTriggers.java",
-    learn: "Because Pedro Pathfinder calculates its steering vectors continuously mid-drive, your code can monitor exactly how far along a curve the robot has traveled at any given moment. This allows you to set up highly efficient location triggers that activate subsystem tasks automatically based on your physical field progress percentage.",
-    understand: "The pathfinder tracking engine provides a live progress metric that scales from 0.0 at the absolute start of a path up to 1.0 at complete destination arrival. By checking this progress percentage value inside your loop, you can tell your robot to deploy a scoring mechanism the exact millisecond it crosses 75% (0.75) of its travel path, completing tasks at full driving speeds.",
-    practice: "Construct a non-blocking conditional switch trigger that fires an actuator instruction event precisely at 0.75 progress milestones.",
-    defaultCode: `public void updateFollowerMetrics(double progressMetric) {
-    // Challenge: Fire subsystem state changes at 0.75 milestones asynchronously
-    
-}`,
-    validate: (code) => {
-      if (!code.includes("0.75") && !code.includes(".75")) return "Logic Error: Target progress check missing mapping accuracy.\nEnforce execution bounds criteria checking for progress metric targets at 0.75.";
-      return true;
-    },
-    hints: [
-      "Dynamic reactive listeners track fraction values matching milestones relative to travel curves scales paths.",
-      "Check your lesson text instructions to isolate the exact travel completion percentage milestone target required.",
-      "Build a simple if conditional matching progressMetric values explicitly against the numeric factor 0.75."
-    ]
-  }
-];
-
-    // --- State Management Engine Layer ---
-    let activeLessonIdx = 0;
-    const subSteps = ["learn", "understand", "practice"];
-    let currentStepPointer = 0; // 0 = Learn, 1 = Understand, 2 = Practice
-    let currentHintIdx = 0; // Keeps track of how many hints are revealed
-
-    function syncInterfaceView() {
-      const data = academyLessons[activeLessonIdx];
-      
-      document.getElementById("phaseBadge").innerText = data.phase;
-      document.getElementById("lessonTitle").innerText = data.title;
-      document.getElementById("fileTabName").innerText = data.file;
-      
-      const contentText = document.getElementById("sectionTextContent");
-      const titleLabel = document.getElementById("sectionTitleLabel");
-      const blockStyle = document.getElementById("dynamicSectionBlock");
-      const hintBtn = document.getElementById("hintBtn");
-      
-      const step = subSteps[currentStepPointer];
-      blockStyle.className = `active-section-block ${step}`;
-      
-      if (step === "learn") {
-        titleLabel.innerText = "💡 Learn";
-        contentText.innerText = data.learn;
-        document.getElementById("prevSectionBtn").style.visibility = "hidden";
-        document.getElementById("nextSectionBtn").innerText = "Go to Understand ➡️";
-        document.getElementById("nextSectionBtn").className = "cw-btn-action";
-        hintBtn.style.visibility = "hidden";
-      } else if (step === "understand") {
-        titleLabel.innerText = "📘 Understand";
-        contentText.innerText = data.understand;
-        document.getElementById("prevSectionBtn").style.visibility = "visible";
-        document.getElementById("nextSectionBtn").innerText = "Go to Challenge ➡️";
-        document.getElementById("nextSectionBtn").className = "cw-btn-action";
-        hintBtn.style.visibility = "hidden";
-      } else if (step === "practice") {
-        titleLabel.innerText = "🔴 Practice Challenge";
-        contentText.innerText = data.practice;
-        document.getElementById("prevSectionBtn").style.visibility = "visible";
-        document.getElementById("nextSectionBtn").innerText = "Challenge Active";
-        document.getElementById("nextSectionBtn").className = "cw-btn-action practice-btn";
-        
-        // Show hint button when on the practice phase
-        hintBtn.style.visibility = "visible";
-        hintBtn.innerText = `💡 Hint (${currentHintIdx}/${data.hints.length})`;
-      }
-    }
-
-    function moveSectionStep(direction) {
-  const targetedStep = currentStepPointer + direction;
-  if (targetedStep >= 0 && targetedStep < subSteps.length) {
-    const block = document.getElementById("dynamicSectionBlock");
-    
-    block.classList.add("section-fade");
-    
-    setTimeout(() => {
-      currentStepPointer = targetedStep;
-      currentHintIdx = 0; // Reset hints index on step change
-      document.getElementById("hintBox").style.display = "none";
-      document.getElementById("hintBox").innerHTML = "";
-      
-      syncInterfaceView();
-      block.classList.remove("section-fade");
-    }, 200);
+/* ============================================================
+   SIDEBAR KINEMATICS CONTROL
+   ============================================================ */
+function toggleSidebar(hide) {
+  const workspace = document.querySelector('.workspace');
+  if (hide) {
+    workspace.classList.add('sidebar-hidden');
+  } else {
+    workspace.classList.remove('sidebar-hidden');
   }
 }
 
-function switchLesson(idxValue) {
-  const block = document.getElementById("dynamicSectionBlock");
-  
-  block.classList.add("section-fade");
-  
-  setTimeout(() => {
-    activeLessonIdx = parseInt(idxValue);
-    currentStepPointer = 0; 
-    currentHintIdx = 0; // Reset hints index on lesson change
-    document.getElementById("hintBox").style.display = "none";
-    document.getElementById("hintBox").innerHTML = "";
-    
-    document.getElementById("editor").value = academyLessons[activeLessonIdx].defaultCode;
-    
-    const terminal = document.getElementById("consoleOutput");
-    terminal.classList.remove("error");
-    terminal.innerText = `Workspace synchronized with target parameters: ${academyLessons[activeLessonIdx].file}\nEnvironment stable. Run compilation scans to verify logic scripts blocks.`;
-    
-    syncInterfaceView();
-    updateLineNumbers();
-    
-    block.classList.remove("section-fade");
-  }, 200);
+/* ============================================================
+   HOMEPAGE ROADMAP (signature element)
+   ============================================================ */
+function renderRoadmap(){
+  const phases = [];
+  curriculum.forEach(l => { if(!phases.find(p=>p.phase===l.phase)) phases.push({phase:l.phase, level:l.level}); });
+
+  const total = curriculum.length;
+  const doneCount = completed.size;
+  const pct = Math.round((doneCount/total)*100);
+  document.getElementById("homeProgressLabel").parentElement.querySelector(".hero-stat-num").textContent = pct + "%";
+
+  // how many phases are "lit" based on progress
+  const idxsByPhase = phases.map(p => curriculum.map((l,i)=>l.phase===p.phase?i:-1).filter(i=>i>=0));
+  let litPhases = 0;
+  idxsByPhase.forEach(idxs => { if(idxs.every(i=>completed.has(i))) litPhases++; else if(idxs.some(i=>completed.has(i)) && litPhases===idxsByPhase.indexOf(idxs)) litPhases += 0.5; });
+
+  let html = '<div class="roadmap-line"><div class="roadmap-track"></div><div class="roadmap-progress" id="roadmapProgress"></div>';
+  phases.forEach((p, i) => {
+    const num = p.phase.match(/Phase (\d+)/)[1];
+    const shortTitle = p.phase.replace(/Phase \d+:\s*/,"");
+    const lit = i < Math.ceil(litPhases) || (litPhases >= i+1);
+    html += `<div class="roadmap-node ${i < Math.floor(litPhases) || (i===0 && doneCount>0) || (idxsByPhase[i] && idxsByPhase[i].some(ix=>completed.has(ix))) ? 'lit':''}">
+      <div class="roadmap-dot">${num}</div>
+      <div class="roadmap-node-label">${shortTitle}</div>
+      <div class="roadmap-node-level">${p.level}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById("roadmap").innerHTML = html;
+  requestAnimationFrame(()=>{
+    const fill = document.getElementById("roadmapProgress");
+    if(fill) fill.style.width = pct + "%";
+  });
 }
 
-    function triggerNextHint() {
-      const data = academyLessons[activeLessonIdx];
-      const hintBox = document.getElementById("hintBox");
-      
-      if (!data.hints || data.hints.length === 0) return;
-      
-      hintBox.style.display = "block";
-      
-      if (currentHintIdx < data.hints.length) {
-        currentHintIdx++;
+/* ============================================================
+   SIDEBAR TREE
+   ============================================================ */
+function renderSidebar(){
+  const groups = [];
+  curriculum.forEach((l, i) => {
+    let phaseGroup = groups.find(g => g.phase === l.phase);
+    if(!phaseGroup){ phaseGroup = {phase:l.phase, level:l.level, lessons:[]}; groups.push(phaseGroup); }
+    let lessonGroup = phaseGroup.lessons.find(lg => lg.lesson === l.lesson);
+    if(!lessonGroup){ lessonGroup = {lesson:l.lesson, items:[]}; phaseGroup.lessons.push(lessonGroup); }
+    lessonGroup.items.push({idx:i, title:l.title});
+  });
+
+  let html = "";
+  groups.forEach((g, gi) => {
+    html += `<div class="phase-group" id="phaseGroup${gi}">
+      <div class="phase-head" onclick="togglePhase(${gi})">
+        <div>
+          <div class="phase-head-title">${g.phase}</div>
+          <div class="phase-head-level">${g.level}</div>
+        </div>
+        <div class="phase-chevron">&#9660;</div>
+      </div>`;
+    g.lessons.forEach(lg => {
+      html += `<div class="lesson-group"><div class="lesson-label">${lg.lesson}</div>`;
+      lg.items.forEach(it => {
+        html += `<div class="sub-item ${it.idx===activeIdx?'active':''} ${completed.has(it.idx)?'done':''}" onclick="selectLesson(${it.idx})">
+          <span class="sub-check">&#10003;</span><span>${it.title}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById("sidebarTree").innerHTML = html;
+  updateProgressUI();
+}
+function togglePhase(gi){
+  document.getElementById("phaseGroup"+gi).classList.toggle("collapsed");
+}
+function updateProgressUI(){
+  const total = curriculum.length;
+  const done = completed.size;
+  const pct = Math.round((done/total)*100);
+  document.getElementById("sidebarProgressLabel").textContent = `${done} of ${total} complete`;
+  document.getElementById("sidebarProgressPct").textContent = pct + "%";
+  document.getElementById("sidebarProgressFill").style.width = pct + "%";
+}
+
+/* ============================================================
+   LESSON RENDERING
+   ============================================================ */
+function selectLesson(idx){
+  activeIdx = idx;
+  stepIdx = 0;
+  renderSidebar();
+  syncLessonView();
+  resetEditor();
+}
+function syncLessonView(fade){
+  const data = curriculum[activeIdx];
+  document.getElementById("breadcrumb").innerHTML = `<b>${data.phase}</b> &middot; ${data.lesson}`;
+  document.getElementById("lessonTitle").textContent = data.title;
+  document.getElementById("diagramContent").textContent = data.diagram;
+  document.getElementById("fileTab").textContent = data.file;
+
+  document.getElementById("jargonContent").innerHTML = data.jargon.map(j =>
+    `<div class="jargon-term"><b>${j.term}</b> — ${j.def}</div>`
+  ).join("");
+
+  let tabsHtml = "";
+  steps.forEach((s, i) => {
+    tabsHtml += `<div class="step-tab ${i===stepIdx?'on':''} ${i<stepIdx?'passed':''}" onclick="goToStepDirect(${i})">${stepLabels[s]}</div>`;
+  });
+  document.getElementById("stepTabs").innerHTML = tabsHtml;
+
+  const step = steps[stepIdx];
+  document.getElementById("stepTitle").textContent = stepLabels[step];
+  document.getElementById("stepText").textContent = data[step];
+
+  document.getElementById("backBtn").disabled = stepIdx === 0;
+  const nextBtn = document.getElementById("nextBtn");
+  if(stepIdx < steps.length - 1){
+    nextBtn.textContent = "Next: " + stepLabels[steps[stepIdx+1]];
+    nextBtn.style.display = "inline-block";
+  } else {
+    nextBtn.style.display = "none";
+  }
+}
+function goToStepDirect(targetIdx){
+  if(targetIdx === stepIdx) return;
+  const block = document.getElementById("stepBlock");
+  block.classList.add("fade");
+  setTimeout(()=>{
+    stepIdx = targetIdx;
+    syncLessonView();
+    block.classList.remove("fade");
+  }, 150);
+}
+function moveStep(dir){
+  const target = stepIdx + dir;
+  if(target < 0 || target >= steps.length) return;
+  const block = document.getElementById("stepBlock");
+  block.classList.add("fade");
+  setTimeout(()=>{
+    stepIdx = target;
+    syncLessonView();
+    block.classList.remove("fade");
+  }, 150);
+}
+function resetEditor(){
+  const data = curriculum[activeIdx];
+  document.getElementById("editor").value = data.defaultCode;
+  const out = document.getElementById("consoleOutput");
+  out.className = "console-output";
+  out.textContent = `Loaded ${data.file}. Click "Run Code" to check your work.`;
+  updateLineNumbers();
+}
+
+/* ============================================================
+   EDITOR + CONSOLE
+   ============================================================ */
+function updateLineNumbers(){
+  const ta = document.getElementById("editor");
+  const lineCount = Math.max(ta.value.split("\n").length, 18);
+  let out = "";
+  for(let i=1;i<=lineCount;i++) out += i + "<br>";
+  document.getElementById("lineNumbers").innerHTML = out;
+}
+
+function runCode(){
+  const out = document.getElementById("consoleOutput");
+  const code = document.getElementById("editor").value;
+  const data = curriculum[activeIdx];
+
+  out.className = "console-output";
+  out.textContent = "Checking your code...";
+
+  setTimeout(()=>{
+    const lines = code.split("\n");
+    for(let i=0;i<lines.length;i++){
+      const line = lines[i].trim();
+      if(line.length === 0) continue;
+      const skip = line.endsWith("{") || line.endsWith("}") || line.endsWith(";") ||
+        line.startsWith("@") || line.startsWith("//") || line.startsWith("import") ||
+        line.startsWith("package") || line.startsWith("public class") ||
+        line.startsWith("public void") || line.startsWith("private") ||
+        line.startsWith("return") || line.startsWith("double") || line.startsWith("}");
+      if(!skip){
+        out.className = "console-output is-error";
+        out.textContent = `Line ${i+1} looks like it's missing a semicolon (;) at the end.`;
+        return;
       }
-      
-      let html = "<strong>Step-by-Step Guidance:</strong><ol style='margin-left: 20px; margin-top: 5px;'>";
-      for (let i = 0; i < currentHintIdx; i++) {
-        html += `<li style='margin-bottom: 6px;'>${data.hints[i]}</li>`;
-      }
-      html += "</ol>";
-      
-      if (currentHintIdx === data.hints.length) {
-        html += "<p style='margin-top: 10px; color: #50fa7b; font-weight: 700;'>All steps revealed! Try typing this solution framework into the editor box above.</p>";
-      }
-      
-      hintBox.innerHTML = html;
-      document.getElementById("hintBtn").innerText = `💡 Hint (${currentHintIdx}/${data.hints.length})`;
     }
-
-    // --- Strict AST/Regex Compiler Simulation Engine Layer ---
-    function executeStrictCompilerScan() {
-      const terminal = document.getElementById("consoleOutput");
-      const codeValue = document.getElementById("editor").value;
-      const targetLesson = academyLessons[activeLessonIdx];
-      
-      terminal.innerText = `[INFO] Parsing target source compilation registry: ${targetLesson.file}...\n`;
-      terminal.innerText += "Searching internal compilation dependencies paths layers...\nExecuting syntax diagnostics checks...\n";
-      
-      setTimeout(() => {
-        const lines = codeValue.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (line.length > 0 && !line.endsWith('{') && !line.endsWith('}') && !line.endsWith(';') && !line.startsWith('@') && !line.startsWith('//') && !line.startsWith('import') && !line.startsWith('package') && !line.startsWith('public class') && !line.startsWith('public double') && !line.startsWith('public void') && !line.startsWith('double') && !line.startsWith('enum')) {
-            terminal.className = "console-output error";
-            terminal.innerText += `\n[SYNTAX ERROR] Line ${i + 1}: Missing trailing expression delimiter ';'.\nFix your Java syntax parameters before starting operations runs.`;
-            return;
-          }
-        }
-
-        const openBraces = (codeValue.match(/{/g) || []).length;
-        const closeBraces = (codeValue.match(/}/g) || []).length;
-        if (openBraces !== closeBraces) {
-          terminal.className = "console-output error";
-          terminal.innerText += `\n[COMPILE FAILED] Unbalanced code structure contexts detected.\nSyntax Error: Unmatched brace blocks parity fields. (Found ${openBraces} '{' vs ${closeBraces} '}'). Check formatting scopes closures.`;
-          return;
-        }
-
-        const verificationResult = targetLesson.validate(codeValue);
-        
-        if (verificationResult !== true) {
-          terminal.className = "console-output error";
-          terminal.innerText += `\n[VERIFICATION REJECTED] Logic requirements checkpoint failure:\n${verificationResult}`;
-        } else {
-          terminal.className = "console-output";
-          terminal.innerText += `\n[BUILD SUCCESSFUL] Integration targets verified accurately across 0.612s.\nDevice Execution Stream: All subsystem states tracking uniformly at full data sampling limits.`;
-        }
-      }, 650);
+    const opens = (code.match(/{/g) || []).length;
+    const closes = (code.match(/}/g) || []).length;
+    if(opens !== closes){
+      out.className = "console-output is-error";
+      out.textContent = `Your braces don't match — ${opens} opening { vs ${closes} closing }. Check that every { has a matching }.`;
+      return;
     }
-
-    switchLesson(0);
-    
-    function toggleHackerMode() {
-    document.body.classList.toggle("theme-hacker");
-    
-    const consoleOut = document.getElementById("consoleOutput");
-    if (document.body.classList.contains("theme-hacker")) {
-        consoleOut.innerText = ">>> BYPASSING CONTROL HUB SECURITY CODES...\n>>> MAIN ENGINES ONLINE VIA CORE TERMINAL OVERRIDE.";
+    const result = data.validate(code);
+    if(result !== true){
+      out.className = "console-output is-error";
+      out.textContent = result;
     } else {
-        consoleOut.innerText = "Console initialized. Awaiting source compilation parameters...";
+      out.className = "console-output is-success";
+      out.textContent = "Nice work — your code passed every check!";
+      if(!completed.has(activeIdx)){
+        completed.add(activeIdx);
+        saveCompleted();
+        renderSidebar();
+      }
     }
-    }
-  </script>
+  }, 500);
+}
+
+/* ============================================================
+   GUIDE MODE (highlights diagram + jargon for visual learners)
+   ============================================================ */
+function toggleGuideMode(){
+  document.body.classList.toggle("guide-mode");
+  const btn = document.getElementById("guideToggle");
+  const on = document.body.classList.contains("guide-mode");
+  btn.classList.toggle("is-on", on);
+  btn.textContent = "Visual Guide: " + (on ? "On" : "Off");
+}
+</script>
+<style>
+  body.guide-mode .diagram-box{ border-color: var(--primary); box-shadow:0 0 0 1px rgba(232,84,10,0.25); }
+  body.guide-mode .jargon-box{ border-color: var(--primary); border-style:solid; background:rgba(232,84,10,0.05); }
+</style>
+<script>
+  renderSidebar();
+  syncLessonView();
+  resetEditor();
+  renderRoadmap();
+</script>
 </body>
 </html>
