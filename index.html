@@ -345,7 +345,7 @@
     </div>
   </div>
   <div class="nav-right">
-    <button class="btn-ghost" id="guideToggle" onclick="toggleGuideMode()">Visual Guide: Off</button>
+    <button class="btn-ghost" id="guideToggle" onclick="toggleGuideMode()">Learning Mode: Off</button>
     <button class="btn-primary" onclick="goAcademy()">Start Learning</button>
   </div>
 </nav>
@@ -354,7 +354,7 @@
   <div class="hero">
     <div class="hero-eyebrow">FTC Software Engineering Curriculum</div>
     <h1>Learn to program your <span>FTC robot</span>,<br>one phase at a time.</h1>
-    <p>A complete, self-paced path from your very first line of Java to PID loops, computer vision, and full autonomous pathing — built for Team 28874.</p>
+    <p>Your friendly, step-by-step guide to programming an FTC robot — starting from your very first line of code. No experience? No problem.</p>
     <div class="hero-ctas">
       <button class="btn-cta" onclick="goAcademy()">
         <svg width="11" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5V19L19 12L8 5Z"/></svg>
@@ -366,9 +366,9 @@
     <div class="roadmap" id="roadmap" onclick="goAcademy()"></div>
 
     <div class="hero-stats">
-      <div><div class="hero-stat-num">6</div><div class="hero-stat-label">Phases</div></div>
-      <div><div class="hero-stat-num">11</div><div class="hero-stat-label">Lessons</div></div>
-      <div><div class="hero-stat-num">22</div><div class="hero-stat-label">Sublessons</div></div>
+      <div><div class="hero-stat-num">7</div><div class="hero-stat-label">Modules</div></div>
+      <div><div class="hero-stat-num">13</div><div class="hero-stat-label">Lessons</div></div>
+      <div><div class="hero-stat-num">24</div><div class="hero-stat-label">Sublessons</div></div>
       <div><div class="hero-stat-num">0%</div><div class="hero-stat-label" id="homeProgressLabel">Complete</div></div>
     </div>
   </div>
@@ -402,6 +402,8 @@
           <pre id="diagramContent">Loading…</pre>
         </div>
 
+        <div id="hardwarePhotoContainer"></div>
+
         <div class="step-tabs" id="stepTabs"></div>
 
         <div class="step-block" id="stepBlock">
@@ -410,7 +412,7 @@
         </div>
 
         <div class="jargon-box">
-          <div class="jargon-box-label">Key terms</div>
+          <div class="jargon-box-label">Key terms  ·  Hover for definition</div>
           <div id="jargonContent"></div>
         </div>
 
@@ -447,7 +449,50 @@
    CURRICULUM DATA
    ============================================================ */
 const curriculum = [
+/* ===== MODULE 0: WHAT EVEN IS CODE? ===== */
 {
+  module:"Module 0: What Even is Code?",
+  phase:"Getting Started", level:"Absolute Beginner",
+  lesson:"Lesson 0: What is Code?",
+  title:"0.1 Thinking Like a Programmer", file:"IntroThinking.java",
+  diagram:" [ You ] --(write instructions)--> [ Computer ] --(follows them EXACTLY)--> [ Result ]\n\nA computer is like a very literal friend — it does exactly what you say,\nnot what you meant. That's why we have to be precise!",
+  jargon:[
+    {term:"CODE", def:"A set of written instructions that tells a computer what to do, step by step."},
+    {term:"PROGRAM", def:"Code that a computer can read and follow, like a recipe for your robot."}
+  ],
+  learn:"Code is just a list of instructions you give to a computer. Think of it like writing a recipe for a friend to bake a cake — except your friend is a computer, and the \"cake\" is making your robot move, see, or score points.\n\nComputers are amazing at following instructions, but they take everything literally. If you tell a friend \"add the flour\" they know to add the right amount. A computer needs exact details: \"add exactly 200 grams of flour, then stir for 30 seconds.\"\n\nIn FTC, your code is the recipe your robot follows during a match. Every motor turn, every sensor reading, every decision — it all starts with code you write.",
+  understand:"Your robot can't think for itself. It's not smart or dumb — it's just a machine waiting for instructions. If your robot does something unexpected, it's not being \"bad\" — it's following your instructions exactly. The trick is learning to give better instructions.\n\nEvery time you debug your code, you're learning to communicate more clearly with your robot.",
+  practice:"Think about a simple daily task you do (brushing your teeth, making toast, etc.). Write out the instructions as if you were explaining it to a robot who takes everything literally. Try to write exactly 6-8 steps with no gaps in logic.",
+  defaultCode:"// ====================================\n// Welcome to your first code challenge!\n// ====================================\n//\n// Below, write step-by-step instructions for\n// making a piece of toast, as if talking to\n// someone who has never done it before.\n// Use // to add comments (notes for humans).\n//\n// Example:\n// Step 1: Take two slices of bread from the bag.\n\n",
+  validate:(code)=>{
+    if(!code.includes("toast") && !code.includes("bread") && !code.includes("Step")) return "Try writing your toast-making steps as numbered instructions (like Step 1:, Step 2: etc).";
+    if((code.match(/Step \d/g) || []).length < 3) return "Try to include at least 3-4 steps in your instructions. The more detailed, the better!";
+    return true;
+  }
+},
+{
+  module:"Module 0: What Even is Code?",
+  phase:"Getting Started", level:"Absolute Beginner",
+  lesson:"Lesson 0: What is Code?",
+  title:"0.2 Your First Conversation with a Computer", file:"HelloRobot.java",
+  diagram:" System.out.print(\"Hello!\");  -->  Computer says: Hello!\n\n Text inside quotes (\") is called a STRING —\n it's how you send messages from your code to the world.",
+  jargon:[
+    {term:"STRING", def:"A piece of text inside quotation marks, like \"Hello\" or \"Robot go!\""},
+    {term:"SYNTAX", def:"The rules of a programming language — like grammar, but for computers."}
+  ],
+  learn:"Just like humans use words and sentences to talk, computers use specific words and punctuation called syntax. In Java (the language FTC uses), every instruction ends with a semicolon (;) — like a period at the end of a sentence.\n\nLet's start simple: printing a message. In Java, you write:\n  System.out.println(\"Hello!\");\nThis tells the computer to display the words Hello! on the screen.\n\nDon't worry about memorizing everything yet. For now, just notice the pattern: instruction + parentheses + semicolon.",
+  understand:"The semicolon (;) is how you tell Java \"I'm done with this instruction, move on to the next one.\" Forgetting a semicolon is like forgetting the period at the end of a sentence — the computer gets confused because it doesn't know where one instruction ends and the next begins.\n\nParentheses () group things together. The quotes \"\" mark exactly what text you want to display.",
+  practice:"Write a line of Java that prints \"Hello, Robot!\" to the screen. Make sure you include the semicolon at the end!",
+  defaultCode:"public class HelloRobot {\n    public static void main(String[] args) {\n        // Challenge: print \"Hello, Robot!\" below\n        \n    }\n}",
+  validate:(code)=>{
+    if(!code.includes("Hello, Robot!")) return "Make sure your message reads exactly \"Hello, Robot!\" — including the comma and the exclamation mark.";
+    if(!code.includes("System.out.println") && !code.includes("System.out.print")) return "Use System.out.println() or System.out.print() to display your message.";
+    if(!code.trim().endsWith(";")) return "Don't forget the semicolon (;) at the end! In Java, it's like a period at the end of a sentence.";
+    return true;
+  }
+},
+{
+  module:"Module 1: Robot Basics & Your First Code",
   phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
   lesson:"Lesson 1: Robot Architecture & Android Studio Setup",
   title:"1.1 The Hardware-Software Bridge", file:"HardwareBridge.java",
@@ -461,12 +506,13 @@ const curriculum = [
   practice:"Declare a DcMotor variable named liftMotor, then assign it using hardwareMap.get(), looking up the configuration name \"lift_motor\".",
   defaultCode:"package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\npublic class HardwareBridge extends LinearOpMode {\n    DcMotor liftMotor;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: map liftMotor to the configuration name \"lift_motor\"\n        \n    }\n}",
   validate:(code)=>{
-    if(!code.includes("hardwareMap.get")) return "You're missing the lookup. Call hardwareMap.get(DcMotor.class, ...) to find the part.";
-    if(!code.includes("liftMotor") || !code.includes('"lift_motor"')) return "Check your variable name and configuration string — it should be liftMotor mapped to \"lift_motor\".";
+    if(!code.includes("hardwareMap.get")) return "Missing lookup: hardwareMap.get(). Without this, your Java variable liftMotor is just an empty name — it's not actually connected to any physical motor port on the Control Hub. Call hardwareMap.get(DcMotor.class, \"lift_motor\") to bridge the two.";
+    if(!code.includes("liftMotor") || !code.includes('"lift_motor"')) return "Name mismatch: your Java variable (liftMotor) must match the config name (\"lift_motor\") exactly. Think of it like dialing a phone number — one wrong digit and you won't reach the right person. Make sure both exist in your code.";
     return true;
   }
 },
 {
+  module:"Module 1: Robot Basics & Your First Code",
   phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
   lesson:"Lesson 1: Robot Architecture & Android Studio Setup",
   title:"1.2 Structure of a LinearOpMode", file:"MyFirstOpMode.java",
@@ -480,15 +526,20 @@ const curriculum = [
   practice:"In the initialization phase, before waitForStart(), use telemetry.addData() to print \"Hello World!\" to the Driver Station screen.",
   defaultCode:"@TeleOp(name=\"Basic OpMode Structure\")\npublic class MyFirstOpMode extends LinearOpMode {\n    @Override\n    public void runOpMode() throws InterruptedException {\n        // Challenge: print \"Hello World!\" to telemetry here\n        \n\n        waitForStart();\n\n        while (opModeIsActive()) {\n            // Main loop logic\n        }\n    }\n}",
   validate:(code)=>{
-    if(!code.includes("telemetry.addData")) return "You're missing a telemetry message. Use telemetry.addData(...) before waitForStart().";
-    if(!code.includes("Hello World!")) return "Check your text — it should read exactly \"Hello World!\".";
+    if(!code.includes("telemetry.addData")) return "Missing telemetry.addData(). This is how you send a labeled message to the Driver Station screen. Without it, the Driver Station has nothing to show. Try: telemetry.addData(\"Message\", \"Hello World!\");";
+    if(!code.includes("Hello World!")) return "Text mismatch: your message should be exactly \"Hello World!\" (capital H, capital W, exclamation mark). Computers are picky about exact text — even the wrong capital letter will make it a different message.";
     return true;
   }
 },
 {
+  module:"Module 1: Robot Basics & Your First Code",
   phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
   lesson:"Lesson 2: Basic Actuation & Hardware Mapping",
   title:"2.1 Initializing DC Motors & Servos", file:"ActuatorSetup.java",
+  hardware:[
+    {icon:"⚙", name:"DC Motor (TorqueNado / Hex Motor)", description:"The muscle of your robot. Converts electrical power into spinning motion. DC motors spin continuously and are used for drive wheels, arms, lifts, and intakes."},
+    {icon:"✋", name:"Servo (Servo)", description:"A motor that rotates to a specific position (0 to 180 degrees) rather than spinning continuously. Used for claws, wrists, and scoring mechanisms."}
+  ],
   diagram:" [ Motor Power = 0 ] --> Choose how it behaves:\n   |-- FLOAT --> Spins freely --> Arm falls!\n   `-- BRAKE --> Locks in place --> Arm holds steady",
   jargon:[
     {term:"ZERO POWER BEHAVIOR", def:"What a motor does when it receives no power — coast freely, or lock in place."},
@@ -499,16 +550,20 @@ const curriculum = [
   practice:"Register a motor named \"lift_motor\" and a servo named \"claw_servo\" using hardwareMap. Then set the motor's zero power behavior to DcMotor.ZeroPowerBehavior.BRAKE.",
   defaultCode:"package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\nimport com.qualcomm.robotcore.hardware.Servo;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\npublic class ActuatorSetup extends LinearOpMode {\n    DcMotor liftMotor;\n    Servo clawServo;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: map both parts, then set the motor's brake mode\n        \n    }\n}",
   validate:(code)=>{
-    if(!code.includes("hardwareMap.get")) return "You're missing the hardwareMap lookups for both parts.";
-    if(!code.includes('"lift_motor"') || !code.includes('"claw_servo"')) return "Double check your configuration names — \"lift_motor\" and \"claw_servo\".";
-    if(!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "You're missing the brake mode. Call setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE).";
+    if(!code.includes("hardwareMap.get")) return "Missing hardwareMap lookups. Your liftMotor and clawServo variables are just empty names right now — they're not connected to any physical ports. Call hardwareMap.get() for each part so Java knows which port to talk to.";
+    if(!code.includes('"lift_motor"') || !code.includes('"claw_servo"')) return "Config name mismatch: double-check your string names. They should match exactly what's in the Driver Station config: \"lift_motor\" and \"claw_servo\". A typo here crashes the robot the moment it starts.";
+    if(!code.includes("setZeroPowerBehavior") || !code.includes("ZeroPowerBehavior.BRAKE")) return "Brake mode is missing. Without setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE), the motor coasts freely when power stops — which means your arm falls with gravity. Add it to hold the arm in place.";
     return true;
   }
 },
 {
+  module:"Module 1: Robot Basics & Your First Code",
   phase:"Phase 1: Foundations of FTC Java", level:"Absolute Beginner",
   lesson:"Lesson 2: Basic Actuation & Hardware Mapping",
   title:"2.2 Telemetry and Basic Feedback", file:"TelemetryFeedback.java",
+  hardware:[
+    {icon:"⊞", name:"Control Hub (REV Hub)", description:"The brain of your robot — runs Android and your code. The Control Hub receives telemetry data from your OpMode and sends it to the Driver Station for display. It's also where sensors and motors connect."}
+  ],
   diagram:" [ addData(\"Position\", pos) ] --> Saved, but not shown yet\n                                          |\n [ telemetry.update(); ]   <--- Sends everything to the screen\n                                          |\n                                          v\n                                Shows up on the Driver Station",
   jargon:[
     {term:"TELEMETRY", def:"Messages sent from your robot's code to the Driver Station screen."},
@@ -519,17 +574,21 @@ const curriculum = [
   practice:"Write a loop that reads a motor's current encoder position and continuously displays that value on the Driver Station screen using telemetry.",
   defaultCode:"public void runLoop(DcMotor motor) {\n    // Challenge: display the motor's encoder position using telemetry\n    \n}",
   validate:(code)=>{
-    if(!code.includes("telemetry.addData")) return "You're missing telemetry.addData() to display the position.";
-    if(!code.includes("getCurrentPosition")) return "Read the motor's position with motor.getCurrentPosition().";
-    if(!code.includes("telemetry.update()")) return "Add telemetry.update(); so the value actually shows up on screen.";
+    if(!code.includes("telemetry.addData")) return "Missing telemetry.addData(). You store a labeled message with addData(), but without it the screen stays blank. Add: telemetry.addData(\"Position\", motor.getCurrentPosition());";
+    if(!code.includes("getCurrentPosition")) return "How does the program know the motor's position? You need motor.getCurrentPosition() inside your addData() call — this reads the actual encoder value from the physical motor.";
+    if(!code.includes("telemetry.update()")) return "Almost there! But telemetry.addData() only stores the message — it won't appear on screen until you call telemetry.update(). Think of it as: addData() writes a letter, update() sends it. Add telemetry.update(); after your addData() call.";
     return true;
   }
 },
 {
+  module:"Module 2: Driving Your Robot",
   phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
   lesson:"Lesson 3: Drivetrain Dynamics & TeleOp Control",
   title:"3.1 Mecanum Drive Kinematics", file:"MecanumDrive.java",
-  diagram:" Forward + Strafe + Turn = 1.3  (over the 1.0 limit!)\n   |-- Without normalizing --> Cut to 1.0 --> Direction is wrong\n   `-- With normalizing    --> Divide by 1.3 --> Direction stays correct",
+  hardware:[
+    {icon:"⬡", name:"Mecanum Wheel", description:"A wheel with rollers set at 45-degree angles. This lets the robot drive forward, backward, strafe sideways, and rotate — all without turning the wheels in a different direction. Each wheel needs its own motor."}
+  ],
+  diagram:" [TOP VIEW OF ROBOT]\n\n    Front\n   ┌──────┐\n   │ ╱╲ ╱╲ │   <-- Mecanum wheels at 45°\n   │ ╲╱ ╲╱ │       (rollers face inward forming X or O pattern)\n   └──────┘\n\n Joystick input: y (forward), x (strafe), rx (turn)\n\n Forward + Strafe + Turn = Power > 1.0 (over limit!)\n   |-- Without normalizing --> Motors cap at 1.0 --> Direction is wrong\n   `-- With normalizing    --> Divide by actual max --> Direction stays correct\n\n FORMULA: denominator = max(|y| + |x| + |rx|, 1.0)\n          frontLeft  = (y + x + rx) / denominator\n          frontRight = (y - x - rx) / denominator\n          backLeft   = (y - x + rx) / denominator\n          backRight  = (y + x - rx) / denominator",
   jargon:[
     {term:"KINEMATICS", def:"The math that turns joystick input into individual wheel power values."},
     {term:"NORMALIZATION", def:"Scaling wheel power values down so none go above the motor's maximum."}
@@ -539,12 +598,13 @@ const curriculum = [
   practice:"Complete the missing math in this TeleOp loop: declare the denominator using Math.max and Math.abs, then calculate all four wheel powers.",
   defaultCode:"double y = -gamepad1.left_stick_y; // Inverted by default on controllers\ndouble x = gamepad1.left_stick_x * 1.1; // Multiplier counteracts sideways friction\ndouble rx = gamepad1.right_stick_x;\n\n// Challenge: calculate the denominator and all four wheel powers below\ndouble denominator = \ndouble frontLeftPower = \ndouble backLeftPower = \ndouble frontRightPower = \ndouble backRightPower = ",
   validate:(code)=>{
-    if(!code.includes("Math.max") || !code.includes("Math.abs")) return "You're missing the normalization math — use Math.max(..., 1.0) with Math.abs().";
-    if(!code.includes("frontLeftPower") || !code.includes("backLeftPower") || !code.includes("frontRightPower") || !code.includes("backRightPower")) return "Make sure all four wheel power variables are calculated.";
+    if(!code.includes("Math.max") || !code.includes("Math.abs")) return "Normalization is missing. Without Math.max(1.0, Math.abs(y) + Math.abs(x) + Math.abs(rx)), combined joystick values over 1.0 get silently capped — which changes your intended direction. Build the denominator using Math.max and Math.abs.";
+    if(!code.includes("frontLeftPower") || !code.includes("backLeftPower") || !code.includes("frontRightPower") || !code.includes("backRightPower")) return "You need all four wheel power calculations (frontLeft, backLeft, frontRight, backRight). Each wheel on a mecanum drivetrain needs its own math based on the joystick inputs — missing one means that wheel won't respond.";
     return true;
   }
 },
 {
+  module:"Module 2: Driving Your Robot",
   phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
   lesson:"Lesson 3: Drivetrain Dynamics & TeleOp Control",
   title:"3.2 Input Smoothing & Deadbands", file:"InputFilters.java",
@@ -558,12 +618,13 @@ const curriculum = [
   practice:"Write a method that applies a 0.05 deadband to a joystick reading. If the reading clears the threshold, return it cubed; otherwise, return 0.",
   defaultCode:"public double applyDeadband(double stickInput) {\n    // Challenge: filter values below 0.05, then return the cubed result\n    \n}",
   validate:(code)=>{
-    if(!code.includes("0.05")) return "You're missing the 0.05 threshold check.";
-    if(!code.includes("Math.pow") && !code.match(/stickInput\s*\*\s*stickInput\s*\*\s*stickInput/)) return "Cube the value using Math.pow(stickInput, 3) or by multiplying it by itself three times.";
+    if(!code.includes("0.05")) return "Missing deadband threshold. Without checking for |stickInput| < 0.05, tiny joystick drift (from worn controller springs) gets passed through to the motors — making your robot drift when you're not touching the stick. Add an if-check that returns 0 when the absolute value is below 0.05.";
+    if(!code.includes("Math.pow") && !code.match(/stickInput\s*\*\s*stickInput\s*\*\s*stickInput/)) return "Cubing is missing. Without applying a curve (stickInput × stickInput × stickInput), the joystick feels twitchy near center and you lose fine control. Cube the filtered value with Math.pow(stickInput, 3) or by multiplying it by itself three times.";
     return true;
   }
 },
 {
+  module:"Module 2: Driving Your Robot",
   phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
   lesson:"Lesson 4: Subsystem Automation & State Transitions",
   title:"4.1 Asynchronous Timing with ElapsedTime", file:"AsyncTiming.java",
@@ -577,13 +638,14 @@ const curriculum = [
   practice:"Write a TeleOp loop where pressing gamepad1.x starts a motor, runs it for exactly 1.5 seconds without blocking, then turns it off automatically.",
   defaultCode:"ElapsedTime timer = new ElapsedTime();\nboolean motorRunning = false;\n\npublic void loop(DcMotor motor) {\n    // Challenge: run the motor for 1.5 seconds without blocking\n    \n}",
   validate:(code)=>{
-    if(code.includes("sleep(")) return "Remove the sleep() call — it would freeze your loop. Use timer.seconds() instead.";
-    if(!code.includes("timer.seconds()")) return "You're missing the timer check. Use timer.seconds() to track elapsed time.";
-    if(!code.includes("1.5")) return "Check your time limit — it should be 1.5 seconds.";
+    if(code.includes("sleep(")) return "Avoid sleep() in TeleOp. sleep(2000) pauses EVERYTHING — your drivetrain, your intake, everything. The driver loses control for a full 2 seconds. Use an ElapsedTime timer instead so your loop can keep running while waiting.";
+    if(!code.includes("timer.seconds()")) return "Missing the timer check. After starting the timer, you need to check timer.seconds() >= 1.5 on each loop pass to know when the 1.5 seconds are up. Without this, the motor runs forever.";
+    if(!code.includes("1.5")) return "Time limit mismatch. Your duration should check for 1.5 seconds (not 1.0 or 2.0). The challenge asks for exactly 1.5 seconds of motor runtime.";
     return true;
   }
 },
 {
+  module:"Module 2: Driving Your Robot",
   phase:"Phase 2: TeleOp & Mechanical Control", level:"Beginner",
   lesson:"Lesson 4: Subsystem Automation & State Transitions",
   title:"4.2 Basic TeleOp State Machines", file:"FsmBasics.java",
@@ -597,15 +659,19 @@ const curriculum = [
   practice:"Create an enum named IntakeState with three values: INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED. Then write a switch statement that handles all three.",
   defaultCode:"public class FsmBasics {\n    // Challenge: declare the IntakeState enum here\n    \n\n    public void updateState(IntakeState state) {\n        // Challenge: write a switch statement for all three states\n        \n    }\n}",
   validate:(code)=>{
-    if(!code.includes("enum IntakeState") || !code.includes("INTAKE_READY") || !code.includes("INTAKE_BURSTING") || !code.includes("INTAKE_REVERSED")) return "Your enum isn't complete. It should list INTAKE_READY, INTAKE_BURSTING, and INTAKE_REVERSED.";
-    if(!code.includes("switch") || !code.includes("case")) return "You're missing the switch statement to handle each state.";
+    if(!code.includes("enum IntakeState") || !code.includes("INTAKE_READY") || !code.includes("INTAKE_BURSTING") || !code.includes("INTAKE_REVERSED")) return "Your enum is incomplete. An enum defines the allowed states your mechanism can be in. Without all three states (INTAKE_READY, INTAKE_BURSTING, INTAKE_REVERSED), your state machine can't represent the full cycle.";
+    if(!code.includes("switch") || !code.includes("case")) return "You need a switch statement. An enum alone just defines the names — the switch statement is what actually handles each state differently. Without it, your mechanism doesn't do anything when you change states.";
     return true;
   }
 },
 {
+  module:"Module 3: Making Your Robot Drive Itself",
   phase:"Phase 3: Sensor Integration & Basic Autonomous", level:"Intermediate",
   lesson:"Lesson 5: Feedback-Driven Autonomous Movement",
   title:"5.1 Linear Navigation via Encoder Run-To-Position", file:"EncoderAuto.java",
+  hardware:[
+    {icon:"🔢", name:"Motor Encoder", description:"A sensor inside every FTC motor that counts rotations (ticks). Lets your robot measure distance accurately — so \"drive 24 inches\" really means 24 inches."}
+  ],
   diagram:" [ Target = 1000 ticks ] --> Motor turns --> Tick count increases\n                                                  |\n [ Target reached! ] <--- Motor stops automatically\n                                                  |\n                                                  v\n                           Robot travels the exact distance",
   jargon:[
     {term:"ENCODER TICK", def:"A pulse counted by a sensor as a motor shaft turns."},
@@ -616,14 +682,18 @@ const curriculum = [
   practice:"Write an autonomous program that sets four drivetrain motors to RUN_TO_POSITION, drives the chassis exactly 24 inches forward, then stops and resets the encoders.",
   defaultCode:"public void driveForward(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {\n    // Challenge: set RUN_TO_POSITION mode and drive 24 inches forward\n    \n}",
   validate:(code)=>{
-    if(!code.includes("RUN_TO_POSITION")) return "You're missing the mode change. Use DcMotor.RunMode.RUN_TO_POSITION.";
+    if(!code.includes("RUN_TO_POSITION")) return "Missing the RUN_TO_POSITION mode. Without DcMotor.RunMode.RUN_TO_POSITION, the motor ignores your target position and just runs until you tell it to stop. Setting RUN_TO_POSITION tells the motor: 'go to this encoder position and stop when you get there.'";
     return true;
   }
 },
 {
+  module:"Module 3: Making Your Robot Drive Itself",
   phase:"Phase 3: Sensor Integration & Basic Autonomous", level:"Intermediate",
   lesson:"Lesson 5: Feedback-Driven Autonomous Movement",
   title:"5.2 Angular Navigation via the Universal IMU", file:"IMUHeading.java",
+  hardware:[
+    {icon:"🧭", name:"IMU (Inertial Measurement Unit / Gyroscope)", description:"Built into the Control Hub. Measures the robot's actual rotation in degrees, independent of wheel slippage. Essential for accurate turns."}
+  ],
   diagram:"      ^  [ 0 degrees = starting direction ]\n      |\n <----+---->  The IMU tracks rotation even if wheels slip\n      |\n      v  [ Robot turns 90 degrees left --> Yaw becomes +90.0 ]",
   jargon:[
     {term:"IMU (GYROSCOPE)", def:"A sensor that measures the robot's rotation directly, separate from the wheels."},
@@ -634,16 +704,17 @@ const curriculum = [
   practice:"Write a turning routine that reads the current IMU heading and applies rotation power until the heading matches a target angle within +/-1.0 degree.",
   defaultCode:"public void turnToHeading(IMU imu, double targetAngle) {\n    // Challenge: read the heading and rotate until within +/-1.0 degree\n    \n}",
   validate:(code)=>{
-    if(!code.includes("getRobotYawPitchRollAngles")) return "You're missing the heading read. Call imu.getRobotYawPitchRollAngles().";
-    if(!code.includes("getYaw")) return "Pull the yaw value off the result using .getYaw().";
+    if(!code.includes("getRobotYawPitchRollAngles")) return "Missing the IMU angle read. You need imu.getRobotYawPitchRollAngles() to get the robot's current orientation from the gyroscope. Without it, the robot doesn't know which way it's facing.";
+    if(!code.includes("getYaw")) return "Missing .getYaw(). The getRobotYawPitchRollAngles() call returns a container with multiple angles — .getYaw() is the one you want for left/right heading. Without it, you can't tell if the robot has turned far enough.";
     return true;
   }
 },
 {
+  module:"Module 4: Precision Control",
   phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
   lesson:"Lesson 6: Precision System Control via PID Feedback Loops",
   title:"6.1 The Math and Logic of PID Control", file:"PIDController.java",
-  diagram:" error = target - current\n   Kp * error            --> reacts to current distance from target\n + Ki * (sum of error)  --> corrects steady, lingering error\n + Kd * (rate of change) --> slows down the approach\n = motor power output",
+  diagram:" TARGET: arm at 90 degrees       CURRENT: arm at 45 degrees\n\n error = target - current = 90 - 45 = 45 degrees\n\n Proportional (Kp):  Kp × error         --> Big push when far away\n   Integral (Ki):     Ki × sum(error)    --> Builds up to overcome gravity\n   Derivative (Kd):   Kd × rate-of-change --> Slows down as you get close\n                                      │\n                                      v\n                         ┌─────────────────┐\n                         │  motorPower =   │\n                         │  Kp×error +     │\n                         │  Ki×sum +       │\n                         │  Kd×derivative  │\n                         └─────────────────┘\n                                      │\n                                      v\n                            Arm moves smoothly to target",
   jargon:[
     {term:"PID CONTROL", def:"A method that scales motor power based on how far a mechanism is from its target."},
     {term:"PROPORTIONAL / INTEGRAL / DERIVATIVE", def:"The three terms that make up a PID controller's output."}
@@ -653,14 +724,15 @@ const curriculum = [
   practice:"Complete this PIDController class: calculate the error, update the integral sum, calculate the derivative, then return the combined output.",
   defaultCode:"public class PIDController {\n    private double Kp, Ki, Kd;\n    private double integralSum = 0;\n    private double lastError = 0;\n    private ElapsedTime timer = new ElapsedTime();\n\n    public PIDController(double kp, double ki, double kd) {\n        this.Kp = kp; this.Ki = ki; this.Kd = kd;\n    }\n\n    public double calculate(double target, double current) {\n        // Challenge: calculate error, integralSum, and derivative, then return the PID output\n        \n    }\n}",
   validate:(code)=>{
-    if(!code.includes("target - current") && !code.includes("target-current")) return "Start by calculating the error: target - current.";
-    if(!code.includes("integralSum")) return "You're missing the integral term — accumulate error into integralSum.";
-    if(!code.includes("lastError")) return "You're missing the derivative term — compare against lastError.";
-    if(!code.includes("return")) return "Your method needs to return the combined Kp, Ki, and Kd output.";
+    if(!code.includes("target - current") && !code.includes("target-current")) return "Starting point: calculate the error = target - current. This tells the controller 'how far off are we?' If you don't calculate error, the PID loop has no sense of distance to the target.";
+    if(!code.includes("integralSum")) return "Missing the integral term. integralSum += error accumulates small ongoing errors over time. Without it, your mechanism might never fully reach the target due to friction or gravity.";
+    if(!code.includes("lastError")) return "Missing the derivative term. derivative = error - lastError measures how fast the error is changing. Without it, the system won't slow down as it approaches the target, causing overshoot.";
+    if(!code.includes("return")) return "Your method needs to return the combined PID output = Kp*error + Ki*integralSum + Kd*derivative. Without a return value, the motor never gets told what power to run at.";
     return true;
   }
 },
 {
+  module:"Module 4: Precision Control",
   phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
   lesson:"Lesson 6: Precision System Control via PID Feedback Loops",
   title:"6.2 Tuning a PID Loop on a Mechanical Subsystem", file:"PIDTuning.java",
@@ -674,12 +746,13 @@ const curriculum = [
   practice:"Create a LinearOpMode that sets up your PIDController and uses it, inside an active loop, to hold an encoder-equipped arm steady at 500 ticks.",
   defaultCode:"public class PIDTuning extends LinearOpMode {\n    PIDController pid = new PIDController(0.01, 0, 0.001);\n\n    @Override\n    public void runOpMode() {\n        waitForStart();\n        while (opModeIsActive()) {\n            // Challenge: hold the arm at 500 ticks using pid.calculate()\n            \n        }\n    }\n}",
   validate:(code)=>{
-    if(!code.includes("pid.calculate")) return "Call pid.calculate(target, current) inside your loop.";
-    if(!code.includes("500")) return "Your target position should be 500 ticks.";
+    if(!code.includes("pid.calculate")) return "Missing pid.calculate() call inside your loop. Without calling calculate() on each loop iteration, the PID output never gets updated — so the motor just sits at whatever power it had at the start. Call pid.calculate(target, current) inside your while loop.";
+    if(!code.includes("500")) return "Target position mismatch. This challenge asks you to hold the arm steady at 500 ticks. Use 500 as the target in pid.calculate().";
     return true;
   }
 },
 {
+  module:"Module 4: Precision Control",
   phase:"Phase 4: Advanced Control Theory & System Design", level:"Advanced",
   lesson:"Lesson 7: Advanced Modeling: Feedforward Controls",
   title:"7.1 Gravity and Velocity Compensation", file:"Feedforward.java",
@@ -693,11 +766,12 @@ const curriculum = [
   practice:"Write a method that computes the feedforward output for a pivoting arm, given its current angle in radians and a Kcos constant.",
   defaultCode:"public double calculateFeedforward(double angleRadians, double Kcos) {\n    // Challenge: return the feedforward output using Math.cos()\n    \n}",
   validate:(code)=>{
-    if(!code.includes("Math.cos")) return "Use Math.cos(angleRadians) to factor in the arm's angle.";
+    if(!code.includes("Math.cos")) return "Missing Math.cos(). The feedforward output = Kcos × cos(angleRadians). Without cosine, you can't account for how gravity's pull changes as the arm pivots — at 0° (horizontal) gravity pulls hardest, at 90° (vertical) it disappears. Math.cos() captures that curve.";
     return true;
   }
 },
 {
+  module:"Module 5: Computer Vision & Navigation",
   phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
   lesson:"Lesson 8: Native Vision & Target Acquisition via the FTC SDK",
   title:"8.1 Global Field Positioning via AprilTagProcessor", file:"AprilTagVision.java",
@@ -711,12 +785,13 @@ const curriculum = [
   practice:"Set up a VisionPortal with an AprilTagProcessor, configured for a 640x480 camera resolution.",
   defaultCode:"public void initVision() {\n    // Challenge: create an AprilTagProcessor and a VisionPortal at 640x480\n    \n}",
   validate:(code)=>{
-    if(!code.includes("AprilTagProcessor")) return "You're missing the AprilTagProcessor setup.";
-    if(!code.includes("640") || !code.includes("480")) return "Set the camera resolution to 640x480.";
+    if(!code.includes("AprilTagProcessor")) return "Missing the AprilTagProcessor. Without creating a processor first, the VisionPortal has no way to detect AprilTags. Create one with new AprilTagProcessor.Builder().build();";
+    if(!code.includes("640") || !code.includes("480")) return "Resolution mismatch. The camera resolution 640x480 needs to be set in the VisionPortal builder. Without this, the camera may use a different resolution that doesn't match your processor configuration.";
     return true;
   }
 },
 {
+  module:"Module 5: Computer Vision & Navigation",
   phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
   lesson:"Lesson 8: Native Vision & Target Acquisition via the FTC SDK",
   title:"8.2 Element Tracking via ColorBlobLocatorProcessor", file:"ColorBlobVision.java",
@@ -730,12 +805,13 @@ const curriculum = [
   practice:"Write a method that loops through detected blobs, finds the largest one, and prints its center coordinates (X, Y) to telemetry.",
   defaultCode:"public void findLargestBlob(java.util.List<Object> blobs) {\n    // Challenge: loop through blobs, find the largest, print its center to telemetry\n    \n}",
   validate:(code)=>{
-    if(!code.includes("for")) return "You'll need a loop to go through the list of blobs.";
-    if(!code.includes("telemetry.addData")) return "Print the largest blob's center coordinates using telemetry.addData().";
+    if(!code.includes("for")) return "You'll need a for loop to iterate through the list of blobs. Without a loop, you can only look at the first blob — but the largest blob could be anywhere in the list.";
+    if(!code.includes("telemetry.addData")) return "Missing telemetry output. After finding the largest blob's center (X, Y), you need telemetry.addData() to actually display those coordinates on the Driver Station screen.";
     return true;
   }
 },
 {
+  module:"Module 5: Computer Vision & Navigation",
   phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
   lesson:"Lesson 9: High-Frequency Localization & Sensor Fusion",
   title:"9.1 Mechanical Odometry vs. Onboard I2C Localizers", file:"Odometry.java",
@@ -749,12 +825,13 @@ const curriculum = [
   practice:"Write a safety check that monitors the localizer's coordinates. If position jumps more than 12 inches in a single frame, log a telemetry warning.",
   defaultCode:"public void checkForCollision(double newX, double newY, double lastX, double lastY) {\n    // Challenge: warn via telemetry if the jump is more than 12 inches\n    \n}",
   validate:(code)=>{
-    if(!code.includes("12")) return "Check against a 12 inch threshold.";
-    if(!code.includes("telemetry.addData")) return "Log the warning using telemetry.addData().";
+    if(!code.includes("12")) return "Threshold mismatch. The challenge asks you to detect jumps larger than 12 inches. Without checking Math.abs(newX - lastX) > 12 || Math.abs(newY - lastY) > 12, you can't tell if the robot got pushed or the localizer glitched.";
+    if(!code.includes("telemetry.addData")) return "Missing warning output. When a collision is detected, you need telemetry.addData() to alert the driver on screen. Without it, no one knows the robot may have been pushed.";
     return true;
   }
 },
 {
+  module:"Module 5: Computer Vision & Navigation",
   phase:"Phase 5: Native Computer Vision & Advanced Localization", level:"Master",
   lesson:"Lesson 9: High-Frequency Localization & Sensor Fusion",
   title:"9.2 Sensor Fusion and Drift Compensation", file:"SensorFusion.java",
@@ -768,12 +845,13 @@ const curriculum = [
   practice:"Write a function that checks if an AprilTag is visible and, if its confidence is high, updates your robot's position with the camera's reading.",
   defaultCode:"public void fusePosition(boolean tagVisible, double confidence, double tagX, double tagY) {\n    // Challenge: update position from the tag if it's visible and confidence is high\n    \n}",
   validate:(code)=>{
-    if(!code.includes("if")) return "You'll need a condition checking tagVisible and confidence.";
-    if(!code.includes("tagVisible")) return "Check the tagVisible flag before trusting the tag's position.";
+    if(!code.includes("if")) return "Missing a condition check. You need an if-statement to only use the AprilTag's position when the tag is actually visible AND confidence is high enough. Without this check, you might use garbage data from a false detection.";
+    if(!code.includes("tagVisible")) return "Missing the tagVisible flag check. You should only trust the AprilTag's position if a tag was actually detected this frame. If tagVisible is false, the position values are meaningless.";
     return true;
   }
 },
 {
+  module:"Module 6: Advanced Path Planning",
   phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
   lesson:"Lesson 10: Road Runner Trajectory Generation & Motion Profiling",
   title:"10.1 Building Coordinated Trajectories", file:"RoadRunnerAuto.java",
@@ -787,12 +865,13 @@ const curriculum = [
   practice:"Study and complete this Road Runner autonomous script: build a path that splines to (36, 36, 90 degrees) and then drives to X=60.",
   defaultCode:"public class RoadRunnerAuto extends LinearOpMode {\n    @Override\n    public void runOpMode() {\n        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));\n\n        // Challenge: build a path that splines to (36, 36, 90deg) then drives to X=60\n        Action autonomousTrajectory = drive.actionBuilder(new Pose2d(0, 0, 0))\n            \n            .build();\n\n        waitForStart();\n        if (isStopRequested()) return;\n\n        Actions.runBlocking(autonomousTrajectory);\n    }\n}",
   validate:(code)=>{
-    if(!code.includes("splineToLinearHeading")) return "You're missing the spline. Use splineToLinearHeading(...) to reach (36, 36, 90deg).";
-    if(!code.includes("lineToX")) return "You're missing the final straight line. Use lineToX(60) to finish the path.";
+    if(!code.includes("splineToLinearHeading")) return "Missing the spline. splineToLinearHeading(new Pose2d(36, 36, Math.toRadians(90)), ...) creates a smooth curved path from your start to (36, 36) while also rotating to face 90°. Without it, the robot can only drive in straight lines.";
+    if(!code.includes("lineToX")) return "Missing the final straight line. After the spline, lineToX(60) drives the robot directly to X=60 on the field. Without it, the robot stops at (36, 36) and never reaches the scoring position.";
     return true;
   }
 },
 {
+  module:"Module 6: Advanced Path Planning",
   phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
   lesson:"Lesson 10: Road Runner Trajectory Generation & Motion Profiling",
   title:"10.2 Asynchronous Execution & Non-Blocking Actions", file:"CustomAction.java",
@@ -806,12 +885,13 @@ const curriculum = [
   practice:"Create an Action class that turns on an intake motor for a set duration using an internal timer, without blocking the drivetrain.",
   defaultCode:"public class IntakeAction implements Action {\n    private final DcMotor motor;\n    private final double durationSeconds;\n    private ElapsedTime timer;\n\n    public IntakeAction(DcMotor motor, double durationSeconds) {\n        this.motor = motor;\n        this.durationSeconds = durationSeconds;\n    }\n\n    @Override\n    public boolean run(Object packet) {\n        // Challenge: start the timer on first run, then return true while running, false when done\n        \n    }\n}",
   validate:(code)=>{
-    if(!code.includes("timer")) return "Use the timer field to track how long the motor has been running.";
-    if(!code.includes("return true") || !code.includes("return false")) return "Your run() method should return true while running, and false once finished.";
+    if(!code.includes("timer")) return "Missing the timer reference. Without the ElapsedTime timer, you can't track how long the intake has been running. Initialize timer on the first run() call, then check timer.seconds() against durationSeconds.";
+    if(!code.includes("return true") || !code.includes("return false")) return "Your run() method needs both return values: return true while the motor is still running (time hasn't elapsed), and return false once the duration is up. This is what makes the Action non-blocking — it's checked each loop pass and finishes by itself.";
     return true;
   }
 },
 {
+  module:"Module 6: Advanced Path Planning",
   phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
   lesson:"Lesson 11: Pedro Pathfinder Reactive Vector Navigation",
   title:"11.1 Parametric Bezier Curves", file:"PedroPath.java",
@@ -825,13 +905,14 @@ const curriculum = [
   practice:"Write a Pedro Pathfinder configuration: define a startPose, two control points (controlPoint1, controlPoint2) to create an S-curve around an obstacle, and an endPose.",
   defaultCode:"public void buildPath() {\n    // Challenge: define startPose, controlPoint1, controlPoint2, and endPose\n    \n}",
   validate:(code)=>{
-    if(!code.includes("startPose")) return "You're missing the startPose.";
-    if(!code.includes("controlPoint1") || !code.includes("controlPoint2")) return "Add both controlPoint1 and controlPoint2 to shape the S-curve.";
-    if(!code.includes("endPose")) return "You're missing the endPose.";
+    if(!code.includes("startPose")) return "Missing the starting position. Without startPose, Pedro Pathfinder doesn't know where the robot begins. Define it as a Pose2d(x, y, heading) for your robot's starting location on the field.";
+    if(!code.includes("controlPoint1") || !code.includes("controlPoint2")) return "Missing control points. Control points shape the Bezier curve — they pull the path around obstacles. Without controlPoint1 and controlPoint2, your path is just a straight line, not an S-curve.";
+    if(!code.includes("endPose")) return "Missing the end point. Without endPose, Pedro Pathfinder doesn't know where the robot should finish up. Define the target position on the field.";
     return true;
   }
 },
 {
+  module:"Module 6: Advanced Path Planning",
   phase:"Phase 6: Advanced Pathing & Motion Profiling", level:"Master Expert",
   lesson:"Lesson 11: Pedro Pathfinder Reactive Vector Navigation",
   title:"11.2 Path Progressions & Non-Blocking Triggers", file:"PathTriggers.java",
@@ -845,8 +926,8 @@ const curriculum = [
   practice:"Write a non-blocking loop that updates your Pedro Pathfinder follower and deploys a scoring servo once the robot reaches 75% of its path.",
   defaultCode:"public void autoLoop(Object follower, Servo scoringServo) {\n    // Challenge: deploy scoringServo once path progress reaches 0.75\n    \n}",
   validate:(code)=>{
-    if(!code.includes("0.75")) return "Check progress against 0.75 (75%).";
-    if(!code.includes("scoringServo")) return "Use scoringServo to deploy the mechanism.";
+    if(!code.includes("0.75")) return "Progress threshold mismatch. Check the path progress against 0.75 (75%). This means 'once the robot has completed 75% of its path, deploy the scoring mechanism.' A different value means it deploys at the wrong time.";
+    if(!code.includes("scoringServo")) return "Missing the scoring servo reference. You have the servo variable available — use scoringServo.setPosition() to deploy it when progress hits 0.75. Without this, nothing physically happens when the trigger fires.";
     return true;
   }
 }
@@ -898,8 +979,8 @@ function toggleSidebar(hide) {
    HOMEPAGE ROADMAP (signature element)
    ============================================================ */
 function renderRoadmap(){
-  const phases = [];
-  curriculum.forEach(l => { if(!phases.find(p=>p.phase===l.phase)) phases.push({phase:l.phase, level:l.level}); });
+  const modules = [];
+  curriculum.forEach(l => { if(!modules.find(m=>m.module===l.module)) modules.push({module:l.module, level:l.level}); });
 
   const total = curriculum.length;
   const doneCount = completed.size;
@@ -907,19 +988,19 @@ function renderRoadmap(){
   document.getElementById("homeProgressLabel").parentElement.querySelector(".hero-stat-num").textContent = pct + "%";
 
   // how many phases are "lit" based on progress
-  const idxsByPhase = phases.map(p => curriculum.map((l,i)=>l.phase===p.phase?i:-1).filter(i=>i>=0));
-  let litPhases = 0;
-  idxsByPhase.forEach(idxs => { if(idxs.every(i=>completed.has(i))) litPhases++; else if(idxs.some(i=>completed.has(i)) && litPhases===idxsByPhase.indexOf(idxs)) litPhases += 0.5; });
+  const idxsByModule = modules.map(m => curriculum.map((l,i)=>l.module===m.module?i:-1).filter(i=>i>=0));
+  let litModules = 0;
+  idxsByModule.forEach(idxs => { if(idxs.every(i=>completed.has(i))) litModules++; else if(idxs.some(i=>completed.has(i)) && litModules===idxsByModule.indexOf(idxs)) litModules += 0.5; });
 
   let html = '<div class="roadmap-line"><div class="roadmap-track"></div><div class="roadmap-progress" id="roadmapProgress"></div>';
-  phases.forEach((p, i) => {
-    const num = p.phase.match(/Phase (\d+)/)[1];
-    const shortTitle = p.phase.replace(/Phase \d+:\s*/,"");
-    const lit = i < Math.ceil(litPhases) || (litPhases >= i+1);
-    html += `<div class="roadmap-node ${i < Math.floor(litPhases) || (i===0 && doneCount>0) || (idxsByPhase[i] && idxsByPhase[i].some(ix=>completed.has(ix))) ? 'lit':''}">
+  modules.forEach((m, i) => {
+    const num = i + 1;
+    const shortTitle = m.module.replace(/Module \d+:\s*/,"");
+    const lit = i < Math.ceil(litModules) || (litModules >= i+1);
+    html += `<div class="roadmap-node ${i < Math.floor(litModules) || (i===0 && doneCount>0) || (idxsByModule[i] && idxsByModule[i].some(ix=>completed.has(ix))) ? 'lit':''}">
       <div class="roadmap-dot">${num}</div>
       <div class="roadmap-node-label">${shortTitle}</div>
-      <div class="roadmap-node-level">${p.level}</div>
+      <div class="roadmap-node-level">${m.level}</div>
     </div>`;
   });
   html += '</div>';
@@ -936,10 +1017,10 @@ function renderRoadmap(){
 function renderSidebar(){
   const groups = [];
   curriculum.forEach((l, i) => {
-    let phaseGroup = groups.find(g => g.phase === l.phase);
-    if(!phaseGroup){ phaseGroup = {phase:l.phase, level:l.level, lessons:[]}; groups.push(phaseGroup); }
-    let lessonGroup = phaseGroup.lessons.find(lg => lg.lesson === l.lesson);
-    if(!lessonGroup){ lessonGroup = {lesson:l.lesson, items:[]}; phaseGroup.lessons.push(lessonGroup); }
+    let moduleGroup = groups.find(g => g.module === l.module);
+    if(!moduleGroup){ moduleGroup = {module:l.module, level:l.level, lessons:[]}; groups.push(moduleGroup); }
+    let lessonGroup = moduleGroup.lessons.find(lg => lg.lesson === l.lesson);
+    if(!lessonGroup){ lessonGroup = {lesson:l.lesson, items:[]}; moduleGroup.lessons.push(lessonGroup); }
     lessonGroup.items.push({idx:i, title:l.title});
   });
 
@@ -948,7 +1029,7 @@ function renderSidebar(){
     html += `<div class="phase-group" id="phaseGroup${gi}">
       <div class="phase-head" onclick="togglePhase(${gi})">
         <div>
-          <div class="phase-head-title">${g.phase}</div>
+          <div class="phase-head-title">${g.module}</div>
           <div class="phase-head-level">${g.level}</div>
         </div>
         <div class="phase-chevron">&#9660;</div>
@@ -991,13 +1072,27 @@ function selectLesson(idx){
 }
 function syncLessonView(fade){
   const data = curriculum[activeIdx];
-  document.getElementById("breadcrumb").innerHTML = `<b>${data.phase}</b> &middot; ${data.lesson}`;
+  document.getElementById("breadcrumb").innerHTML = `<b>${data.module}</b> &middot; ${data.lesson}`;
   document.getElementById("lessonTitle").textContent = data.title;
   document.getElementById("diagramContent").textContent = data.diagram;
   document.getElementById("fileTab").textContent = data.file;
 
+  // hardware photo placeholder
+  const hwContainer = document.getElementById("hardwarePhotoContainer");
+  if(data.hardware){
+    hwContainer.innerHTML = data.hardware.map(h =>
+      `<div class="hardware-photo">
+        <div class="hardware-photo-img">${h.icon || '?'}</div>
+        <div class="hardware-photo-label"><b>${h.name}</b>${h.description}</div>
+      </div>`
+    ).join("");
+    hwContainer.style.display = "";
+  } else {
+    hwContainer.style.display = "none";
+  }
+
   document.getElementById("jargonContent").innerHTML = data.jargon.map(j =>
-    `<div class="jargon-term"><b>${j.term}</b> — ${j.def}</div>`
+    `<div class="jargon-term"><span class="tooltip-trigger">${j.term}<span class="tooltip-popup"><b>${j.term}</b>${j.def}</span></span></div>`
   ).join("");
 
   let tabsHtml = "";
@@ -1045,7 +1140,7 @@ function resetEditor(){
   document.getElementById("editor").value = data.defaultCode;
   const out = document.getElementById("consoleOutput");
   out.className = "console-output";
-  out.textContent = `Loaded ${data.file}. Click "Run Code" to check your work.`;
+    out.textContent = `Ready to code! Edit the file below and click "Run Code" when you want to check your work.`;
   updateLineNumbers();
 }
 
@@ -1080,7 +1175,7 @@ function runCode(){
         line.startsWith("return") || line.startsWith("double") || line.startsWith("}");
       if(!skip){
         out.className = "console-output is-error";
-        out.textContent = `Line ${i+1} looks like it's missing a semicolon (;) at the end.`;
+        out.textContent = `Line ${i+1} looks incomplete. In Java, most instructions need to end with a semicolon (;). Think of it like a period at the end of a sentence — it tells Java 'I'm done with this thought.' Try adding ; at the end of line ${i+1}.`;
         return;
       }
     }
@@ -1088,7 +1183,7 @@ function runCode(){
     const closes = (code.match(/}/g) || []).length;
     if(opens !== closes){
       out.className = "console-output is-error";
-      out.textContent = `Your braces don't match — ${opens} opening { vs ${closes} closing }. Check that every { has a matching }.`;
+      out.textContent = `Your braces don't match — ${opens} opening { vs ${closes} closing }. Every opening { needs a matching closing }. Braces group blocks of code together, like parentheses in a sentence. Without a matching pair, Java doesn't know where the block ends. Check for a missing { or }.`;
       return;
     }
     const result = data.validate(code);
@@ -1097,7 +1192,7 @@ function runCode(){
       out.textContent = result;
     } else {
       out.className = "console-output is-success";
-      out.textContent = "Nice work — your code passed every check!";
+      out.textContent = "Great work! Your code passed every check. 🎉 You've earned this lesson — keep going!";
       if(!completed.has(activeIdx)){
         completed.add(activeIdx);
         saveCompleted();
@@ -1115,12 +1210,97 @@ function toggleGuideMode(){
   const btn = document.getElementById("guideToggle");
   const on = document.body.classList.contains("guide-mode");
   btn.classList.toggle("is-on", on);
-  btn.textContent = "Visual Guide: " + (on ? "On" : "Off");
+  btn.textContent = "Learning Mode: " + (on ? "On" : "Off");
 }
+
+/* ============================================================
+   TOOLTIP POSITIONING (fixed-position to avoid overflow clipping)
+   ============================================================ */
+document.addEventListener('mouseover', function(e) {
+  const trigger = e.target.closest('.tooltip-trigger');
+  if (!trigger) return;
+  const popup = trigger.querySelector('.tooltip-popup');
+  if (!popup) return;
+
+  const rect = trigger.getBoundingClientRect();
+  const popupW = popup.offsetWidth || 280;
+  const popupH = popup.offsetHeight || 80;
+
+  let left = Math.max(8, Math.min(rect.left + rect.width / 2 - popupW / 2, window.innerWidth - popupW - 8));
+  let top = rect.top - popupH - 10;
+
+  popup.classList.remove('tooltip-below', 'tooltip-above');
+  if (top < 8) {
+    top = rect.bottom + 10;
+    popup.classList.add('tooltip-below');
+  } else {
+    popup.classList.add('tooltip-above');
+  }
+
+  popup.style.left = left + 'px';
+  popup.style.top = top + 'px';
+  popup.style.opacity = '1';
+});
+document.addEventListener('mouseout', function(e) {
+  const trigger = e.target.closest('.tooltip-trigger');
+  if (!trigger) return;
+  const popup = trigger.querySelector('.tooltip-popup');
+  if (!popup) return;
+  popup.style.opacity = '0';
+});
 </script>
 <style>
   body.guide-mode .diagram-box{ border-color: var(--primary); box-shadow:0 0 0 1px rgba(232,84,10,0.25); }
   body.guide-mode .jargon-box{ border-color: var(--primary); border-style:solid; background:rgba(232,84,10,0.05); }
+  body.guide-mode .hardware-photo{ border-color: var(--primary); }
+  
+  /* ===== JARGON TOOLTIPS ===== */
+  .tooltip-trigger{
+    position:relative; cursor:help; border-bottom:1px dashed var(--primary);
+    color:var(--primary); font-family:var(--font-code); font-size:12px; display:inline-block;
+    transition: color 0.2s ease;
+  }
+  .tooltip-trigger:hover{ color:#fff; }
+  .tooltip-popup{
+    position:fixed; top:0; left:0;
+    background:var(--secondary-soft); border:1px solid var(--accent); border-radius:6px;
+    padding:10px 14px; font-size:12px; color:rgba(255,255,255,0.9); line-height:1.5;
+    white-space:normal; min-width:200px; max-width:300px; font-family:var(--font-body);
+    pointer-events:none; opacity:0; transition:opacity 0.15s ease;
+    z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  }
+  .tooltip-popup::after{
+    content:''; position:absolute; left:50%; transform:translateX(-50%);
+    border:6px solid transparent;
+  }
+  .tooltip-popup.tooltip-above::after{ top:100%; border-top-color:var(--accent); }
+  .tooltip-popup.tooltip-below::after{ bottom:100%; border-bottom-color:var(--accent); }
+  .tooltip-popup b{ color:var(--primary); font-family:var(--font-code); display:block; margin-bottom:4px; }
+  
+  /* ===== HARDWARE PHOTO PLACEHOLDER ===== */
+  .hardware-photo{
+    background:var(--secondary); border:1px solid rgba(255,255,255,0.08); border-radius:8px;
+    padding:16px; margin-bottom:18px; display:flex; align-items:center; gap:14px;
+  }
+  .hardware-photo-img{
+    width:80px; height:80px; border-radius:6px; background:var(--secondary-soft);
+    border:1px dashed var(--accent); display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; font-size:28px; color:rgba(255,255,255,0.2);
+  }
+  .hardware-photo-label{ font-size:11px; color:rgba(255,255,255,0.5); line-height:1.5; }
+  .hardware-photo-label b{ color:var(--primary); font-size:12px; display:block; margin-bottom:2px; }
+  
+  /* ===== ENHANCED DIAGRAM LEGEND ===== */
+  .diagram-legend{
+    display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .diagram-legend-item{ font-size:10px; color:rgba(255,255,255,0.5); display:flex; align-items:center; gap:6px; }
+  .diagram-legend-dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  
+  /* ===== ERROR FEEDBACK ENHANCEMENT ===== */
+  .console-output.is-hint{ color:#f0c040; }
+  .error-detail{ font-size:11px; color:rgba(255,255,255,0.5); margin-top:6px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.08); }
 </style>
 <script>
   renderSidebar();
