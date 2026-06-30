@@ -487,7 +487,7 @@ const curriculum = [
   validate:(code)=>{
     if(!code.includes("Hello, Robot!")) return "Make sure your message reads exactly \"Hello, Robot!\" — including the comma and the exclamation mark.";
     if(!code.includes("System.out.println") && !code.includes("System.out.print")) return "Use System.out.println() or System.out.print() to display your message.";
-    if(!code.trim().endsWith(";")) return "Don't forget the semicolon (;) at the end! In Java, it's like a period at the end of a sentence.";
+    if(!code.includes(";")) return "Don't forget the semicolon (;) at the end of your print statement! In Java, it's like a period at the end of a sentence.";
     return true;
   }
 },
