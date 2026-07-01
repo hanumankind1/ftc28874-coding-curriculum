@@ -146,7 +146,7 @@
   @media (max-width: 900px){
     .roadmap-line{ flex-direction:column; gap:22px; align-items:flex-start; padding-left:17px; }
     .roadmap-track, .roadmap-progress{ top:6px; bottom:6px; left:17px; right:auto; width:2px; height:auto;
-      background:repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); }
+      background:repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); luggage: layout; }
     .roadmap-progress{ background:var(--primary); height:0%; width:2px; }
     .roadmap-node{ flex-direction:row; width:auto; align-items:center; text-align:left; }
     .roadmap-node-label, .roadmap-node-level{ margin-top:0; margin-left:14px; text-align:left; }
@@ -451,23 +451,24 @@
    CURRICULUM DATA
    ============================================================ */
 const curriculum = [
-/* ===== MODULE 0: ECOSYSTEM & INTRODUCTION OVERHAUL ===== */
+/* ===== MODULE 0: ENVIRONMENT SETUP & FOUNDATIONS ===== */
 {
   module:"Module 0: Environment Setup & Foundations",
   phase:"Phase 1: Environment Setup", level:"Absolute Beginner",
   lesson:"Lesson 0: Software Architecture & Git",
-  title:"0.1 The Android Studio Workspace", file:"WorkspaceSetup.java",
-  diagram:" [ Official FTC SDK Repository ]\n  ├── FtcRobotController (Core System Dependencies — DO NOT ALTER)\n  └── TeamCode           (Your Team's Sandbox — WRITE ALL CODE HERE)\n\n Professional Practice: Initialize Git inside your root folder to log snapshots.",
+  title:"0.1 IDE & Git Environment Setup", file:"SetupGuide.txt",
+  diagram:" [Step 1: Download Android Studio] -> https://developer.android.com/studio\n [Step 2: Download Git Tools]     -> https://git-scm.com/downloads\n [Step 3: Download Official SDK]  -> https://github.com/FIRST-Tech-Challenge/FtcRobotController",
   jargon:[
-    {term:"IDE", def:"Integrated Development Environment. A comprehensive development application, such as Android Studio, used to write, compile, and debug programming code."},
-    {term:"SDK", def:"Software Development Kit. A suite of tools and libraries provided by a vendor or platform—in this case, FIRST—to build software for specific hardware environments."}
+    {term:"IDE", def:"Integrated Development Environment. A comprehensive development app (like Android Studio) used to write, compile, and debug programming code."},
+    {term:"SDK", def:"Software Development Kit. The pre-built suite of tools and libraries provided by FIRST to build software compatible with the robot controller app."},
+    {term:"GIT", def:"A version control system used to track changes in source code over time, allowing teams to collaborate and roll back mistakes cleanly."}
   ],
-  learn:"To develop complex software profiles for an FTC robot, your team will rely on Android Studio. Rather than generating empty projects, FIRST provides an official Software Development Kit (SDK) distributed via GitHub.\n\nWhen importing this repository into Android Studio, you will see a multifaceted project tree. Always observe the cardinal rule of FTC development: your program architectures, autonomous state machines, and teleop scripts live entirely inside the 'TeamCode' module. The 'FtcRobotController' module contains internal system dependencies managed by FIRST and should remain untouched.",
-  understand:"Think of the TeamCode directory as your designated execution safezone. Isolating student scripts inside TeamCode guarantees that core dependencies aren't accidentally altered, protecting the system structure from compilation failure or run-time crashes during field operations.",
-  practice:"Let's practice documentation and project structuring. In the editor below, write a single-line Java code comment (using '//') that explicitly references the 'TeamCode' folder to verify where team scripts belong.",
-  defaultCode:"public class WorkspaceSetup {\n    // Challenge: Write a clean Java comment below indicating your team's code folder\n    \n}",
+  learn:"Welcome to the FTC Software Academy. Before writing code, we must construct your engineering environment on your computer.\n\nFirst, download and install Android Studio, the official industry-standard IDE for FTC development. Next, install Git to manage your source control pipelines.\n\nOnce both applications are installed, navigate to the official FIRST Tech Challenge Robot Controller repository on GitHub. Download the project as a ZIP archive or use Git to clone it to your local system workspace. Open Android Studio, select 'Open an Existing Project', and target the root directory of the SDK you just downloaded.",
+  understand:"When the workspace indexes, you will notice a large project tree. Never touch the 'FtcRobotController' directory—this houses core dependencies managed by FIRST. Your entire programming universe exists inside the 'TeamCode' folder. This segregation protects vital system code from accidental compilation issues.",
+  practice:"Follow the plain-text download URLs listed in the diagram above to install your tools and open the project. Once your local environment is open in Android Studio and ready, type 'CONFIRMED' in the text field below and click 'Run Code' to proceed.",
+  defaultCode:"// Challenge Checklist:\n// 1. Android Studio Installed\n// 2. Git Installed\n// 3. FTC SDK Opened in Android Studio\n//\n// Type 'CONFIRMED' below once your local environment is ready.\n\n",
   validate:(code)=>{
-    if(!code.toLowerCase().includes("teamcode")) return "Review your input. Ensure your comment mentions the word 'TeamCode' to verify you understand where custom configurations and programs belong.";
+    if(!code.toUpperCase().includes("CONFIRMED")) return "Verification Error: Please complete the installation steps and type 'CONFIRMED' into the editor to unlock the next phase.";
     return true;
   }
 },
@@ -475,19 +476,18 @@ const curriculum = [
   module:"Module 0: Environment Setup & Foundations",
   phase:"Phase 1: Environment Setup", level:"Absolute Beginner",
   lesson:"Lesson 0: Software Architecture & Git",
-  title:"0.2 Emulation & ADB Pipelines", file:"ADBConnect.java",
-  diagram:" [ Laptop Workspace ] ----( Wireless/USB Link via ADB )----> [ Virtual Control Hub ]\n                                                               |\n                                                       Runs Active OpModes",
+  title:"0.2 Emulation & ADB Pipelines", file:"EmulatorGuide.txt",
+  diagram:" [ Android Studio Workspace ] ----( ADB Network Pipeline )----> [ Android Virtual Device ]\n                                                                    |\n                                                            Runs Active OpModes",
   jargon:[
-    {term:"AVD (EMULATOR)", def:"Android Virtual Device. A simulated system environment configured inside Android Studio that emulates physical hardware platforms locally."},
-    {term:"ADB", def:"Android Debug Bridge. A versatile command-line utility that enables development systems to communicate directly with active Android runtime environments."}
+    {term:"AVD (EMULATOR)", def:"Android Virtual Device. A configuration that models an Android device directly on your computer, mimicking a physical REV Control Hub environment."},
+    {term:"ADB", def:"Android Debug Bridge. The underlying command-line communication protocol that lets your laptop deploy compiled code to an Android target device."}
   ],
-  learn:"The brain of your robot is the REV Control Hub, an Android-powered microcomputer. When testing logic away from physical hardware, you can construct an Android Virtual Device (AVD)—or emulator—via the Device Manager in Android Studio.\n\nTo bridge the gap between your laptop and either an emulated or physical Control Hub, Android Studio uses the Android Debug Bridge (ADB) protocol. When you click the green 'Run' button on your development application, ADB packages your compiled code binary and deploys it directly to the targeted target device.",
-  understand:"ADB operates seamlessly as long as connectivity pathways are open. For physical robots, this requires establishing a direct link to the Control Hub's local Wi-Fi broadcast or using a physical USB-C cable. For virtual testing, simply running your emulator registers it as an active ADB target.",
-  practice:"To verify your code execution environment and check terminal feedback pipelines, complete the class by printing out the phrase \"ADB Connected\" inside the main loop statement.",
-  defaultCode:"public class ADBConnect {\n    public static void main(String[] args) {\n        // Challenge: Print out the exact confirmation phrase requested\n        \n    }\n}",
+  learn:"An FTC robot's brain is a REV Control Hub, which runs the Android Operating System. Because physical hardware access can be limited, you can build a virtual Control Hub directly on your machine.\n\nInside Android Studio, locate the Device Manager toolbar icon. Click 'Create Device', choose a standard hardware profile, and select a stable Android system image (API level 28 through 33 matches the SDK best). Launch the device to start your desktop phone emulator.",
+  understand:"To bridge your code to the virtual controller, Android Studio uses ADB (Android Debug Bridge). In the target device dropdown at the top of Android Studio, select your active emulator. When you click the green 'Run' arrow, ADB automatically compiles your project, packages the software, and launches the official Robot Controller app directly on your emulator screen.",
+  practice:"Launch your Android Virtual Device and click the Run button in Android Studio to push the FTC app to your emulator. Once the app launches successfully on your screen, type 'READY' in the editor below and click 'Run Code'.",
+  defaultCode:"// Challenge Checklist:\n// 1. Android Virtual Device Created\n// 2. Emulator Booted and Running on Desktop\n// 3. FTC App Pushed to Emulator via green 'Run' button\n//\n// Type 'READY' below once the FTC app is visible on your emulator screen.\n\n",
   validate:(code)=>{
-    if(!code.includes("ADB Connected")) return "String structural error. Ensure your message reads exactly \"ADB Connected\" with proper capitalization.";
-    if(!code.includes("System.out.println") && !code.includes("System.out.print")) return "Missing output stream. Use System.out.println() to pipeline your text to the console.";
+    if(!code.toUpperCase().includes("READY")) return "Verification Error: Please launch your virtual controller device and type 'READY' to proceed.";
     return true;
   }
 },
@@ -495,19 +495,18 @@ const curriculum = [
   module:"Module 0: Environment Setup & Foundations",
   phase:"Phase 1: Environment Setup", level:"Absolute Beginner",
   lesson:"Lesson 0: Software Architecture & Git",
-  title:"0.3 Hardware Mapping & OpMode Anatomy", file:"FirstOpMode.java",
-  diagram:" [ Driver Station Config ] : \"left_drive\" (Physical Port 0 Mapping)\n                                 │\n                                 ▼ Linked perfectly via string\n [ Java Code Variable ]    : hardwareMap.get(DcMotor.class, \"left_drive\");",
+  title:"0.3 Hardware Mapping & OpMode Architecture", file:"ArchitectureGuide.txt",
+  diagram:" [ Driver Station App Config ] -> Port 0 Configuration Name: \"left_drive\"\n                                        │\n                                        ▼ Linked via matching text string\n [ Java Code Variable Mapping] -> leftDrive = hardwareMap.get(DcMotor.class, \"left_drive\");",
   jargon:[
-    {term:"LINEAROPMODE", def:"An FTC program structure executing commands sequentially, optimizing synchronous and structured task workflows."},
-    {term:"WAITFORSTART", def:"A specialized blocking method that pauses program step iteration inside runOpMode until the system receives a start trigger from the user."}
+    {term:"LINEAROPMODE", def:"The structured template for FTC Java programs where code statements execute sequentially from top to bottom."},
+    {term:"WAITFORSTART", def:"A foundational blocking command that halts code execution until the operator presses the 'PLAY' button on the Driver Station interface."}
   ],
-  learn:"An OpMode is a programmable execution routine selected by operators before a match begins. In a LinearOpMode, tasks step sequentially from top to bottom. \n\nBecause hardware components cannot be interrogated directly by raw variables, your script must query a tracking directory using 'hardwareMap.get()'. This function cross-references the string identifier registered inside the configuration profile on your Driver Station device (e.g., \"left_drive\") and maps it directly to your Java object instances.",
-  understand:"The timeline of an operational program is cleanly bisected by 'waitForStart()'. Instantiations and hardware lookups run during Initialization when the operator presses 'INIT'. Ongoing operational runtime instructions are safely nested downstream of 'waitForStart()', frequently within an active loop governed by the status of 'opModeIsActive()'.",
-  practice:"Construct an assignment operation within the execution block below. Bind the declared variable 'leftDrive' to a physical port using the configuration reference \"left_drive\".",
-  defaultCode:"package org.firstinspires.ftc.teamcode;\nimport com.qualcomm.robotcore.hardware.DcMotor;\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n\npublic class FirstOpMode extends LinearOpMode {\n    DcMotor leftDrive;\n\n    @Override\n    public void runOpMode() {\n        // Challenge: Bind variable leftDrive to configuration name \"left_drive\"\n        \n        \n        waitForStart();\n        while (opModeIsActive()) {\n            // Logic execution pathway\n        }\n    }\n}",
+  learn:"An OpMode is a specialized program selected by drivers prior to a match. Programs inside FTC inherit from a template called a LinearOpMode, which reads commands line-by-line.\n\nBecause Java code cannot directly interact with physical wire ports, you must build a translation index. Inside the Robot Controller settings menu on your emulator, go to 'Configure Robot' and build a configuration file. If a drive motor is plugged into Port 0, you must give it a specific name string, such as \"left_drive\". In your Java code, you will use `hardwareMap.get(DcMotor.class, \"left_drive\");` to attach that port directly to your programming variables.",
+  understand:"An OpMode's timeline is completely managed by `waitForStart()`. Everything written before this line executes when the driver presses 'INIT'—this is where your hardware lookups and initial assignments live. Everything written below this line executes when 'PLAY' is pressed, usually handled within a continuous loop checked by `opModeIsActive()`.",
+  practice:"Review the foundational layout of an OpMode and understand how hardware strings bind ports to code. Once you understand the role of configuration names and the timeline of waitForStart(), type 'UNDERSTOOD' below and click 'Run Code'.",
+  defaultCode:"// Conceptual Review Check:\n// 1. Hardware Map names must match your configuration string entries exactly.\n// 2. Initialization routines execute immediately upon pressing 'INIT'.\n// 3. Active runtime paths are placed after waitForStart().\n//\n// Type 'UNDERSTOOD' below to confirm you understand the structural lifecycle.\n\n",
   validate:(code)=>{
-    if(!code.includes("hardwareMap.get")) return "Mapping lookup missing. Invoke hardwareMap.get(DcMotor.class, \"left_drive\") to establish your code connection bridge.";
-    if(!code.includes('"left_drive"')) return "String mismatch. Ensure you pass the exact device name \"left_drive\" as the lookup argument.";
+    if(!code.toUpperCase().includes("UNDERSTOOD")) return "Verification Error: Please review the architecture guide and type 'UNDERSTOOD' to pass this milestone.";
     return true;
   }
 },
@@ -515,18 +514,18 @@ const curriculum = [
   module:"Module 0: Environment Setup & Foundations",
   phase:"Phase 1: Environment Setup", level:"Absolute Beginner",
   lesson:"Lesson 0: Software Architecture & Git",
-  title:"0.4 Browser-Based Testing via FTCSim", file:"FtcSimIntro.java",
-  diagram:" [ Android Studio Workspace ] -> Compiles binaries & validates code structural design\n [ FTCSim Canvas ]          -> Provides real-time physics simulation and telemetry mapping",
+  title:"0.4 Virtual Simulation via FTCSim", file:"SimulationGuide.txt",
+  diagram:" [ Launch Web Simulator ] -> https://ftcsim.org\n\n Prototype algorithms and evaluate structural mechanics inside an interactive 3D field!",
   jargon:[
-    {term:"FTCSIM", def:"An advanced web-based 3D physics simulation engine utilized to execute and test FIRST Tech Challenge Java programs completely inside software environments."},
-    {term:"LOGICAL DEBUGGING", def:"The practice of testing program algorithms, workflows, and calculations independently of raw mechanical systems."}
+    {term:"FTCSIM", def:"An advanced web-based 3D physics simulator designed to test FIRST Tech Challenge Java structures directly inside a browser canvas."},
+    {term:"LOGICAL DEBUGGING", def:"Testing programmatic algorithms, calculations, and execution loops entirely independent of mechanical machine hardware."}
   ],
-  learn:"While local emulators provide exceptional support to prove your code packages build without structural or deployment warnings, they do not present dynamic spatial feedback of an assembled chassis maneuvering on a competition field.\n\nTo prototype autonomous paths or evaluate mechanism loops when physical hardware access is limited, developers use browser platforms like FTCSim. The underlying execution routines, hardware mapping structures, and syntax patterns you implement inside simulation blocks directly mimic the official target SDK environments.",
-  understand:"Leveraging virtual simulation suites represents an elite software pipeline engineering skill. It decouples structural system programming tasks from physical build bottlenecks, allowing teams to rigorously evaluate operational logic models weeks before a physical assembly arrives on a test field.",
-  practice:"Finalize your architectural ecosystem study by confirming loop iteration architecture. Establish a standard structural while loop utilizing the runtime method check 'opModeIsActive()' as the evaluation condition statement.",
-  defaultCode:"public class FtcSimIntro {\n    public void runSimulationLoop() {\n        // Challenge: Write a standard while loop using opModeIsActive() as its true condition\n        \n    }\n    \n    // Mock ecosystem structural support component\n    private boolean opModeIsActive() { return true; }\n}",
+  learn:"Local emulators are exceptional for proving that your software builds, compiles, and deploys without runtime syntax errors. However, they do not show real-time spatial behavior of a physical drivetrain moving through space.\n\nTo safely validate driving logic, turn behaviors, and intake mechanism loops without risk to hardware, teams use web simulators like FTCSim. The exact architecture you use to map hardware variables, set power levels, and construct execution loops in Android Studio translates directly into this virtual testing interface.",
+  understand:"Utilizing a virtual test environment is a premier software pipeline engineering skill. It decouples core structural programming tasks from build milestones, letting your programming team write and optimize movement algorithms before the physical robot frame is completed.",
+  practice:"Copy the simulation link above to investigate the virtual environment. Once you have navigated the interface and are ready to advance to direct physical component code in Android Studio, type 'COMPLETE' below and click 'Run Code' to unlock the curriculum.",
+  defaultCode:"// Final Checklist Complete!\n// You have mapped out the entire FTC development environment.\n//\n// Type 'COMPLETE' below to finish Module 0 and open the programming tracks.\n\n",
   validate:(code)=>{
-    if(!code.includes("while") || !code.includes("opModeIsActive()")) return "Syntax loop warning. Verify you have established a standard loop format using: while(opModeIsActive()) { }";
+    if(!code.toUpperCase().includes("COMPLETE")) return "Verification Error: Type 'COMPLETE' to finalize your setup roadmap and reveal the mechanical code pathways.";
     return true;
   }
 },
@@ -865,7 +864,7 @@ const curriculum = [
     {term:"I2C LOCALIZER", def:"A dedicated hardware module that calculates position independently of your code."}
   ],
   learn:"High-performance autonomous code often uses dead wheels or dedicated hardware, like the goBILDA Pinpoint or SparkFun OTOS, to track the robot's position.",
-  understand:"These modules calculate position on their own, at very high speed, independent of your main program. Your code simply reads the final X, Y, and heading values over I2C.",
+  understand:"Keep using your localizer for ongoing updates. Whenever an AprilTag is clearly detected, treat its position as ground truth and overwrite your localizer's drifted estimate.",
   practice:"Write a safety check that monitors the localizer's coordinates. If position jumps more than 12 inches in a single frame, log a telemetry warning.",
   defaultCode:"public void checkForCollision(double newX, double newY, double lastX, double lastY) {\n    // Challenge: warn via telemetry if the jump is more than 12 inches\n    \n}",
   validate:(code)=>{
